@@ -1,0 +1,16 @@
+{
+  "name": "psychology-skills",
+  "version": "1.0.0",
+  "description": "AI agent skills for structured, evidence-based psychological coaching across performance, life, addictions, and relationships.",
+  "license": "MIT",
+  "keywords": [
+    "ai-skills",
+    "psychology",
+    "coaching",
+    "therapy",
+    "performance",
+    "addiction",
+    "relationships",
+    "mental-health"
+  ]
+}

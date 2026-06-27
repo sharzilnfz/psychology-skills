@@ -1,0 +1,28 @@
+{
+  "name": "psychology-skills",
+  "version": "1.0.0",
+  "description": "Clinically-informed AI psychology coaching — performance, life, addictions, relationships. Uses CBT session structures, OARS methodology, C-SSRS crisis detection, and anti-sycophancy guardrails.",
+  "author": {
+    "name": "psychology-skills"
+  },
+  "license": "MIT",
+  "keywords": [
+    "psychology",
+    "coaching",
+    "mental-health",
+    "cbt",
+    "motivational-interviewing",
+    "performance",
+    "addiction",
+    "relationships",
+    "life-transitions"
+  ],
+  "skills": [
+    "./skills/psych-router",
+    "./skills/psych-session-protocol",
+    "./skills/performance-psychology",
+    "./skills/life-psychology",
+    "./skills/addiction-psychology",
+    "./skills/relationship-psychology"
+  ]
+}

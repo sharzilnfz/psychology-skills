@@ -1,229 +1,166 @@
-# Psychology Skills Plugin — Usage Guide
+# Psychology Skills Plugin — Usage Guide (v2)
 
-A cross-platform plugin for AI-powered psychological coaching across four niches: **Performance**, **Life**, **Addictions**, and **Relationships**. Designed to work with any markdown-based CLI agent.
+A cross-platform plugin for AI-powered coaching across four domains:
+**Performance**, **Relationships**, **Life**, and **Addiction**. Works with
+any markdown-based CLI agent.
 
 ---
 
-## Quick Demo: What a Session Looks Like
-
-Here's a real-world example of starting a performance psychology session in any CLI agent:
+## Quick Demo: What a Session Looks Like Now
 
 ```
 You:   I've been procrastinating on my most important work for months.
        I know what to do, I just can't make myself do it.
 
-Agent: I'm an AI thinking partner using evidence-based psychological
-       frameworks. I'm not a licensed therapist. If you're in crisis,
-       contact the 988 Suicide & Crisis Lifeline (call or text 988).
+Agent: I'm an AI thinking partner using evidence-based coaching and
+       psychological frameworks — not a licensed therapist, and this
+       isn't therapy. If you're in crisis, contact the 988 Suicide &
+       Crisis Lifeline (call or text 988) or text HOME to 741741.
 
-       Would you like to begin a formal session to explore this?
+       I'll ask direct questions, keep track of patterns across our
+       conversations, and push back when something doesn't add up
+       rather than just agreeing with you. Want to start?
 
-You:   Yes, let's do it.
+You:   Yes. And I want you to push me — I don't need to be coddled.
 
-Agent: [Routes to performance-psychology]
+Agent: Noted — I'll run in more direct mode: less reflecting-things-
+       back, faster to naming a gap when I see one. You can always
+       recalibrate.
+
+       [Routes to performance-psychology]
        Using performance psychology to explore procrastination patterns.
 
-       First — how are you feeling right now, on a scale of 0-100%?
-       (This helps me understand where you're starting today.)
-
-You:   Maybe 40%. Frustrated with myself.
-
-Agent: 40% — frustrated. That frustration tells me something matters to
-       you here.
-
        What's the one area of your performance that, if it improved,
-       would change everything else? Tell me what's happening right
-       now — not the goal, but what a typical day actually looks like.
+       would change everything else? Tell me what's actually happening
+       right now — not the goal, the current reality.
 
 You:   I wake up planning to write, then spend 3 hours on email and
        Slack. By afternoon I'm too drained to think clearly.
 
-Agent: So the mornings — your sharpest hours — are going to reactive
-       work, and by the time you get to the writing that matters, the
-       tank is empty.
+Agent: In the last 7 days, roughly how many hours actually went to the
+       writing — and how does that compare to what you'd have guessed
+       before I asked?
 
-       What does it feel like in that moment when you open Slack
-       instead of your writing project?
-
-       [... session continues with OARS methodology, one question
-       at a time, 3:1 reflections to questions ...]
+       [... session continues; direct mode means less hedging and
+       faster naming of the pattern once it's clear, still one
+       question at a time ...]
 ```
 
-The session flows through 6 modules over multiple conversations: **Current State → Values Alignment → Blockers Analysis → Flow Architecture → Action Plan → Synthesis**. State is saved to `state.json` so you can resume any time.
+The session flows through 6 modules: **Current State → Values Alignment →
+Blockers + Reality Audit → Flow Architecture → Action Plan → Synthesis**.
+State is saved to `state.performance.json`, and `profile.json` accumulates
+what's durable (values, patterns, coaching-style preference) across every
+domain you work in — not just this one.
+
+**Resuming later:**
+
+```
+You:   [returns after a week]
+
+Agent: [loads profile.json + state.performance.json]
+       Welcome back. Last time you committed to: closing Slack from
+       7-9am and writing instead. What actually happened?
+
+You:   I did it three of five days.
+
+Agent: Three of five — what got in the way the other two?
+       [continues from there, before mood/bridge/agenda]
+```
+
+This Commitment Review is new in v2 — the first thing a resumed session
+does, before anything else, is check what actually happened since last
+time.
 
 ---
 
 ## Installation
 
-### Option A: Claude Code (like ECC)
+### Option A: Claude Code
 
-Claude Code uses a `.claude-plugin/plugin.json` manifest to discover skills.
-
-**Step 1**: Copy the plugin into your project or a global location:
 ```bash
-# Project-local (recommended for sensitive sessions)
 cp -r psychology-skills /path/to/your/project/
-
-# Or global
+# or globally:
 cp -r psychology-skills ~/.claude/skills/psychology-skills
 ```
 
-**Step 2**: Create or update `.claude-plugin/plugin.json` in the plugin directory:
-```json
-{
-  "name": "psychology-skills",
-  "version": "1.0.0",
-  "description": "Clinically-informed AI psychology coaching — performance, life, addictions, relationships",
-  "skills": [
-    "./skills/psych-router",
-    "./skills/psych-session-protocol",
-    "./skills/performance-psychology",
-    "./skills/life-psychology",
-    "./skills/addiction-psychology",
-    "./skills/relationship-psychology"
-  ]
-}
-```
+`.claude-plugin/plugin.json` already points at the correct v2 paths
+(`./core/router`, `./core/protocol`, and the four niche skills). Reference
+it from your project's `CLAUDE.md`:
 
-**Step 3**: Reference the plugin from your project's `CLAUDE.md`:
 ```markdown
 ## Psychology Skills
-
-When the user mentions therapy, coaching, mental health, stress,
-burnout, addiction, relationships, or life transitions, load the
-`psych-router` skill from `psychology-skills/skills/psych-router/`.
+When the user mentions therapy, coaching, mental health, stress, burnout,
+addiction, relationships, or life transitions, load `core/router/SKILL.md`
+from `psychology-skills/core/router/`.
 ```
-
-**That's it.** Claude Code will auto-discover the skills via the plugin manifest, just like ECC's `plugin.json` or Matt's `mattpocock-skills` plugin.
 
 ### Option B: Gemini CLI / Antigravity
 
-Antigravity 2.0 natively discovers this plugin workspace-wide or globally, loading its skills and rules automatically.
-
-**Workspace Level Integration (Recommended)**:
-Place the plugin folder inside `.agents/plugins/` (or `_agents/plugins/`) at the root of your opened workspace:
 ```bash
-# From your workspace root:
 mkdir -p .agents/plugins
 cp -r psychology-skills .agents/plugins/psychology-skills
 ```
-Once placed here, Antigravity will:
-1. **Auto-Load Skills**: Auto-discover and register all skills in `skills/` (e.g., `psych-router`, `performance-psychology`).
-2. **Enforce Rules**: Automatically load and follow `rules/psychology-trigger.md`. This rule instructs the agent to monitor for distress signals and route them to `psych-router` only after securing explicit consent.
 
-**Global Level Integration**:
-To enable the psychology plugin across all workspaces, place it globally in your config directory:
-```bash
-mkdir -p ~/.gemini/config/plugins
-cp -r psychology-skills ~/.gemini/config/plugins/psychology-skills
-```
-Antigravity will load the global rules and skills for any opened workspace.
+Or globally at `~/.gemini/config/plugins/`.
 
-### Option C: Codex / OpenCode / Other CLI Agents
-
-Any agent that reads markdown skill files from a directory can use this plugin.
+### Option C: Codex / OpenCode / other CLI agents
 
 ```bash
-# Codex
-cp -r psychology-skills/skills/* ~/.codex/skills/
-
-# OpenCode
-cp -r psychology-skills/skills/* ~/.opencode/skills/
+cp -r psychology-skills/core psychology-skills/skills ~/.codex/skills/
 ```
 
-If the agent uses `AGENTS.md` for instructions (like ECC does for Gemini), add:
+If your agent uses `AGENTS.md`:
+
 ```markdown
 ## Psychology Skills
-
-Available psychology niche skills in `psychology-skills/skills/`:
-- `psych-router` — entry point, detects psychology intent
-- `performance-psychology` — flow, burnout, procrastination
-- `life-psychology` — transitions, meaning, identity, grief
-- `addiction-psychology` — substance/behavioral addictions, recovery
-- `relationship-psychology` — attachment, communication, conflict
+- `core/router` — entry point, detects psychology intent, handles consent
+- `core/protocol` — shared session discipline, state schema, risk screening
+  (reference only, never invoked directly)
+- `skills/performance-psychology` — flow, burnout, procrastination
+- `skills/relationship-psychology` — attachment, communication, conflict
+- `skills/life-psychology` — transitions, meaning, identity, grief
+- `skills/addiction-psychology` — substance/behavioral addictions, recovery
 ```
 
 ---
 
 ## How Invocation Works
 
-This plugin uses the same **hybrid invocation** pattern as ECC and Matt's skills:
-
-| Skill | Invocation | How it's Triggered |
-|-------|------------|-------------------|
-| `psych-router` | **Model-invoked** | Agent detects psychology keywords automatically |
-| `psych-session-protocol` | **Reference skill** | Never invoked directly — inherited by all niches |
-| `performance-psychology` | **User-invoked** | User explicitly consents via router prompt |
-| `life-psychology` | **User-invoked** | User explicitly consents via router prompt |
-| `addiction-psychology` | **User-invoked** | User explicitly consents via router prompt |
-| `relationship-psychology` | **User-invoked** | User explicitly consents via router prompt |
-
-This mirrors Matt's pattern where `grilling` (model-invoked) provides the reusable discipline, and `grill-me` (user-invoked) is the entry point that orchestrates it. Here, `psych-session-protocol` provides the shared discipline, and `psych-router` is the entry orchestrator.
-
-> **Key Rule (from Matt's invocation docs):** A user-invoked skill can invoke model-invoked skills, but never another user-invoked one. The niche skills follow this — they reference `psych-session-protocol` (model-invoked reference), but never call each other.
+Unchanged hybrid pattern from v1: `core/router` is model-invoked (the agent
+detects psychology-relevant intent automatically); `core/protocol` is a
+reference skill, never invoked directly, inherited by everything; the four
+niche skills are user-invoked, reached only through explicit consent via
+the router. A user-invoked skill can invoke a model-invoked/reference
+skill, but niches never invoke each other directly — cross-niche awareness
+happens through `profile.json`, not direct skill-to-skill calls.
 
 ---
 
 ## Session State & Privacy
 
-### How State Works
-
-All session data is written to the **current working directory** where you launch the agent:
-
 ```
 your-session-dir/
-├── state.json              ← session tracker (niche, module, risk, mood)
-├── 10_current-state.md     ← Module 1 output
-├── 20_values-alignment.md  ← Module 2 output
-├── ...
-└── 90_SYNTHESIS.md         ← Final compiled profile
+├── profile.json                    ← NEW: cross-domain understanding, persists across niches
+├── state.performance.json          ← per-niche session tracker
+├── state.relationship.json         ← a second niche can be active at once
+├── skills/performance-psychology/
+│   ├── 10_current-state.md
+│   ├── 20_values-alignment.md
+│   ├── ...
+│   └── 90_SYNTHESIS.md
 ```
 
-### Resuming Sessions
+These files generate **highly sensitive** personal data — more so than
+v1's, since `profile.json` is the aggregated cross-domain picture:
 
-```
-You:   [launches agent in same directory]
+- ✅ Run in a dedicated, local, private directory
+- ✅ Add `profile.json`, `state*.json`, and module markdown files to
+  `.gitignore`
+- ❌ Do not commit session files to a public repository
+- ❌ Do not run in a shared workspace
 
-Agent: [reads state.json]
-       Welcome back. Last session we were working on your trigger
-       mapping (Module 20). You'd identified 3 of your top 5 triggers.
-       Continue here, or switch focus?
-```
+## Starting Fresh
 
-### Privacy
-
-These skills generate **highly sensitive** personal data. Recommendations:
-
-- ✅ Run in a dedicated, local directory (e.g., `~/Private/psych-sessions/`)
-- ✅ Add `state.json` and `*.md` session files to `.gitignore`
-- ❌ Do NOT commit session files to a public Git repository
-- ❌ Do NOT run these skills in a shared workspace
-
----
-
-## The CBT Session Flow
-
-Every session follows a strict 6-step structure (inherited from `psych-session-protocol`):
-
-| Step | What Happens | Why |
-|------|-------------|-----|
-| **1. Mood Check** | Rate current emotions 0-100% | Quantified baseline |
-| **2. Bridge** | Recall last session's insights | Continuity |
-| **3. Agenda** | Agree on today's focus | Prevents drift |
-| **4. OARS Discussion** | One question at a time, 3:1 reflections | Core therapeutic work |
-| **5. Action Plan** | Small behavioral experiment for the week | Real-world application |
-| **6. Summary** | Key takeaways + feedback | Consolidation |
-
----
-
-## Troubleshooting
-
-**"The agent isn't picking up the skills"**
-- Verify your `plugin.json` or `skills.json` points to the correct path.
-- Check that each `SKILL.md` has valid YAML frontmatter (`---` delimiters).
-
-**"The agent jumped straight into deep questions without asking"**
-- The router should always ask for consent first. If it doesn't, your agent may not be loading `psych-router`. Try invoking it directly: *"Load the psych-router skill and start a psychology session."*
-
-**"I want to start fresh"**
-- Delete `state.json` and any module markdown files from your session directory.
+Delete `profile.json` to reset cross-domain understanding entirely, or just
+the relevant `state.<niche>.json` and module files to reset one domain
+while keeping what's been learned in others.

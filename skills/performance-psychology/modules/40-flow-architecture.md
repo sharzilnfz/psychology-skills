@@ -1,46 +1,33 @@
-# Module 40: Flow Architecture
+# Module 40 — Flow Architecture
 
-**Goal:** Design conditions for optimal performance using flow science.
+## Purpose
 
-## Flow Conditions (Csikszentmihalyi)
+Design the actual conditions for this specific person's best work, using
+Csikszentmihalyi's flow model and the individualized arousal models in
+`references/frameworks.md` — not generic productivity advice that happens to
+work for someone else.
 
-1. **Clear goals** — "What is the ONE thing you're trying to do in the next 90 minutes?"
-2. **Immediate feedback** — "How will you know if you're on track?"
-3. **Challenge-skill balance** — "Hard enough to engage, not so hard you shut down?"
-4. **Deep concentration** — "What needs to be eliminated for 90 minutes?"
-5. **Sense of control** — "What aspect do you have agency over?"
-6. **Loss of self-consciousness** — "When do you stop monitoring and just do?"
+## Method
 
-## Environment Design
-
-- **Physical:** Light, temperature, ergonomics, sensory inputs
-- **Digital:** Notification blockers, single-tab, app limits
-- **Social:** Body doubling, accountability partners, "do not disturb" signals
-- **Temporal:** Time blocking, ultradian rhythms (90-min cycles), energy mapping
-
-If the user has shared processing preferences (e.g., ADHD, sensory needs),
-adapt environment design accordingly — interest-driven sequencing,
-externalized timers, sensory optimization, etc.
-
-## Cognitive Load Management (Sweller)
-
-- **Intrinsic load:** Task complexity — match to skill level
-- **Extraneous load:** Unnecessary cognitive demands — eliminate
-- **Germane load:** Learning effort — optimize
-- "What is eating your working memory right now? Can you offload it?"
-
-## Recovery & Sustainability
-
-Performance requires oscillation between stress and recovery:
-
-- **Sleep:** "How many hours? Consistent schedule? Screen-free wind-down?"
-  Target: 7-9h, consistent, 60-min wind-down.
-- **Stress-recovery balance:** "What does recovery look like across a week?
-  Active (movement, nature) or only passive (scrolling, TV)?"
-- **Ultradian rhythms:** 90-minute focused blocks + 20-minute recovery.
-- **Boundaries:** "What are your non-negotiable boundaries? What happens
-  when they're violated?" Schedule recovery with the same rigor as work.
+- "When have you experienced flow? What were the exact conditions — time of
+  day, environment, task type, energy level?" Get specifics, not "when I'm
+  focused."
+- **Challenge-skill balance**: is the current work too easy relative to
+  skill (boredom) or too hard (anxiety)? See the matrix in
+  `references/frameworks.md`.
+- **IZOF audit**: map 2-3 past peak performances to the emotional and
+  physiological state that preceded them. This is individual — resist
+  assuming "calm" is universally optimal; some people perform best keyed up,
+  not settled.
+- **Recovery**: what actually recharges this person, versus what they think
+  should recharge them?
 
 ## Saturation
 
-Concrete flow conditions + environment design + recovery protocol.
+A named set of flow conditions specific to this person — not generic
+"eliminate distractions" advice — plus a clear read on their individual
+optimal arousal zone.
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write.

@@ -1,39 +1,49 @@
-# Module 40: Needs Negotiation
+# Module 40 — Needs + Boundaries
 
-**Goal:** Identify unmet needs and practice expressing them using NVC + differentiation.
+## Purpose
 
-## NVC — Four Components (Rosenberg)
+Use Nonviolent Communication to identify and express unmet needs — and,
+new in v2, explicitly separate **needs/requests** from **boundaries**,
+which NVC alone tends to blur and which is one of the most common sources
+of confused, unenforced limits.
 
-```
-1. OBSERVATION: "When I see/hear [specific, non-evaluative]..."
-2. FEELING: "I feel [emotion, not thought]..."
-3. NEED: "Because I need [universal human need]..."
-4. REQUEST: "Would you be willing to [specific, doable action]?"
-```
+See `references/frameworks.md` for the full NVC model and boundary
+templates.
 
-**Common Mistakes:**
-| Mistake | Fix |
-|---------|-----|
-| "I feel that you don't care" | "I feel lonely when we don't talk" |
-| "You always..." | "The last three times we discussed X..." |
-| "I need you to stop being..." | "I need to feel safe. Would you lower your voice?" |
-| Vague request | Specific: "Put your phone away during dinner?" |
+## Method
 
-## Needs vs. Strategies
+- "Underneath the frustration, what do you actually need?"
+- "If you could ask for one thing and know it would be heard, what would it
+  be?"
+- Practice the NVC format: observation → feeling → need → request.
+- Distinguish needs (universal — connection, safety, autonomy) from
+  strategies (specific ways to meet them) — most conflict is over
+  strategies, not needs.
 
-- **Need:** Connection, autonomy, safety, understanding
-- **Strategy:** "Let's spend every evening together" (negotiable) vs.
-  "one deep conversation a week" (also meets the need)
-- Couples fight over strategies, not needs.
+## Needs vs. Boundaries (new in v2)
 
-## Differentiation (Real's RLT)
+A **request** is something you ask another person to do — they can decline.
+A **boundary** is something you decide *you* will do, regardless of their
+answer. Conflating the two produces boundaries that are actually just
+unenforced requests, and requests that are quietly resented as if they were
+obligations.
 
-The capacity to hold your own reality AND stay connected to your partner's.
+- Request: "Would you be willing to text me if you're running late?"
+  (They can say no. If they consistently do, that's information.)
+- Boundary: "If we start raising our voices, I'm going to step into another
+  room for twenty minutes." (This doesn't require their agreement to
+  execute — it's about the user's own behavior.)
 
-- **Grandiosity:** "I'm right, you're wrong" → Shame underneath
-- **Shame:** "I'm wrong, you're right" → Grandiosity underneath
-- **Healthy:** "I can hold my needs firmly without attacking yours"
+Ask directly: "Is this something you're asking them to do, or something
+you're deciding you'll do either way?" Getting this distinction right is
+often more useful than the NVC phrasing itself.
 
 ## Saturation
 
-Top 3 unmet needs named + NVC format practiced + one differentiation move.
+Top 3 unmet needs named, at least one practiced in NVC format, and — where
+relevant — at least one genuine boundary (not a disguised request)
+articulated in "I will..." form.
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write.

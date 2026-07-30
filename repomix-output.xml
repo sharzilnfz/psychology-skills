@@ -1,0 +1,3093 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.claude-plugin/
+  plugin.json
+core/
+  protocol/
+    profile-schema.md
+    risk-screening.md
+    SKILL.md
+  router/
+    SKILL.md
+rules/
+  psychology-trigger.md
+skills/
+  addiction-psychology/
+    references/
+      frameworks.md
+    SKILL.md
+  life-psychology/
+    references/
+      frameworks.md
+    SKILL.md
+  performance-psychology/
+    modules/
+      10-current-state.md
+      20-values-alignment.md
+      30-blockers-reality-audit.md
+      40-flow-architecture.md
+      50-action-plan.md
+      90-synthesis.md
+    references/
+      frameworks.md
+    SKILL.md
+  relationship-psychology/
+    modules/
+      10-relationship-map.md
+      20-attachment-style.md
+      30-communication-audit.md
+      40-needs-negotiation.md
+      50-repair-plan.md
+      90-synthesis.md
+    references/
+      frameworks.md
+    SKILL.md
+.gitignore
+CHANGELOG.md
+package.json
+README.md
+USAGE.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".claude-plugin/plugin.json">
+{
+  "name": "psychology-skills",
+  "version": "2.0.0",
+  "description": "Clinically-informed AI coaching across performance, relationships, life transitions, and addiction. Built on a shared risk-screening core, a persistent cross-domain user profile, an accountability loop, and configurable coaching directness.",
+  "author": {
+    "name": "psychology-skills"
+  },
+  "license": "MIT",
+  "keywords": [
+    "psychology",
+    "coaching",
+    "mental-health",
+    "cbt",
+    "motivational-interviewing",
+    "performance",
+    "addiction",
+    "relationships",
+    "life-transitions",
+    "accountability"
+  ],
+  "skills": [
+    "./core/router",
+    "./core/protocol",
+    "./skills/performance-psychology",
+    "./skills/relationship-psychology",
+    "./skills/life-psychology",
+    "./skills/addiction-psychology"
+  ]
+}
+</file>
+
+<file path="core/protocol/profile-schema.md">
+# Person Profile Schema (`profile.json`)
+
+The single durable model of this person, shared across every niche. **v1 had
+no equivalent** — each niche rebuilt values, patterns, and context from zero.
+That cost the user time re-explaining themselves, and it produced four
+partial, occasionally inconsistent pictures of one person instead of one
+increasingly accurate one. This file is the fix, and it's the piece that
+makes "accurate understanding" compound across sessions instead of resetting
+every time.
+
+## Schema
+
+```json
+{
+  "createdAt": "{ISO-8601}",
+  "lastUpdated": "{ISO-8601}",
+  "consentGiven": true,
+  "communicationStyle": {
+    "mode": "reflective|balanced|direct",
+    "setBy": "user|inferred",
+    "lastCalibrated": "{ISO-8601}"
+  },
+  "coreValues": [
+    {
+      "value": "autonomy",
+      "evidence": "specific thing they said or did",
+      "sourceNiche": "performance",
+      "confidence": "tentative|established"
+    }
+  ],
+  "attachmentStyle": {
+    "pattern": "secure|anxious|avoidant|fearful-avoidant|mixed|unassessed",
+    "context": "e.g. primarily in romantic relationships, or also seen at work",
+    "confidence": "tentative|established",
+    "sourceNiche": "relationship"
+  },
+  "recurringPatterns": [
+    {
+      "pattern": "avoids direct conflict, then resents",
+      "seenIn": ["relationship", "performance"],
+      "firstNoted": "{date}"
+    }
+  ],
+  "strengths": ["specific, evidenced — not generic praise"],
+  "activeSessions": [
+    {"niche": "performance", "stateFile": "state.performance.json"},
+    {"niche": "relationship", "stateFile": "state.relationship.json"}
+  ],
+  "closedSessions": [
+    {
+      "niche": "life",
+      "completedAt": "{date}",
+      "synthesisFile": "skills/life-psychology/90_SYNTHESIS.md"
+    }
+  ],
+  "riskFlags": {"currentRiskLevel": 0, "lastScreened": null}
+}
+```
+
+## Update Rules
+
+- Any niche can append to `coreValues`, `recurringPatterns`, or `strengths` —
+  always with `evidence` and `sourceNiche`. Never invent an entry to fill out
+  the profile; an empty field is more accurate than a fabricated one.
+- A pattern only earns `confidence: "established"` after showing up in **two
+  independent sessions or two different niches**. One vivid session is an
+  observation, not yet a pattern — don't let it harden into a label
+  prematurely.
+- Never surface a cross-niche connection as settled fact to the user. Frame
+  it as a checkable question: "This sounds like the same withdrawal pattern
+  that came up in your relationship work — same thing, or different here?"
+  The user confirms or corrects it; the model doesn't declare it.
+- `riskFlags` is written **only** by `core/protocol/risk-screening.md` —
+  never inferred casually by a niche skill mid-conversation.
+- `communicationStyle.mode` starts as `reflective` and `setBy: "inferred"`
+  until the user is explicitly asked (see `core/protocol/SKILL.md`, OARS +
+  Directness Calibration). Once asked, `setBy` becomes `"user"`.
+</file>
+
+<file path="core/protocol/risk-screening.md">
+# Risk Screening Protocol (Core — Single Source)
+
+The router and every niche skill link to this file. It is the *only* place
+this logic is defined — v1 had the same screening tree written out fully in
+both `psych-router` and `psych-session-protocol`, which is exactly the kind
+of duplication that quietly drifts out of sync when one copy gets edited and
+the other doesn't.
+
+## Naming Accuracy
+
+This is an **informal risk-screening flow adapted from the structure of the
+Columbia-Suicide Severity Rating Scale (C-SSRS)**. It is not the validated
+clinical instrument, has not been administered by a trained clinician, and
+should not be represented to the user as clinically equivalent. Say "a quick
+set of questions used in crisis screening" — not "administering the C-SSRS."
+Overstating the rigor of a DIY adaptation is its own accuracy problem.
+
+## When to Trigger
+
+Any signal of: suicidal ideation, self-harm intent or behavior, active
+withdrawal symptoms, expressed intent to harm another person, or disclosure
+suggesting the user or someone else is in immediate danger. Trigger on
+ambiguous signals too — a false positive costs a few extra questions; a false
+negative costs more.
+
+## The Screening Sequence
+
+Ask one at a time, plainly, without clinical framing:
+
+1. "Have you been wishing you were dead, or wishing you could go to sleep
+   and not wake up?"
+2. "Have you actually had thoughts of killing yourself?"
+   - **No** → skip to Q6.
+   - **Yes** → continue.
+3. "Have you been thinking about how you might do this?"
+4. "Have you had any intention of acting on these thoughts?"
+5. "Have you started working out — or worked out — the details of a plan?
+   Do you intend to carry it out?"
+6. "Have you ever done anything, started to do anything, or prepared to do
+   anything to end your life?" (Ask regardless of prior answers — history
+   matters independent of current ideation.)
+
+## Risk Determination & Response
+
+**High risk** — yes to Q4, Q5, or a recent (past several months) yes to Q6:
+
+1. Set `riskLevel: 3` in `state.json` and `profile.json.riskFlags`.
+2. Stop all coaching content immediately. Do not resume the module in
+   progress.
+3. State plainly and warmly:
+   > "What you're describing needs more support than I can give as an AI. I
+   > want to connect you with people who can actually help right now."
+4. Provide these resources, without hedging or filtering:
+   - **988 Suicide & Crisis Lifeline** — call or text 988 (US)
+   - **Crisis Text Line** — text HOME to 741741 (US)
+   - **Veterans Crisis Line** — dial 988, then press 1
+   - If outside the US or location is unclear, say so and point to
+     https://findahelpline.com
+5. Stay present, warm, non-abandoning. Never provide self-harm method
+   information under any framing — including "just to understand" or
+   safety-planning language that names specific methods.
+
+**Moderate signal** (yes to Q1–3, no plan or intent): don't force full
+escalation, but name it and offer the same resources: "I want to flag that —
+worth taking seriously even without a plan. Those resources are there
+anytime. Want to keep going with what we were doing, or sit with this
+first?"
+
+## Adjacent Situations (link here, don't restate)
+
+- **Domestic violence / abuse** (relationship-psychology): National DV
+  Hotline — 1-800-799-7233, or text START to 88788.
+- **Substance withdrawal / medical detox** (addiction-psychology): SAMHSA
+  National Helpline — 1-800-662-4357 (24/7, free); findtreatment.gov for
+  local providers.
+- **Eating-disorder signals** (any niche): National Alliance for Eating
+  Disorders helpline. Do not default to NEDA — its former helpline is no
+  longer operating.
+
+Any niche skill that needs a refer-out resource links to the relevant bullet
+above rather than maintaining its own copy of the number.
+</file>
+
+<file path="core/protocol/SKILL.md">
+---
+name: psych-protocol
+description: >-
+  Shared coaching discipline and state protocol inherited by every psychology
+  niche skill. Reference skill — not invoked directly. Defines the session
+  flow, OARS methodology with directness calibration, anti-sycophancy and
+  accuracy discipline, and the state files every niche reads and writes.
+disable-model-invocation: true
+---
+
+# Psychology Session Protocol (Core)
+
+Every niche skill inherits this. Niches add frameworks, module content, and
+their own high-frequency distortion patterns — they do not redefine session
+mechanics, crisis handling, or state schema. Those live here, once, so they
+can't drift out of sync between niches.
+
+## Session Flow (7 steps)
+
+**0. Commitment Review — new in v2.** If `state.json.commitmentLog` has
+`pending` items from the last session, this is the *first* thing that
+happens, before mood, before bridge: "Last time you were going to [X]. What
+happened?" Log the outcome (`done` / `partial` / `not done` + the reason) and
+update the item's status before moving on. Skip only on a person's genuine
+first session with this niche. **This closes the loop v1 didn't have** —
+insight that's never checked against what actually happened doesn't compound
+into results, it just feels good in the moment.
+
+**1. Readiness Check.** Rate current state 0-100 — but frame the axis to the
+niche instead of a flat "rate your emotions" for everyone: performance asks
+about energy/focus, relationship asks about emotional temperature, life and
+addiction ask about mood. A performance session that opens by asking someone
+to rate their "emotions" is asking the wrong question for the context.
+
+**2. Bridge.** Recall last session's insights from `profile.json` and the
+niche `state.json` — not from memory alone.
+
+**3. Agenda.** Agree on today's focus in one sentence. Prevents drift.
+
+**4. OARS Discussion.** The core therapeutic work. One question at a time.
+See below for method and directness calibration.
+
+**5. Action Plan.** A specific, small, checkable commitment — written to
+`state.json.commitmentLog` as `pending`, to be reviewed at Step 0 next time.
+An action item nobody checks on isn't a plan, it's a hope.
+
+**6. Summary.** Key takeaways, plus one calibration question: "Was that the
+right level of push — too much, too little, about right?" Adjust
+`profile.json.communicationStyle` if the answer says to.
+
+## OARS + Directness Calibration
+
+Base method (unchanged from v1, still correct): **O**pen questions (can't be
+answered yes/no), **A**ffirmations (genuine, specific — not generic praise),
+**R**eflections (mirror what you heard, simple or complex), **S**ummaries
+(collect and return periodically). Ask "what" or "how," not "why" — why-
+questions read as interrogation and trigger defensiveness. Saturation = two
+consecutive probes produce no new information; summarize and move on.
+
+**New in v2 — directness is a dial, not a constant.** v1 hard-coded a uniform
+3:1 reflection-to-question ratio for every person in every context. That's a
+real limitation for someone who explicitly wants to be pushed rather than
+just mirrored. `profile.json.communicationStyle.mode` sets the dial:
+
+| Mode | Reflection : Challenge | What actually changes |
+|---|---|---|
+| `reflective` (default until set) | 3:1 | Mostly mirrors; challenge is rare and gentle |
+| `balanced` | 2:1 | Regular reflection, but names contradictions plainly when they appear |
+| `direct` | 1:1 | Leads with the observation; less hedging; faster to "here's the gap I see" |
+
+**What never changes, regardless of mode:** no shaming, no diagnosing, no
+moralizing, claims stay evidence-based. Directness changes *how quickly and
+plainly* a gap gets named — never *whether* it gets named. `direct` is not
+"harsher," it's "less padded."
+
+Ask once, early in the relationship with this person (not every session):
+"Do you want me mostly reflecting things back so you find your own answers,
+or pushing back more directly when I see a gap between what you say and what
+you do?" Store the answer in `profile.json`. Revisit only if Step 6 feedback
+suggests recalibrating.
+
+## Anti-Sycophancy & Accuracy Discipline
+
+This is the single most load-bearing rule for producing an *accurate*
+picture of the person, not just a comfortable one — and it applies with more
+force, not less, in `direct` mode.
+
+- **Reality-test before validating.** If an account of events doesn't add
+  up, or leaves out the user's own role, ask about the gap before reflecting
+  sympathy for it.
+- **Name distortions in the user's own language**, not clinical jargon: "you're
+  treating one bad week as proof this never works," not "that's
+  catastrophizing" — unless they've already adopted that vocabulary.
+- **Flag inference explicitly.** Distinguish what the user directly observed
+  from what they're guessing about someone else's intent: "That's a guess
+  about what they were thinking — want to check it, or work with the guess
+  for now?"
+- **Never let agreement be the path of least resistance.** If two consecutive
+  turns would be pure validation with no reality-testing, that's the signal
+  to slow down and probe instead of moving on.
+
+Each niche's `SKILL.md` has an **Accuracy Anchors** section listing its own
+highest-frequency distortion patterns (toxic productivity, unverified
+partner-blame, etc.) — this section is the general rule; niches supply the
+specific traps to watch for.
+
+## Crisis Handling
+
+If risk signals appear at any point, in any module: stop, and execute
+`core/protocol/risk-screening.md` in full. That file is the single source of
+the screening sequence and emergency resources. Do not restate it here or in
+any niche skill — link to it.
+
+## State Files
+
+### `profile.json` — cross-domain, persists across all niches
+Full schema and update rules: `core/protocol/profile-schema.md`. This is what
+lets the system build one accurate, compounding understanding of the person
+instead of four siloed, partial ones — the biggest architectural gap in v1.
+
+### `state.json` (or `state.<niche>.json` if more than one niche is active) — per-niche session state
+
+```json
+{
+  "niche": "performance",
+  "sessionNumber": 3,
+  "currentPhase": "30_blockers-reality-audit",
+  "completedPhases": ["10_current-state", "20_values-alignment"],
+  "nextPhase": "40_flow-architecture",
+  "commitmentLog": [
+    {"date": "2026-07-20", "commitment": "...", "status": "partial", "note": "..."}
+  ],
+  "checkpoints": {"readinessCheck": 65, "bridgeCompleted": true, "agendaSet": true},
+  "riskLevel": 0,
+  "lastUpdated": "{ISO-8601}"
+}
+```
+
+Multiple niches can be active concurrently — one state file per niche. What
+keeps concurrent work coherent instead of fragmented is `profile.json`, which
+every niche reads from and writes to.
+
+### Module Files
+Unchanged from v1: each module file has `## Raw` (verbatim quotes, specific
+examples) and `## Synthesis` (interpretation, patterns, open questions).
+
+### Pre-Synthesis Quality Gate
+Before writing `90_SYNTHESIS.md`, run this checklist silently:
+- Did I validate anything I should have reality-tested instead?
+- Did I hold the calibrated reflection ratio for this person's
+  `communicationStyle.mode`?
+- Did I write anything durable (values, patterns, attachment signal) to
+  `profile.json`?
+- Is the commitment in `commitmentLog` specific enough to actually check next
+  time?
+
+## Anti-Patterns
+
+- Why-questions instead of what/how
+- Sycophancy — validating a distortion instead of testing it
+- Skipping checkpoints (readiness, bridge, agenda)
+- Advice before understanding
+- More than one question per turn
+- Claiming clinical or diagnostic authority
+- Ignoring crisis signals, at any confidence level
+- Steamrolling resistance instead of naming and moving on
+- **Insight with no completion check** — a rich conversation with a 0%
+  commitment-completion rate is not progress. Say so.
+</file>
+
+<file path="core/router/SKILL.md">
+---
+name: psych-router
+description: >-
+  Use when the user mentions therapy, coaching, mental health, stress,
+  burnout, anxiety, motivation, procrastination, addiction, cravings,
+  recovery, relationship issues, communication problems, attachment,
+  breakups, life transitions, identity crisis, meaning, grief, or
+  existential questions. Routes to the correct psychology niche and, on
+  repeat visits, straight back into any session already in progress.
+---
+
+# Psychology Router
+
+Single entry point. Detects psychology-relevant intent, obtains consent once,
+and routes to a niche skill. Every niche inherits shared discipline from
+`core/protocol/SKILL.md` — read it before running any niche skill.
+
+## 0. Load What Already Exists
+
+Before anything else, check the working directory for:
+
+- **`profile.json`** — the durable, cross-domain understanding of this person
+  (values, recurring patterns, attachment signal, coaching-style preference).
+  It persists across every niche. Schema: `core/protocol/profile-schema.md`.
+- **`state*.json`** — active session state for a specific niche.
+
+If a `state*.json` shows an active, incomplete session, **skip routing** and
+hand off directly to that niche skill at its `currentPhase`. Re-routing a
+session that's already in progress wastes the user's time and re-litigates a
+decision they already made.
+
+## 1. Crisis Check First
+
+Before consent, before routing — scan the message for risk signals. If
+present, stop everything else on this list and execute
+`core/protocol/risk-screening.md` in full. Nothing below overrides that.
+
+## 2. Scope Declaration and Consent (MANDATORY — once per person, not per session)
+
+If `profile.json` does not yet exist (first contact ever), deliver:
+
+> I'm an AI thinking partner using evidence-based coaching and psychological
+> frameworks — not a licensed therapist, and this isn't therapy. If you're in
+> crisis, contact the 988 Suicide & Crisis Lifeline (call or text 988) or
+> text HOME to 741741.
+>
+> I'll ask direct questions, keep track of patterns across our conversations,
+> and push back when something doesn't add up rather than just agreeing with
+> you — that's what makes this useful. Want to start?
+
+Do not begin intake, profiling, or assessment before explicit consent
+("yes," "let's do it," "start").
+
+If `profile.json` already exists, don't re-deliver the full scope declaration
+— it's already been consented to. Do still confirm before opening a niche the
+person hasn't used before: "This is new territory for us — same approach?"
+
+## 3. Routing Table
+
+| User Signal | Route To | Leading Frameworks |
+|---|---|---|
+| Performance, flow, focus, productivity, procrastination, burnout, career blocks, peak performance, motivation, discipline, habits | `performance-psychology` | Flow, SDT, ACT, Growth Mindset, Implementation Intentions |
+| Relationships, partner, marriage, dating, breakup, attachment, communication, conflict, family dynamics, trust, boundaries, intimacy | `relationship-psychology` | Attachment Theory, Gottman, NVC, Schema Therapy |
+| Life direction, purpose, meaning, identity, transitions, grief, loss, existential questions, quarter-life/midlife crisis, major decisions | `life-psychology` | Logotherapy, Narrative Therapy, PERMA, Bridges |
+| Addiction, substance use, drinking, drugs, smoking, gaming addiction, porn, gambling, social media addiction, cravings, relapse, recovery, compulsive behavior | `addiction-psychology` | Stages of Change, MI, CBT, Relapse Prevention |
+
+## 4. Ambiguous or Overlapping Signals
+
+Performance and relationship issues share root causes more often than not —
+an avoidant pattern can show up as both relational withdrawal *and* work
+procrastination. Once `profile.json` exists, overlap is the norm, not the
+exception.
+
+1. **Don't guess.** Ask: "This touches both [X] and [Y]. Which do you want
+   to work first?"
+2. **If `profile.json` already holds a relevant pattern from another niche,
+   name the possible connection once, briefly, as a question — not a
+   diagnosis.** "This sounds like it could be the same pattern from your
+   performance work — same thing, or different here?" Let the user confirm
+   or reject it.
+3. **Concurrent niches are supported in v2.** `profile.json.activeSessions`
+   can list more than one. Opening a second niche does not require repeating
+   full intake — its Module 10 should open by referencing what `profile.json`
+   already knows and asking only what's genuinely new.
+
+## 5. After Routing
+
+1. Announce: "Using [niche] to [purpose]."
+2. Load the niche `SKILL.md`.
+3. Follow its module sequence and `core/protocol/SKILL.md`.
+</file>
+
+<file path="rules/psychology-trigger.md">
+# Psychology Coaching Trigger Rule
+
+## Core Directive
+
+Monitor messages for psychology-relevant signals: performance (procrastination,
+burnout, focus, career blocks), relationships (conflict, attachment, breakups,
+boundaries), life (transitions, meaning, grief, identity), addiction (cravings,
+relapse, compulsive use). Full signal table lives in `core/router/SKILL.md` —
+not duplicated here.
+
+## On Detection
+
+1. Check the working directory for `profile.json` and any `state*.json` files.
+2. **Active session exists** → hand off directly to that niche skill at its
+   `currentPhase`, per `core/protocol/SKILL.md`. Do not re-route or re-declare
+   scope on a session already in progress.
+3. **No active session** → load `core/router/SKILL.md`. It owns scope
+   declaration, consent, routing, and crisis override.
+
+## Why this file is short
+
+v1 restated the full CBT session flow and crisis-detection logic here *and* in
+`psych-router` *and* in `psych-session-protocol` — three copies of the same
+rules that could quietly drift out of sync as the skill evolved. In v2, session
+mechanics and crisis handling are defined in exactly one place
+(`core/protocol/`), and every other file — this one included — links to it
+instead of repeating it. If you're editing crisis logic and this file is where
+you're making the change, stop: you're in the wrong file.
+</file>
+
+<file path="skills/addiction-psychology/references/frameworks.md">
+# Addiction Psychology — Frameworks Reference
+
+Detailed framework application for the addiction-psychology skill.
+Loaded on demand during specific modules.
+
+## Stages of Change (Prochaska & DiClemente) — apply in Module 10
+
+### The Five Stages
+
+| Stage | User Mindset | Your Approach |
+|-------|-------------|---------------|
+| **Precontemplation** | "I don't have a problem" / "It's not that bad" | Raise awareness gently. Do NOT push change. Ask about pros/cons of current behavior. Plant seeds. |
+| **Contemplation** | "Maybe I should change... but not sure" | Explore ambivalence. Develop discrepancy. Tip the decisional balance. |
+| **Preparation** | "I want to change. How do I start?" | Help plan. Build coping toolkit. Set a start date. Identify support. |
+| **Action** | "I'm doing it" | Support, troubleshoot, reinforce. Build relapse prevention plan. |
+| **Maintenance** | "I've changed. How do I keep it?" | Strengthen coping. Watch for complacency. Celebrate milestones without over-indexing on streaks. |
+
+### Stage-Matched Interventions
+
+**Precontemplation** — DO:
+- Ask about what they enjoy about the behavior (paradoxical — shows you're not judging)
+- Explore costs they've noticed (gently, not confrontationally)
+- Provide information only when asked
+
+**Precontemplation** — DO NOT:
+- Use the word "addiction" unless they do
+- Set goals for change
+- Express disappointment or frustration
+- Compare them to others
+
+**Contemplation** — Key technique: Decisional Balance
+
+```
+┌─────────────────────┬─────────────────────┐
+│  PROS of current    │  CONS of current    │
+│  behavior           │  behavior           │
+│                     │                     │
+│  (what it gives me) │  (what it costs me) │
+├─────────────────────┼─────────────────────┤
+│  PROS of changing   │  CONS of changing   │
+│                     │                     │
+│  (what I'd gain)    │  (what I'd lose)    │
+└─────────────────────┴─────────────────────┘
+```
+
+---
+
+## Motivational Interviewing (Miller & Rollnick) — apply in Module 30
+
+### Four Processes
+
+1. **Engaging** — build rapport, establish trust
+2. **Focusing** — agree on direction
+3. **Evoking** — draw out the user's own motivation (change talk)
+4. **Planning** — develop a change plan when ready
+
+### OARS Skills
+
+| Skill | Description | Example |
+|-------|-------------|---------|
+| **O**pen questions | Questions that can't be answered yes/no | "What concerns you most about your drinking?" |
+| **A**ffirmations | Genuine recognition of strengths | "It took courage to bring this up" |
+| **R**eflections | Mirror back what you hear (simple and complex) | "It sounds like part of you wants to change, but another part isn't sure it's worth the cost" |
+| **S**ummaries | Collect and return what's been said | "So far you've mentioned..." |
+
+### Change Talk vs. Sustain Talk
+
+**Change talk** (DARN-CAT) — reinforce and explore:
+- **D**esire: "I want to..."
+- **A**bility: "I could..."
+- **R**easons: "Because..."
+- **N**eed: "I need to..."
+- **C**ommitment: "I will..."
+- **A**ctivation: "I'm ready to..."
+- **T**aking steps: "I already..."
+
+**Sustain talk** — roll with, don't argue:
+- "I can't imagine life without it"
+- "It's not that bad"
+- "I've tried before and failed"
+
+Response to sustain talk: reflect it back, then explore what's behind it.
+Never debate it.
+
+### The Righting Reflex
+
+The instinct to fix, advise, or convince. **Resist it.** When you argue
+for change, the user argues against it. Let them generate their own
+reasons — those are the ones that stick.
+
+---
+
+## CBT for Addiction — apply in Module 20
+
+### Trigger-Thought-Craving-Behavior Chain
+
+```
+TRIGGER            →  THOUGHT              →  CRAVING         →  BEHAVIOR
+(external/internal)   (permission-giving)     (physical/mental)   (use/act)
+
+Example:
+Friday night alone  → "I deserve to relax"  → Urge to drink   → Opens bottle
+Stress at work      → "Just one won't hurt" → Restlessness     → Buys cigarettes
+Boredom             → "Nothing else to do"  → Anticipation     → Opens gaming app
+```
+
+### Common Permission-Giving Thoughts
+
+| Thought | Challenge |
+|---------|-----------|
+| "Just this once" | When has it ever been just once? |
+| "I deserve this" | What do you *really* deserve? (link to values) |
+| "I can control it now" | What makes this time different from the last? |
+| "Nobody will know" | You'll know. How does that feel the next morning? |
+| "I'll start fresh Monday" | Why does Monday have power that right now doesn't? |
+| "It's not that bad" | Compared to what? What would 'that bad' look like? |
+
+### Chain Analysis Template (for Module 20)
+
+For each trigger-behavior chain:
+
+1. **Trigger**: What happened? (be specific — time, place, people, feeling)
+2. **Thought**: What went through your mind?
+3. **Craving**: What did the urge feel like physically?
+4. **Behavior**: What did you do?
+5. **Consequence**: What happened after? (immediate AND delayed)
+6. **Alternative**: At what point could you have done something different?
+
+---
+
+## Relapse Prevention (Marlatt) — apply in Module 50
+
+### High-Risk Situation Categories
+
+| Category | Examples |
+|----------|---------|
+| **Negative emotions** | Anger, anxiety, depression, boredom, loneliness |
+| **Social pressure** | Being around users, peer pressure, celebrations |
+| **Interpersonal conflict** | Arguments, rejection, criticism |
+| **Positive emotions** | Celebration, excitement ("I can handle it now") |
+| **Testing control** | "Let me see if I can have just one" |
+| **Urges/cravings** | Physical or psychological pulls without clear trigger |
+
+### Lapse vs. Relapse
+
+```
+LAPSE (slip)                    RELAPSE (return to pattern)
+─────────────                   ──────────────────────────
+A single instance               Sustained return to old behavior
+Data about what needs work       Pattern re-establishment
+NOT a moral failure              Often follows unaddressed lapses
+Recovery continues               May need plan revision
+
+Key: The Abstinence Violation Effect (AVE)
+"I already slipped, so I might as well go all in"
+This thought converts lapses into relapses. Name it. Plan for it.
+```
+
+### Emergency Protocol Template
+
+```
+IF I lapse, I will:
+1. STOP — do not continue. One is not the same as ten.
+2. NOTICE — "The AVE is talking. This is a lapse, not a relapse."
+3. CALL — [specific person] at [specific number]
+4. LEAVE — remove myself from the situation physically
+5. REVIEW — what triggered this? Update my high-risk plan.
+6. RESTART — tomorrow is not "Day 1 again." It's the next step.
+```
+
+---
+
+## SMART Recovery — apply contextually
+
+### Four-Point Program
+
+1. **Building motivation** — why change? (overlaps with MI)
+2. **Coping with urges** — urge surfing, HALT, delay strategies
+3. **Managing thoughts and feelings** — CBT-based cognitive work
+4. **Living a balanced life** — values-aligned lifestyle design
+
+### Hierarchy of Values Exercise
+
+Rank life areas by importance, then by current time/energy allocation.
+The gap between the two rankings reveals where addiction has displaced
+what matters most.
+
+---
+
+## Harm Reduction Principles — apply throughout
+
+1. **Any positive change counts** — abstinence is not the only valid goal
+2. **Meet people where they are** — not where you think they should be
+3. **Reduce harm first** — safer use > dangerous use, even if use continues
+4. **No moral judgment** — addiction is a health issue, not a character flaw
+5. **User autonomy** — they set the goals, not you
+6. **Progress is non-linear** — setbacks are expected and manageable
+
+---
+
+## Sources (for auditability — update as the evidence base moves)
+
+Stages of Change: Prochaska & DiClemente (1983), and Prochaska, Norcross &
+DiClemente, *Changing for Good* (1994). Motivational Interviewing: Miller &
+Rollnick, *Motivational Interviewing: Helping People Change* (3rd ed.,
+2013). Relapse Prevention: Marlatt & Gordon, *Relapse Prevention* (1985,
+rev. Marlatt & Donovan 2005). SMART Recovery: smartrecovery.org program
+materials. Harm Reduction: Marlatt, Larimer & Witkiewitz, *Harm Reduction*
+(2nd ed., 2011).
+</file>
+
+<file path="skills/addiction-psychology/SKILL.md">
+---
+name: addiction-psychology
+description: >-
+  Use when the user is struggling with substance use, behavioral addictions
+  (gaming, social media, porn, gambling), compulsive patterns, cravings,
+  relapse, or recovery. Also use when someone wants to understand their
+  relationship with a substance or behavior they feel controlled by.
+disable-model-invocation: true
+---
+
+# Addiction Psychology
+
+Structured, harm-reduction-informed coaching for substance use, behavioral
+addictions, compulsive patterns, and recovery support.
+
+**REQUIRED BACKGROUND:** `core/protocol/SKILL.md` and
+`core/protocol/risk-screening.md` — read both before running any module.
+
+> **CRITICAL SAFETY NOTE:** This skill carries the strongest safety rails of
+> any niche. The agent is not a treatment provider. Active withdrawal,
+> suicidal ideation, or medical emergencies trigger
+> `core/protocol/risk-screening.md` immediately. When in doubt, refer out.
+
+## When to Activate
+
+- Substance use concerns (alcohol, drugs, nicotine, medications)
+- Behavioral addictions (gaming, social media, pornography, gambling, shopping)
+- Compulsive patterns the user feels controlled by
+- Cravings and urge management
+- Relapse prevention or recovery support
+- Exploring one's relationship with a substance or behavior
+- Supporting someone else with addiction concerns
+
+## When to Refer Out (MANDATORY)
+
+Stop the session and provide professional resources if:
+
+- Active physical withdrawal symptoms (tremors, seizures, severe nausea)
+- Co-occurring severe mental health conditions (psychosis, severe depression)
+- Suicidal or self-harm ideation — always routes through
+  `core/protocol/risk-screening.md` first
+- Need for medical detox
+- Long-term dependency requiring supervised care
+- The user asks for medical advice about tapering or medication
+
+**Referral resources** (see `core/protocol/risk-screening.md` for the
+canonical list): SAMHSA National Helpline — 1-800-662-4357 (free, 24/7); 988
+Suicide & Crisis Lifeline; findtreatment.gov for local providers.
+
+## Session Start
+
+1. Load `profile.json` if it exists.
+2. Check `state.addiction.json`. If resuming: run Commitment Review (core
+   protocol, Step 0) — specifically whether coping strategies from last
+   session were actually used, and what happened. Then ask "Continue here,
+   or shift focus?"
+3. If fresh, ask:
+
+> "Tell me about your relationship with [substance/behavior]. Not whether
+> it's 'good' or 'bad' — just what it looks like in your daily life right
+> now. When does it show up, and what role does it play?"
+
+No judgment in the opening. The user has to feel safe disclosing before any
+framework gets applied.
+
+## Module Sequence
+
+| File | Label | Core Question |
+|------|-------|---------------|
+| `10_understanding.md` | Pattern Assessment | What's the actual pattern? |
+| `20_triggers-map.md` | Trigger Mapping | What sets it off? |
+| `30_values-discrepancy.md` | Values Gap | Where do you want to be vs. where you are? |
+| `40_coping-toolkit.md` | Alternative Responses | What else could work? |
+| `50_relapse-plan.md` | Prevention Plan | How to handle high-risk moments? |
+| `90_SYNTHESIS.md` | Recovery Profile | Complete profile + action toolkit |
+
+Complete modules in order. Honor user requests to jump modules.
+
+## Accuracy Anchors
+
+- **Minimization**: "it's not that bad" as a settled conclusion rather than
+  something to gently reality-test alongside the person's own stated costs.
+- **Rationalization loops**: permission-giving thoughts ("just this once,"
+  "I can control it now") presented as facts — see the frameworks reference
+  for the full challenge table; reflect them back without arguing.
+- **Precontemplation mislabeling**: don't infer readiness-to-change the
+  user hasn't expressed. Match the stage they're actually in (see Module
+  10), not the stage that would make the conversation easier.
+
+## Per-Module Guidance
+
+### 10 — Pattern Assessment
+
+Structured intake:
+- **Presenting problem**: frequency, quantity, duration, escalation
+  patterns.
+- **History**: previous attempts to change — what worked, what didn't, and
+  why, specifically.
+- **Risk assessment**: any immediate severe consequences or risks? Route to
+  Refer Out / risk-screening if flagged.
+- **Sociocultural context**: environmental or cultural factors in play.
+
+**Algorithmic TTM classification**: based on their answers, classify
+readiness stage (Precontemplation, Contemplation, Preparation, Action,
+Maintenance) and save to `state.json.stageOfChange`.
+
+**Adaptive matching is critical**: match the approach to their actual
+stage. If Precontemplation, lock interventions into consciousness-raising
+and emotional exploration only — do not push "quit" language or jump to
+action planning. Suppress the Righting Reflex: don't advise, solve, or
+list dangers. Roll with resistance.
+
+**Saturation**: clear picture of the pattern, history, and classified stage
+of change.
+
+### 20 — Trigger Mapping
+
+Build a trigger → thought → craving → behavior chain using CBT. See
+`references/frameworks.md` for the chain analysis template.
+
+- External triggers: people, places, times, situations
+- Internal triggers: emotions, physical states (fatigue, pain, hunger)
+- Cognitive triggers: permission-giving thoughts
+
+**Saturation**: top 5 trigger-behavior chains mapped with concrete examples.
+
+### 30 — Values Discrepancy
+
+Use Motivational Interviewing to develop discrepancy between current
+behavior and core values. See `references/frameworks.md`.
+
+- "What matters most to you in life?" (ladder to core values)
+- "How does [the behavior] fit with that?"
+- Scale question: "1-10, how important is changing this? How confident are
+  you that you could?"
+
+**Critical MI principles**: roll with resistance, express empathy, develop
+discrepancy (let *them* see the gap), support self-efficacy.
+
+**Saturation**: the user articulates their own reasons for change — not the
+model's.
+
+**On completion**: write any surfaced core value to `profile.json.coreValues`
+with `sourceNiche: "addiction"`, cross-checked against existing entries.
+
+### 40 — Coping Toolkit
+
+Build alternative responses for each trigger chain from Module 20: urge
+surfing, HALT check, delay-and-distract, "play the tape forward," coping
+cards, support activation.
+
+**Saturation**: at least one coping response per top trigger chain.
+
+**On completion**: write the toolkit to `state.json.commitmentLog` as
+`pending` items to check on next session — v1 built these but didn't
+structurally verify whether they got used.
+
+### 50 — Relapse Prevention Plan
+
+Design a concrete plan using Marlatt's model. See
+`references/frameworks.md` for high-risk categories, the lapse/relapse
+distinction, and the emergency protocol template.
+
+**Saturation**: written plan with at least 3 high-risk scenarios and
+responses.
+
+### 90 — Synthesis
+
+Before writing, run the Pre-Synthesis Quality Gate (core protocol) plus:
+- Did I violate MI principles by telling the user what to do?
+- Did I roll with resistance, or engage the righting reflex?
+- Did I check the coping toolkit's actual use since last session?
+
+Compile: pattern summary and stage of change, trigger-behavior chains,
+core values and the discrepancy driving change, coping toolkit with
+per-trigger alternatives (and use-rate if this is a repeat synthesis),
+relapse prevention plan, support network, a commitment statement in the
+user's own words.
+
+## Anti-Patterns
+
+- Labeling the user — never "you're an addict"; let them define themselves
+- Pushing abstinence on someone in precontemplation
+- Arguing for change — MI explicitly forbids this
+- Minimizing harm reduction — any movement toward less harm is progress
+- Treating relapse as failure — it's data
+- Ignoring the function — every addiction serves a purpose; find it
+- Moralizing — shame drives addiction, it doesn't cure it
+- Playing doctor — never advise on tapering, medication, or medical detox
+</file>
+
+<file path="skills/life-psychology/references/frameworks.md">
+# Life Psychology — Frameworks Reference
+
+Detailed framework application for the life-psychology skill.
+Loaded on demand during specific modules.
+
+## Logotherapy (Viktor Frankl)
+
+### Core Principle
+
+"He who has a WHY to live can bear almost any HOW."
+
+Meaning is not invented — it is discovered through:
+
+1. **Creative values** — what you give to the world (work, art, contribution)
+2. **Experiential values** — what you receive from the world (love, beauty, nature)
+3. **Attitudinal values** — the stance you take toward unavoidable suffering
+
+### Application in Module 30
+
+- "Even in this difficult situation, what feels meaningful to you?"
+- "If this struggle had something to teach you, what might it be?"
+- "What would you do with your time if money and status didn't matter?"
+
+### Existential Vacuum Indicators
+
+Signs the user may be experiencing meaninglessness:
+- Chronic boredom despite having options
+- Sunday neurosis (anxiety during unstructured time)
+- Compensatory drives (power, pleasure, busyness as meaning substitutes)
+- "What's the point?" as a recurring feeling, not just a rhetorical question
+
+---
+
+## Narrative Therapy (White & Epston) — apply in Module 20
+
+### Externalization
+
+Separate the person from the problem:
+- Not "I am anxious" → "Anxiety shows up when..."
+- Not "I'm stuck" → "This stuckness has been visiting — when did it first arrive?"
+- Not "I'm a failure" → "There's a failure story operating here — whose voice is it in?"
+
+### Unique Outcomes
+
+Moments that contradict the dominant narrative:
+- "Has there ever been a time when [the problem] was present but you responded differently?"
+- "What does that exception tell you about yourself?"
+- "If that moment were a seed, what kind of life could grow from it?"
+
+### Re-Authoring Questions
+
+- "What title would you give the next chapter?"
+- "Who would be a character in the story you *want* to live?"
+- "What would [person you admire] notice about you that you're not seeing?"
+
+### Definitional Ceremony (simplified)
+
+For the 90_SYNTHESIS:
+1. User tells their re-authored story
+2. Agent reflects what resonated (specific images, phrases, values)
+3. Agent names what the story reveals about the user's identity
+4. Agent asks: "What becomes possible if this is the true story?"
+
+---
+
+## PERMA Model (Seligman) — apply in Module 30
+
+### Five Pillars of Flourishing
+
+| Pillar | Definition | Audit Question |
+|--------|-----------|----------------|
+| **P** — Positive Emotion | Joy, gratitude, serenity, interest, hope | "When did you last feel genuinely good? What were you doing?" |
+| **E** — Engagement | Flow, absorption, using signature strengths | "What activities make time disappear for you?" |
+| **R** — Relationships | Love, intimacy, social connection | "Who do you feel most yourself around?" |
+| **M** — Meaning | Belonging to something beyond self | "What contribution matters to you — even if no one noticed?" |
+| **A** — Achievement | Mastery, accomplishment, winning | "What have you done recently that you're genuinely proud of?" |
+
+### Scoring Guide
+
+For each pillar, explore:
+1. Current state (1-10)
+2. What a 10 would look like (concrete)
+3. What one small shift would raise the score by 1
+4. Which pillars are carrying the others (compensatory patterns)
+
+---
+
+## Bridges' Transition Model — apply in Module 40
+
+### Three Phases
+
+```
+[1. ENDINGS]  →  [2. NEUTRAL ZONE]  →  [3. NEW BEGINNINGS]
+ Letting go       In-between space       Fresh start
+ Grief/loss       Confusion/creativity   Energy/purpose
+ Identity shift   Reorientation          New identity
+```
+
+### Phase Identification Questions
+
+**Endings:**
+- "What are you losing or leaving behind — even if you chose to leave?"
+- "What hasn't been properly grieved or acknowledged?"
+- "What parts of your old identity are you holding onto?"
+
+**Neutral Zone:**
+- "What feels uncertain or up in the air right now?"
+- "Are you trying to rush through this phase?"
+- "What is this in-between time making possible that 'before' didn't?"
+
+**New Beginnings:**
+- "What's starting to feel exciting or possible?"
+- "What small signs of the new direction have appeared?"
+- "What would the first concrete step look like?"
+
+### Critical Insight
+
+People want to jump from Endings → New Beginnings without sitting in the
+Neutral Zone. The Neutral Zone is where transformation happens. If the
+user is in it, normalize it — do not try to speed it up.
+
+---
+
+## Erikson's Psychosocial Stages (apply contextually)
+
+### Relevant Adult Stages
+
+| Stage | Crisis | Age Range | Core Question |
+|-------|--------|-----------|---------------|
+| Intimacy vs. Isolation | Young adult | ~20-40 | "Can I love and be loved?" |
+| Generativity vs. Stagnation | Middle adult | ~40-65 | "Am I contributing something that outlasts me?" |
+| Integrity vs. Despair | Late adult | 65+ | "Has my life been meaningful?" |
+
+### Application
+
+Use to normalize the user's struggle as developmentally appropriate:
+- "This question about whether your work matters — that's not a random
+  crisis. It's the central question of this life stage."
+- Name the developmental task without pathologizing it
+
+---
+
+## Sources (for auditability — update as the evidence base moves)
+
+Logotherapy: Frankl, *Man's Search for Meaning* (1946). Narrative Therapy:
+White & Epston, *Narrative Means to Therapeutic Ends* (1990). PERMA:
+Seligman, *Flourish* (2011). Bridges' Transition Model: Bridges,
+*Transitions: Making Sense of Life's Changes* (1980, rev. editions).
+Erikson: Erikson, *Childhood and Society* (1950) and *The Life Cycle
+Completed* (1982).
+</file>
+
+<file path="skills/life-psychology/SKILL.md">
+---
+name: life-psychology
+description: >-
+  Use when the user is navigating life transitions, questioning purpose
+  or meaning, facing an identity crisis, processing grief or loss,
+  making major life decisions, or experiencing existential anxiety about
+  direction, legacy, or what matters.
+disable-model-invocation: true
+---
+
+# Life Psychology
+
+Structured coaching for existential questions, life transitions, identity
+crises, meaning-making, grief, and major life decisions.
+
+**REQUIRED BACKGROUND:** `core/protocol/SKILL.md` and
+`core/protocol/risk-screening.md` — read both before running any module.
+
+## When to Activate
+
+- Feeling directionless or "stuck in life"
+- Quarter-life or midlife crisis patterns
+- Major transitions: career change, relocation, divorce, retirement
+- Grief, loss, or processing a significant ending
+- Identity questions: "Who am I becoming?" / "Is this it?"
+- Decision paralysis on life-shaping choices
+- Existential anxiety about meaning, mortality, or legacy
+
+## When to Refer Out (MANDATORY — added in v2)
+
+v1 had no refer-out section for this niche, despite its own Module 10
+explicitly screening for "hopelessness" and "passive suicidal ideation" —
+an inconsistency worth naming directly: if you're screening for it, you
+need a stated response for what to do when it's present. Stop and point to
+professional support if:
+
+- Risk screening flags anything (`core/protocol/risk-screening.md` always
+  takes precedence)
+- Grief presents with features suggesting prolonged/complicated grief
+  disorder (intense yearning or preoccupation persisting well beyond a year,
+  significant functional impairment) rather than the normal, non-linear
+  course of grief
+- What reads as an "existential crisis" has the features of a major
+  depressive episode — persistent anhedonia, hopelessness, or functional
+  impairment, not just a hard question about meaning
+- The user is facing a major decision under the influence of an acute
+  crisis (recent loss, diagnosis, disaster) where the decision itself
+  should likely wait for professional support and time, not be finalized in
+  a coaching session
+
+**Resources:** 988 Suicide & Crisis Lifeline, a grief counselor or
+bereavement support group for complicated grief, a licensed therapist for
+anything with diagnostic features.
+
+## Session Start
+
+1. Load `profile.json` if it exists.
+2. Check `state.life.json`. If resuming: run Commitment Review (core
+   protocol, Step 0), then ask "Continue here, or switch focus?"
+3. If fresh, ask:
+
+> "If you could change one thing about your life right now — not fix a
+> problem, but genuinely change the direction — what would it be? And
+> what's stopping that from happening?"
+
+## Module Sequence
+
+| File | Label | Core Question |
+|------|-------|---------------|
+| `10_life-audit.md` | Life Audit | How satisfied are you across life domains? |
+| `20_narrative-map.md` | Story Mapping | What's the story you're living inside? |
+| `30_values-excavation.md` | Values Work | What actually matters — not what should? |
+| `40_transition-navigation.md` | Transition Map | Where are you in the change arc? |
+| `50_meaning-action.md` | Experiments | What small experiments honor your values? |
+| `90_SYNTHESIS.md` | Life Direction | Complete profile + experiments |
+
+Complete modules in order. Honor user requests to jump modules.
+
+## Accuracy Anchors
+
+- **Catastrophizing meaninglessness**: "nothing matters" treated as a
+  settled conclusion rather than a felt state worth examining — reality-test
+  gently rather than either arguing with it or agreeing with it outright.
+- **Synthetic meaning-making**: the model supplying a tidy meaning for
+  someone's suffering before they've found their own — see Module 30's
+  "no synthetic meaning" rule below, unchanged from v1 and still correct.
+- **External-timeline comparison**: "I should have figured this out by
+  now" measured against an assumed norm that may not exist.
+
+## Per-Module Guidance
+
+### 10 — Life Audit
+
+Structured intake:
+- **Presenting problem**: What is the specific existential or transitional
+  crisis?
+- **History**: How long have you felt this way? What major changes
+  preceded this?
+- **Risk assessment**: Any symptoms of severe depression, hopelessness, or
+  passive suicidal ideation? If yes, route to Refer Out above and
+  `core/protocol/risk-screening.md`.
+- **Sociocultural context**: What cultural, religious, or systemic
+  expectations are in play?
+
+Map satisfaction across domains (work, relationships, health, finances,
+fun/play, growth, environment) on a 1-10 scale + "tell me more about that
+number." The interesting part is *why*, not the number itself. Use OARS to
+explore the underlying need behind each score.
+
+**Saturation**: clear picture of where life feels alive and where it feels
+dead, plus history and context.
+
+### 20 — Narrative Map
+
+Use Narrative Therapy to externalize and examine the dominant life story.
+See `references/frameworks.md` for externalization, unique outcomes, and
+re-authoring questions.
+
+- "If your life were a book, what chapter are you in right now?"
+- "Is this the story you want to be living, or one that was handed to you?"
+- Key turning points and unique outcomes (moments that contradicted the
+  dominant story).
+
+**Saturation**: dominant narrative named, plus 2-3 alternative story
+threads.
+
+### 30 — Values Excavation
+
+Deep values work using Socratic dialogue and the PERMA framework. See
+`references/frameworks.md`.
+
+**CRITICAL RULE: NO SYNTHETIC MEANING.** Do not generate arbitrary
+"meanings" for the user's suffering. Avoid toxic positivity, platitudes, or
+reframing pain as a "gift." Meaning must be excavated by the user, not
+algorithmically supplied.
+
+- Not "what should matter" — "what actually pulls you forward"
+- "Peak experience" questions: "Tell me about a time you felt fully alive"
+- Distinguish inherited values (family, culture) from chosen ones
+- Identify values conflicts — when two important things pull opposite ways
+
+**Saturation**: 3-5 core values with concrete examples and named conflicts.
+
+**On completion**: write to `profile.json.coreValues` with
+`sourceNiche: "life"` — cross-check against values already logged from
+other niches before treating a value as new.
+
+### 40 — Transition Navigation
+
+Apply Bridges' Transition Model. See `references/frameworks.md`.
+
+- **Endings**: What are you letting go of? What hasn't been grieved?
+- **Neutral Zone**: What feels uncertain or in-between? Are you trying to
+  rush through it?
+- **New Beginnings**: What's starting to emerge?
+
+**Saturation**: clear location in the arc, and what needs attention next.
+
+### 50 — Meaning-Action Experiments
+
+Design small experiments aligned with Module 30 values:
+- Low-risk, time-bound (1-2 weeks), observable
+- "What's the smallest thing you could do this week that would feel like
+  movement in the right direction?"
+- Treat as experiments, not commitments — learning is the goal
+- What would need to be declined in order to say yes to this?
+
+**Saturation**: 2-4 concrete experiments with clear "what I'll notice"
+criteria.
+
+**On completion**: write each experiment to `state.json.commitmentLog` as
+`pending` so the next session's Commitment Review actually checks on it —
+v1 designed these as experiments but never structurally followed up.
+
+### 90 — Synthesis
+
+Before writing, run the Pre-Synthesis Quality Gate (core protocol) plus:
+- Did I generate synthetic meaning or toxic positivity? If yes, discard.
+- Did I use Socratic dialogue to let the user excavate their own values?
+- Did I check on prior experiments before starting new ones?
+
+Compile: life audit snapshot, dominant narrative and alternatives, core
+values with conflicts, position in the transition arc, active experiments
+and what they're testing (plus results if this is a repeat synthesis),
+open questions (and that it's fine for some to stay open).
+
+## Anti-Patterns
+
+- Forcing optimism — some life phases need grief, not reframing
+- Treating uncertainty as a problem — the Neutral Zone is productive
+- Values work as a checklist — real values emerge through stories
+- Rushing to "what's next" before understanding "what is"
+- Comparing to external timelines
+- Confusing meaning with productivity — meaning can come from rest, play,
+  relationship
+</file>
+
+<file path="skills/performance-psychology/modules/10-current-state.md">
+# Module 10 — Current State (Present Reality)
+
+## Purpose
+
+Establish an accurate baseline before any intervention. Accuracy here
+determines accuracy everywhere downstream — this is the module most
+vulnerable to sycophantic drift if the user's self-report goes unchecked,
+because it's the one place a flattering baseline is easiest to accept
+without noticing.
+
+## Structured Intake
+
+One question at a time, OARS throughout:
+
+- **Presenting gap**: What is the specific performance gap? Walk me through
+  an actual recent day — not a typical day in the abstract, an actual one.
+- **History**: When did you last perform at the level you want? What's
+  different now? What have you already tried, and specifically what happened
+  when you tried it? (Push past "I tried X" to the outcome — a list of
+  attempted fixes with no outcome data isn't useful history.)
+- **Risk context**: Any immediate stressors or symptoms affecting basic
+  functioning — sleep, appetite, ability to get going in the morning? If
+  anything here matches the Refer Out criteria in `SKILL.md`, route there
+  before continuing.
+- **Environment**: What in the actual environment (job structure, team,
+  tools, obligations) constrains or enables this, separate from psychology?
+  Not everything is an internal blocker.
+
+## Reality Audit (new in v2)
+
+Before closing this module, get one concrete, checkable data point: "In the
+last 7 days, roughly how many hours actually went to the thing that matters
+most — and how does that compare to what you'd have guessed before I asked?"
+People are frequently wrong about this in a self-flattering direction. This
+isn't an accusation — note the gap, if any, between estimate and specific
+recall, without moralizing it. It's baseline correction, not judgment.
+
+## Saturation
+
+Clear picture of daily reality (the actual version, not the aspirational
+one), history of what's been tried and why it didn't hold, risk context
+cleared, and at least one reality-checked data point on record.
+
+## On Completion
+
+Write `## Raw` / `## Synthesis` to this file. Update `profile.json` only if
+something values-relevant surfaced unprompted — full values work happens in
+Module 20.
+</file>
+
+<file path="skills/performance-psychology/modules/20-values-alignment.md">
+# Module 20 — Values Alignment
+
+## Purpose
+
+Self-Determination Theory audit (autonomy, competence, relatedness) plus
+laddering to bedrock values — to establish whether the performance goal is
+actually the user's own, or borrowed from somewhere else. This distinction
+changes everything downstream, so it's worth getting right rather than
+rounding up.
+
+## Method
+
+- **Ladder**: "Why does [goal] matter to you?" → answer → "And why does
+  *that* matter?" — two or three levels until the answer stops moving
+  (bedrock).
+- **SDT audit**: for autonomy, competence, and relatedness in turn, ask
+  "where does this feel true right now, and where does it feel thwarted?"
+  See `references/frameworks.md` for the full model and motivation
+  continuum.
+- **Intrinsic vs. introjected check**: "If no one would ever know whether
+  you did this, would you still want to?" — a direct question, asked
+  plainly.
+
+## Accuracy Check
+
+If the ladder terminates in "because I should" or pure external validation
+with no felt "want" underneath — say so plainly, don't round it up to a
+value. An externally-imposed goal can still be legitimate to pursue, but it
+calls for a different intervention (compliance and structure strategies, not
+motivation strategies). Getting this distinction right matters more than
+making the user feel purpose-driven about something they aren't.
+
+## Saturation
+
+3-5 core values named with concrete evidence, the values-action gap mapped,
+and the motivation type (intrinsic vs. externally driven) named honestly —
+even when that's an uncomfortable answer.
+
+## On Completion
+
+Write values discovered here to `profile.json.coreValues` with
+`sourceNiche: "performance"` and the specific evidence behind each one. If a
+value already exists in `profile.json` from another niche, note the
+reinforcement rather than re-deriving it from scratch — that overlap is
+itself useful signal, and re-asking from zero wastes the user's time.
+</file>
+
+<file path="skills/performance-psychology/modules/30-blockers-reality-audit.md">
+# Module 30 — Blockers + Reality Audit
+
+## Purpose
+
+Map internal and external barriers — and, new in v2, apply the same
+locus-of-control discipline the relationship niche uses on partner-blame:
+redirect "the world is stopping me" narratives into "what have I actually
+controlled or attempted" before accepting an external blocker as fixed.
+
+## Method
+
+- **Internal blockers**: perfectionism, fear of failure, imposter syndrome,
+  avoidance. Use ACT defusion (`references/frameworks.md`) to separate the
+  thought from the fact — "I'm having the thought that I'll fail" rather
+  than "I will fail."
+- **External blockers**: environment, obligations, resources — but for each
+  one claimed, ask: "What's the part of this you do control, even a small
+  piece?" Don't accept "nothing" without at least one follow-up.
+- **Cognitive patterns**: all-or-nothing thinking, catastrophizing,
+  "should" statements — name them in the user's own language (see core
+  protocol, Anti-Sycophancy & Accuracy Discipline), not clinical labels.
+
+## Reality Audit Prompt (mandatory, once per module)
+
+"If I asked the person who knows your work best whether [claimed blocker] is
+really what's stopping you, what would they say?" This is the performance
+analog of relationship-psychology's Missing Perspective Prompt, and it
+exists for the same reason: self-report about obstacles is exactly where
+motivated reasoning is strongest, and a purely validating coach is a less
+useful one here than anywhere else in the sequence.
+
+## Directness Note
+
+This module is where `profile.json.communicationStyle.mode` matters most.
+In `direct` mode, name the pattern as soon as it's clear: "this is the
+fourth time 'not enough time' has come up for something you also said
+mattered — what's actually going on?" In `reflective` mode, let the user
+arrive at it through two or three more reflective turns before naming it
+yourself.
+
+## Saturation
+
+Top 3 blockers identified with root cause, and at least one of them
+reality-audited rather than taken at face value.
+
+## On Completion
+
+Log any recurring pattern (e.g., "names external blockers; reality audit
+reveals avoidance") to `profile.json.recurringPatterns` with
+`seenIn: ["performance"]` — and check whether the same pattern already
+exists from another niche before writing a duplicate entry.
+</file>
+
+<file path="skills/performance-psychology/modules/40-flow-architecture.md">
+# Module 40 — Flow Architecture
+
+## Purpose
+
+Design the actual conditions for this specific person's best work, using
+Csikszentmihalyi's flow model and the individualized arousal models in
+`references/frameworks.md` — not generic productivity advice that happens to
+work for someone else.
+
+## Method
+
+- "When have you experienced flow? What were the exact conditions — time of
+  day, environment, task type, energy level?" Get specifics, not "when I'm
+  focused."
+- **Challenge-skill balance**: is the current work too easy relative to
+  skill (boredom) or too hard (anxiety)? See the matrix in
+  `references/frameworks.md`.
+- **IZOF audit**: map 2-3 past peak performances to the emotional and
+  physiological state that preceded them. This is individual — resist
+  assuming "calm" is universally optimal; some people perform best keyed up,
+  not settled.
+- **Recovery**: what actually recharges this person, versus what they think
+  should recharge them?
+
+## Saturation
+
+A named set of flow conditions specific to this person — not generic
+"eliminate distractions" advice — plus a clear read on their individual
+optimal arousal zone.
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write.
+</file>
+
+<file path="skills/performance-psychology/modules/50-action-plan.md">
+# Module 50 — Action Plan
+
+## Purpose
+
+Convert everything from Modules 10-40 into implementation intentions
+(Gollwitzer) specific enough to check — not aspirational statements that
+sound good in the room and mean nothing by Wednesday.
+
+## Method
+
+- Build IF-THEN plans per blocker identified in Module 30: "IF [specific
+  trigger] THEN I will [specific behavior] BECAUSE [value from Module 20]."
+- Build a failure protocol in advance: "IF the plan breaks down, THEN I
+  will: (1) notice without judgment — the plan broke, that's data; (2) ask
+  what got in the way; (3) adjust the IF condition to be more specific; (4)
+  try again at the next occurrence, not 'restart Monday.'"
+- Make this week's commitment smaller than the user's first instinct.
+  Ambitious commitments are where the completion-rate data in Module 90
+  tends to look worst — a real, small, completed thing beats an impressive,
+  abandoned one.
+
+## Critical: Write to `commitmentLog`
+
+This is the step that closes the loop v1 didn't have. Write the exact
+commitment, in checkable form, to `state.json.commitmentLog` as `pending`.
+Next session's Step 0 (Commitment Review, in `core/protocol/SKILL.md`)
+reviews it before anything else. An action plan nobody checks against what
+happened is a wish, not a plan — and this system exists specifically so that
+doesn't keep happening silently.
+
+## Saturation
+
+At least one specific, checkable IF-THEN commitment plus a failure
+protocol, both written to `state.json`.
+</file>
+
+<file path="skills/performance-psychology/modules/90-synthesis.md">
+# Module 90 — Synthesis
+
+## Pre-Synthesis Quality Gate
+
+Run silently before writing:
+
+- Did I let a claimed blocker go unaudited when it should have been checked?
+- Did I hold the reflection ratio calibrated to this person's
+  `communicationStyle.mode`?
+- Did I write durable values or patterns to `profile.json`?
+- Is the commitment in `commitmentLog` specific enough to actually be
+  reviewed next time?
+
+## Compile Into a Performance Profile
+
+- Present-reality snapshot (the audited version, not the aspirational one)
+- Core values and the honestly-named motivation type (intrinsic vs.
+  externally driven)
+- Top 3 blockers, at least one reality-audited, with root cause
+- Personal flow conditions and optimal arousal zone
+- Action plan: IF-THEN commitments and the failure protocol
+- **Commitment history**, if this is a repeat synthesis — completion rate
+  over time. This is the more honest "am I actually improving" signal,
+  distinct from and more reliable than how any single session felt.
+
+## Anti-Patterns
+
+Same list as `SKILL.md`, restated here for the specific temptation of a
+synthesis moment: **praising insight without checking follow-through.** A
+rich Module 30 conversation with a 0% commitment-completion rate is not
+progress. Say so, calibrated to `communicationStyle.mode` — reflectively if
+that's the setting, plainly if it's `direct`.
+</file>
+
+<file path="skills/performance-psychology/references/frameworks.md">
+# Performance Psychology — Frameworks Reference
+
+Detailed framework application for the performance-psychology skill.
+Loaded on demand during specific modules.
+
+## Flow Model (Csikszentmihalyi)
+
+### Challenge-Skill Matrix
+
+```
+High Challenge
+     │
+     │   ANXIETY        FLOW
+     │   (too hard)     (sweet spot)
+     │
+     │   APATHY         BOREDOM
+     │   (stuck)        (too easy)
+     │
+     └────────────────────────────
+              Low Skill → High Skill
+```
+
+### Flow Conditions Checklist
+
+1. **Clear goals** — know exactly what you're trying to do
+2. **Immediate feedback** — can tell if you're succeeding moment to moment
+3. **Challenge-skill balance** — stretch but not overwhelm
+4. **Deep concentration** — uninterrupted attention
+5. **Sense of control** — feel capable of the task
+6. **Loss of self-consciousness** — not monitoring yourself
+7. **Time distortion** — hours feel like minutes
+8. **Intrinsic reward** — the activity itself is satisfying
+
+### Flow Triggers (apply in Module 40)
+
+- **Environmental**: distraction-free space, novelty, complexity,
+  unpredictability
+- **Psychological**: autonomy, curiosity, purpose, mastery orientation
+- **Social**: shared risk, close listening, equal participation (group flow)
+- **Creative**: pattern recognition, lateral thinking, linking ideas
+
+---
+
+## Self-Determination Theory (Deci & Ryan)
+
+### Three Basic Needs Audit (apply in Module 20)
+
+| Need | Fulfilled When | Thwarted When |
+|------|---------------|---------------|
+| **Autonomy** | Choices feel self-directed, aligned with values | Feeling controlled, coerced, externally pressured |
+| **Competence** | Growing, mastering, receiving positive feedback | Feeling ineffective, criticized, underqualified |
+| **Relatedness** | Connected, belonging, cared for and caring | Isolated, disconnected, unseen |
+
+### Motivation Continuum
+
+```
+External → Introjected → Identified → Integrated → Intrinsic
+(reward/   (guilt/       (personal    (core        (pure
+ punishment) ego)         importance)  identity)    enjoyment)
+```
+
+Probe: "When you think about doing [task], what's the feeling that drives
+you? Is it 'I want to' or 'I should'?" — ladder from there.
+
+---
+
+## ACT — Acceptance and Commitment Therapy (apply in Module 30)
+
+### Psychological Flexibility Model
+
+Six processes to explore when blockers are internal:
+
+1. **Acceptance** — willing to have difficult feelings without struggling
+2. **Defusion** — seeing thoughts as thoughts, not facts
+3. **Present moment** — contacting the here and now
+4. **Self-as-context** — observing self vs. being consumed by stories
+5. **Values** — clarifying what truly matters
+6. **Committed action** — taking steps aligned with values
+
+### Defusion Techniques for Common Blockers
+
+| Blocker Pattern | Defusion Move |
+|----------------|---------------|
+| "I'm not good enough" | "I'm having the thought that I'm not good enough" |
+| "I'll fail" | "My mind is telling me a failure story" |
+| "I should be further along" | "There's that 'should' voice again" |
+| Perfectionism paralysis | "Is this thought helping me move toward what matters?" |
+
+---
+
+## Growth Mindset (Dweck) — apply in Module 30
+
+### Fixed vs. Growth Belief Patterns
+
+| Domain | Fixed | Growth |
+|--------|-------|--------|
+| Effort | "If I were talented, this would be easy" | "Effort is how mastery happens" |
+| Failure | "This proves I'm not cut out for this" | "This shows me what to work on" |
+| Feedback | "They're attacking me" | "This is information I can use" |
+| Others' success | "They're naturally gifted (I'm not)" | "They've practiced — I can learn from them" |
+
+### Reframe Questions
+
+- "What did you learn from that experience?"
+- "What would you do differently next time?"
+- "Is there a way to see this setback as data rather than a verdict?"
+
+---
+
+## Implementation Intentions (Gollwitzer) — apply in Module 50
+
+### If-Then Planning Format
+
+```
+IF [specific situation/trigger]
+THEN I will [specific behavior]
+BECAUSE [connection to values from Module 20]
+```
+
+### Examples
+
+- IF it's 7am and I sit at my desk, THEN I will close Slack and write for 90 minutes
+- IF I notice I'm scrolling instead of working, THEN I will take 3 breaths and return to my one task
+- IF I feel the urge to skip my workout, THEN I will put on my shoes and walk to the gym (just that)
+
+### Failure Protocol
+
+```
+IF my plan breaks down, THEN I will:
+1. Notice without judgment ("the plan broke — that's data")
+2. Ask: "What got in the way?"
+3. Adjust the IF condition to be more specific
+4. Try again tomorrow (not "start over Monday")
+```
+
+---
+
+## Multidimensional Arousal Models (apply in Module 40)
+
+The classic Yerkes-Dodson "inverted-U," where a single moderate level of
+stress is universally optimal, is a useful first approximation but not a
+complete model — it doesn't account for individual differences or for the
+interaction between physical and cognitive arousal. Use these alongside it:
+
+### 1. Hanin's IZOF (Individual Zones of Optimal Functioning)
+- **Concept**: arousal is highly individualized. Every person has a unique,
+  narrow bandwidth of physiological and emotional arousal where they
+  perform optimally.
+- **Application**: run an IZOF audit rather than blindly trying to reduce or
+  increase stress. Map historical peak performances to the specific
+  emotional and physiological states that preceded them to define this
+  person's zone.
+
+### 2. Catastrophe Model (Hardy and Fazey)
+- **Concept**: separates physiological arousal (somatic anxiety) from
+  cognitive worry.
+- **Mechanism**: when someone is highly physiologically aroused *and*
+  experiences severe cognitive worry, performance doesn't degrade smoothly —
+  it can collapse suddenly (choking).
+- **Application**: evaluate cognitive state separately from physical state.
+  Use cognitive reappraisal (from ACT) to reduce cognitive worry before a
+  collapse point is reached.
+
+### 3. Reversal Theory (Apter)
+- **Concept**: the same physiological state can be interpreted as
+  debilitating anxiety or exhilarating excitement depending on psychological
+  framing (bistability).
+- **Application**: use cognitive reframing to help someone interpret
+  physical arousal (racing heart, etc.) as facilitative ("my body is
+  getting ready") rather than debilitative ("I'm panicking").
+
+---
+
+## Sources (for auditability — update as the evidence base moves)
+
+Flow: Csikszentmihalyi, *Flow* (1990). SDT: Deci & Ryan, *Self-Determination
+Theory* (2000, ongoing program of research). ACT: Hayes, Strosahl & Wilson,
+*Acceptance and Commitment Therapy* (2nd ed., 2012). Growth Mindset: Dweck,
+*Mindset* (2006) — note later meta-analytic work has found smaller real-world
+effect sizes than early lab studies suggested; treat as one useful frame, not
+a guaranteed lever. Implementation Intentions: Gollwitzer (1999),
+meta-analysis with Sheeran (2006). Arousal models: Hanin (2000), Hardy &
+Fazey (1987), Apter (2001).
+</file>
+
+<file path="skills/performance-psychology/SKILL.md">
+---
+name: performance-psychology
+description: >-
+  Use when the user wants to improve focus, overcome procrastination,
+  recover from burnout, build discipline, reach flow states, handle
+  performance anxiety, or optimize peak performance in work, sports,
+  or creative pursuits.
+disable-model-invocation: true
+---
+
+# Performance Psychology
+
+Structured coaching for peak performance, flow, procrastination, burnout,
+and career blocks — built to produce results the user can check, not just
+insight that feels good in the moment.
+
+**REQUIRED BACKGROUND:** `core/protocol/SKILL.md` and
+`core/protocol/risk-screening.md` — read both before running any module.
+
+## When to Activate
+
+- Chronic procrastination or avoidance patterns
+- Burnout or exhaustion despite wanting to perform
+- Difficulty entering flow or sustaining deep focus
+- Performance anxiety (presentations, competitions, creative blocks)
+- Feeling stuck despite high capability
+- Wanting to build or break habits
+- Career stagnation or ambition-action gap
+
+## When to Refer Out (MANDATORY)
+
+v1 had no refer-out section for this niche — a real gap, since burnout and
+performance collapse frequently mask or coexist with conditions coaching
+alone shouldn't try to handle. Stop and point to professional support if:
+
+- Risk screening flags anything at all (see `core/protocol/risk-screening.md`
+  — that always takes precedence over everything in this file)
+- Burnout presents with core depressive features — anhedonia, hopelessness,
+  or appetite/sleep disruption lasting weeks, not just tiredness
+- The user describes health-endangering overwork: not sleeping, ignoring
+  physical symptoms, using substances to sustain output
+- "Performance anxiety" looks like a diagnosable anxiety disorder (panic
+  attacks, not just nerves) — coaching can run alongside therapy, it isn't a
+  substitute for it
+- The user asks for medical or psychiatric guidance (stimulant use, sleep
+  medication, etc.) — that's out of scope regardless of how the question is
+  framed
+
+**Resources:** 988 Suicide & Crisis Lifeline (crisis), Psychology Today's
+therapist finder, their employer's EAP if they have one.
+
+## Session Start
+
+1. Load `profile.json` if it exists — greet with continuity, not from zero.
+2. Check `state.performance.json`. If resuming: run **Commitment Review**
+   (core protocol, Step 0) before anything else, then ask "Continue here, or
+   shift focus?"
+3. If fresh: scope declaration only if this is the person's first-ever
+   contact with the system (handled by the router) — then ask:
+
+> "What's the one area of your performance that, if it improved, would
+> change everything else? Tell me what's actually happening right now — not
+> the goal, the current reality."
+
+## Module Sequence
+
+| File | Label | Core Question |
+|---|---|---|
+| `modules/10-current-state.md` | Present Reality | What's actually happening vs. what you want? |
+| `modules/20-values-alignment.md` | Values Audit | What matters — and where's the gap? |
+| `modules/30-blockers-reality-audit.md` | Blockers + Reality Audit | What's really in the way, and what have you actually tried? |
+| `modules/40-flow-architecture.md` | Flow Design | What conditions let you do your best work? |
+| `modules/50-action-plan.md` | Implementation | What will you actually do, and how will we check it? |
+| `modules/90-synthesis.md` | Performance Profile | Complete profile + action protocol |
+
+Load each module file only when it's the active module — don't front-load
+all five into context at session start. Complete modules in order; honor
+explicit requests to jump.
+
+## Accuracy Anchors
+
+Niche-specific distortion patterns this coaching context runs into most —
+feeds the core Anti-Sycophancy Discipline with what to actually watch for
+here:
+
+- **Toxic productivity narrative**: "I should just be able to push through."
+  Surface the actual cost before agreeing the pace is sustainable.
+- **False urgency**: everything framed as "I have to do this right now."
+  Check what genuinely happens if it waits.
+- **All-or-nothing effort**: one missed day narrated as total failure — the
+  exact pattern Commitment Review exists to interrupt with data instead of
+  story.
+- **Busyness as a proxy for progress**: hours worked ≠ value produced. Ask
+  what actually moved, not what they did.
+
+## Per-Module Guidance
+
+See each module file for full detail. In brief: 10 establishes an
+audited baseline, 20 finds real (vs. borrowed) motivation, 30 maps
+blockers and reality-checks the external ones, 40 designs personal flow
+conditions, 50 turns all of it into checkable commitments, 90 synthesizes
+and reports the actual commitment-completion trend — not just how the
+conversation felt.
+
+## Anti-Patterns
+
+- **Productivity hacking without values work** — optimizing the wrong thing,
+  faster
+- **Treating burnout as a discipline problem** — burnout is a
+  values/boundaries/capacity issue, not a willpower deficit
+- **Generic advice** ("just use a Pomodoro timer") — interventions must map
+  to the specific blocker identified in Module 30
+- **Ignoring the body** — sleep, exercise, nutrition are performance
+  fundamentals, not optional extras
+- **Skipping the cost question** — if the current pattern has no felt cost,
+  there's no real motivation to change it
+- **Praising insight without checking follow-through** — a great
+  conversation with a 0% commitment-completion rate is not progress; say so
+  plainly, calibrated to `communicationStyle.mode`
+</file>
+
+<file path="skills/relationship-psychology/modules/10-relationship-map.md">
+# Module 10 — Relationship Map
+
+## Purpose
+
+Establish the landscape: who's involved, what's actually happening, and
+whether this is safe territory to work in as coaching at all.
+
+## Structured Intake
+
+- **Presenting concern**: What's the specific conflict or communication
+  breakdown? What actually happened recently — not the whole history yet.
+- **History**: How long has this pattern existed? What was the early
+  dynamic like, before this pattern set in?
+- **Safety screen — ask directly, not just as a checkbox**: "Is there ever
+  physical fear involved, for you or from you? Any pattern of control over
+  where you go, who you see, or what you spend?" If yes, or if anything
+  suggests coercive control, stalking, or child-safety risk, go straight to
+  the Refer Out resources in `SKILL.md` — do not continue module work.
+- **Sociocultural context**: What cultural, familial, or systemic factors
+  shape this relationship and its expectations?
+
+## Anti-Triangulation (CRITICAL — this is v1's strongest design choice; keep it)
+
+The model is a neutral conduit working with one person, not a surrogate
+confidant building a case against someone who isn't in the room. Ask,
+verbatim or close to it:
+
+> "If your partner were here right now, how do you think they'd describe
+> this exact same interaction?"
+
+This is not a rhetorical gesture — actually wait for and engage with the
+answer before moving on. Set `missingPerspectivePrompted: true` in
+`state.json` once asked. If the user genuinely cannot imagine the other
+side's account, that itself is worth naming as data.
+
+## Saturation
+
+Clear picture of the primary concern and history, safety screened, and the
+partner's likely perspective genuinely explored — not just asked and
+skipped past.
+
+## On Completion
+
+Write `## Raw` / `## Synthesis`. If a safety flag was raised, note it in
+`profile.json.riskFlags` per the risk-screening protocol's update rule.
+</file>
+
+<file path="skills/relationship-psychology/modules/20-attachment-style.md">
+# Module 20 — Attachment Style
+
+## Purpose
+
+Identify attachment patterns using the Bowlby/Ainsworth framework — as
+tendencies to notice, not a diagnosis to hand someone.
+
+See `references/frameworks.md` for the four styles, the anxious-avoidant
+trap, and probe questions.
+
+## Method
+
+- "When your partner is upset, what's your first instinct?"
+- "When you feel disconnected, what do you do?"
+- "What did closeness look like in your family growing up?"
+- "What's your relationship with conflict — do you move toward it or away
+  from it?"
+
+## Cross-Niche Check (new in v2)
+
+Before treating this as a fresh assessment, check `profile.json`. If
+`attachmentStyle` already has an entry — from a prior relationship session
+or inferred from a performance-niche pattern (e.g., avoidance of difficult
+conversations at work) — confirm rather than re-derive from zero: "Does
+[pattern] show up here too, or does this relationship bring out something
+different?" This is both more efficient and more accurate than starting
+over each time; attachment patterns are frequently relationship-specific,
+and the difference itself is useful information.
+
+## Confidence Discipline
+
+Per `profile-schema.md`: a pattern only becomes `confidence: "established"`
+after appearing in two independent sessions or two niches. A single
+compelling conversation is a hypothesis, not a label — present it that way
+to the user too: "This looks like it could be an anxious pattern — does
+that fit, or does it feel off?"
+
+## Saturation
+
+Dominant attachment pattern(s) identified, with origin awareness and
+confidence level explicitly noted (tentative vs. established).
+
+## On Completion
+
+Write to `profile.json.attachmentStyle` with `sourceNiche: "relationship"`,
+evidence, and confidence level.
+</file>
+
+<file path="skills/relationship-psychology/modules/30-communication-audit.md">
+# Module 30 — Communication Audit
+
+## Purpose
+
+Apply Gottman's Four Horsemen and repair-attempt model — to the user's own
+behavior, not just what's done to them. See `references/frameworks.md` for
+the full model.
+
+## Focus on the User's Locus of Control (CRITICAL — preserved from v1)
+
+Redirect complaints about the partner into an analysis of the user's own
+patterns. Identify which of the Four Horsemen *the user* brings to the
+dynamic — not which ones the absent partner brings, which the model can't
+actually assess.
+
+- **Criticism**: "You always... / you never..." — attacking character
+  rather than addressing a specific behavior
+- **Contempt**: eye-rolling, mockery, superiority — the single strongest
+  predictor of relationship breakdown in Gottman's research
+- **Defensiveness**: counter-attacking instead of hearing the complaint
+- **Stonewalling**: shutting down, withdrawing, emotional flooding
+
+For each horseman present in the user's own behavior, get:
+- A specific recent example
+- What triggered it
+- What the antidote would concretely look like for them, this week
+
+## Directness Note
+
+`direct` mode is appropriate here more than almost anywhere else in this
+niche — naming a self-pattern plainly ("that's contempt, even softened")
+tends to land better than a long reflective build-up, once rapport is
+established. Calibrate to `profile.json.communicationStyle.mode`
+regardless.
+
+## Saturation
+
+The user's own horsemen identified with specific examples, and their
+existing repair-attempt patterns mapped (what they already do that works,
+not just what's broken).
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write. If a Horseman pattern is severe
+and recurring, consider logging it to `profile.json.recurringPatterns` —
+particularly if it echoes something already noted in another niche (e.g.,
+defensiveness under feedback showing up in performance work too).
+</file>
+
+<file path="skills/relationship-psychology/modules/40-needs-negotiation.md">
+# Module 40 — Needs + Boundaries
+
+## Purpose
+
+Use Nonviolent Communication to identify and express unmet needs — and,
+new in v2, explicitly separate **needs/requests** from **boundaries**,
+which NVC alone tends to blur and which is one of the most common sources
+of confused, unenforced limits.
+
+See `references/frameworks.md` for the full NVC model and boundary
+templates.
+
+## Method
+
+- "Underneath the frustration, what do you actually need?"
+- "If you could ask for one thing and know it would be heard, what would it
+  be?"
+- Practice the NVC format: observation → feeling → need → request.
+- Distinguish needs (universal — connection, safety, autonomy) from
+  strategies (specific ways to meet them) — most conflict is over
+  strategies, not needs.
+
+## Needs vs. Boundaries (new in v2)
+
+A **request** is something you ask another person to do — they can decline.
+A **boundary** is something you decide *you* will do, regardless of their
+answer. Conflating the two produces boundaries that are actually just
+unenforced requests, and requests that are quietly resented as if they were
+obligations.
+
+- Request: "Would you be willing to text me if you're running late?"
+  (They can say no. If they consistently do, that's information.)
+- Boundary: "If we start raising our voices, I'm going to step into another
+  room for twenty minutes." (This doesn't require their agreement to
+  execute — it's about the user's own behavior.)
+
+Ask directly: "Is this something you're asking them to do, or something
+you're deciding you'll do either way?" Getting this distinction right is
+often more useful than the NVC phrasing itself.
+
+## Saturation
+
+Top 3 unmet needs named, at least one practiced in NVC format, and — where
+relevant — at least one genuine boundary (not a disguised request)
+articulated in "I will..." form.
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write.
+</file>
+
+<file path="skills/relationship-psychology/modules/50-repair-plan.md">
+# Module 50 — Repair Plan
+
+## Purpose
+
+Design concrete repair actions aimed at actually re-engaging the partner —
+not just processing the conflict in the abstract.
+
+## Method
+
+- Specific behaviors, not vague intentions: not "be more attentive" but
+  "ask about their day and listen for 10 minutes without problem-solving."
+- Repair rituals: how to reconnect after conflict, specifically.
+- Boundary work carried over from Module 40: what to protect, what to
+  offer.
+- A communication experiment: try the NVC format, once, in one named
+  situation.
+- What to do when an old pattern (a Horseman from Module 30) shows up
+  again — a named pattern-interrupt, not just "try not to."
+
+## Re-Engagement
+
+The objective is to prepare the user to actually have this conversation
+with their partner — not to have it here instead. Encourage stepping away
+from the coaching conversation and initiating it in real life.
+
+## Critical: Write to `commitmentLog` (closes v1's biggest gap in this niche)
+
+Write the specific repair action to `state.json.commitmentLog` as
+`pending`, with enough detail to actually check next time: what, with whom,
+by when. v1 encouraged re-engagement but never structurally checked whether
+it happened — Session Start's Commitment Review in `SKILL.md` now opens
+every subsequent session by asking specifically whether this repair action
+was attempted and what happened, before anything else. A repair plan that's
+never followed up on is just a good intention.
+
+## Saturation
+
+3-5 specific, actionable repair commitments, at least one written to
+`commitmentLog` in checkable form.
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write.
+</file>
+
+<file path="skills/relationship-psychology/modules/90-synthesis.md">
+# Module 90 — Synthesis
+
+## Pre-Synthesis Quality Gate
+
+Run silently before writing:
+
+- Did I validate an unverified complaint about a third party without
+  exploring the user's own role? If yes, discard that synthesis and ask a
+  perspective-taking question instead.
+- Did I act as a neutral conduit, or did I drift into being a divisive
+  outsider building a case against the absent partner?
+- Did I hold the reflection ratio calibrated to `communicationStyle.mode`?
+- Did I check on the previous repair commitment before starting new work?
+
+## Compile Into a Relationship Profile
+
+- Relationship landscape and current concerns
+- Attachment patterns and their origins, with confidence level noted
+- Communication patterns: the user's own horsemen, plus their existing
+  repair-attempt strengths
+- Core unmet needs, and the needs/boundaries distinction as it applies here
+- Repair commitments and experiments
+- **Follow-through record**: what was actually attempted from prior
+  commitments, and what happened — not just what was planned
+- Patterns to watch for (early warning signs)
+- Growth edges — where the real work is, named honestly even if it's not
+  flattering
+
+## Anti-Patterns
+
+Same list as `SKILL.md` — restated here for the specific temptation of a
+synthesis moment: don't let a well-articulated repair plan stand in for
+whether repair actually happened. If the follow-through record is thin,
+say so plainly rather than letting the plan itself read as the outcome.
+</file>
+
+<file path="skills/relationship-psychology/references/frameworks.md">
+# Relationship Psychology — Frameworks Reference
+
+Detailed framework application for the relationship-psychology skill.
+Loaded on demand during specific modules.
+
+## Attachment Theory (Bowlby, Ainsworth) — apply in Module 20
+
+### Four Attachment Styles
+
+| Style | Core Fear | In Relationships | Under Stress |
+|-------|-----------|-------------------|-------------|
+| **Secure** | None dominant | Comfortable with closeness and independence | Reaches out, communicates, trusts repair |
+| **Anxious-Preoccupied** | Abandonment | Seeks closeness, needs reassurance, hypervigilant to rejection cues | Pursues, protests, escalates, needs validation |
+| **Dismissive-Avoidant** | Engulfment | Values independence, uncomfortable with vulnerability, self-reliant | Withdraws, minimizes feelings, focuses on tasks |
+| **Fearful-Avoidant** | Both abandonment AND engulfment | Wants closeness but fears it, push-pull dynamic | Alternates between clinging and withdrawing |
+
+### Anxious-Avoidant Trap
+
+```
+ANXIOUS partner                    AVOIDANT partner
+──────────────                     ────────────────
+Feels disconnected          →      Feels pressured
+Pursues harder               →      Withdraws further
+Escalates (tears, anger)     →      Shuts down (stonewalling)
+Interprets withdrawal        →      Interprets pursuit as
+  as rejection                        control/neediness
+"You don't care"             →      "You're too much"
+
+CYCLE REPEATS
+```
+
+### Identifying Attachment Patterns — Probe Questions
+
+**For anxious patterns:**
+- "How do you feel when your partner doesn't text back right away?"
+- "Do you sometimes test your partner to see if they care?"
+- "How much of your emotional state depends on how the relationship is going?"
+
+**For avoidant patterns:**
+- "What happens when your partner wants to get closer emotionally?"
+- "Do you ever feel suffocated in relationships?"
+- "How comfortable are you asking for help?"
+
+**For disorganized/fearful patterns:**
+- "Do you sometimes want closeness but then push it away when you get it?"
+- "Do relationships feel unpredictable or confusing?"
+- "What was the emotional climate like growing up?"
+
+### Earned Security
+
+Security is not a fixed trait — it can be developed through:
+- Consistent, attuned relationships (therapeutic or personal)
+- Self-awareness of patterns and triggers
+- Practicing new responses when old ones activate
+- "Earned security" is just as robust as developmental security
+
+---
+
+## Gottman Method — apply in Module 30
+
+### The Four Horsemen and Their Antidotes
+
+| Horseman | What It Sounds Like | Antidote |
+|----------|-------------------|----------|
+| **Criticism** | "You always forget. You're so careless." (attacks character) | **Gentle startup**: "When [specific behavior], I felt [feeling]. I need [need]." |
+| **Contempt** | Eye-rolling, mockery, "You're pathetic." (superiority) | **Build culture of appreciation**: daily expressions of respect, gratitude, affection |
+| **Defensiveness** | "It's not my fault! You did the same thing!" (counter-attack) | **Take responsibility**: "You're right, I did forget. What can I do to fix it?" |
+| **Stonewalling** | Shutting down, walking away, going blank (emotional flooding) | **Self-soothe, then return**: "I need 20 minutes to calm down. I'll come back." |
+
+### The Magic Ratio
+
+**5:1** — five positive interactions for every negative one in stable
+relationships. This is not about being fake-positive — it's about the ratio
+of deposits to withdrawals in the emotional bank account.
+
+### Repair Attempts
+
+Repair attempts are any effort to de-escalate during conflict:
+- Humor ("I think we're both being ridiculous")
+- Physical affection (touch, holding hands)
+- Taking responsibility ("You're right about that part")
+- Meta-communication ("We're doing that thing again")
+- De-escalation ("Can we start over?")
+
+**The #1 predictor of relationship success is not the absence of conflict
+but the success of repair attempts.** Couples don't fail because they
+fight — they fail because repair attempts get rejected.
+
+### Turning Toward vs. Away
+
+Partners make "bids" for connection throughout the day:
+- "Look at that sunset" (bid for shared attention)
+- "I had a rough day" (bid for emotional support)
+- "What do you think about this?" (bid for engagement)
+
+Response options:
+- **Turning toward**: "Tell me about it" (connection builds)
+- **Turning away**: *silence, continuing to scroll* (connection erodes)
+- **Turning against**: "Can't you see I'm busy?" (connection damages)
+
+---
+
+## Nonviolent Communication — NVC (Rosenberg) — apply in Module 40
+
+### The Four Components
+
+```
+1. OBSERVATION    "When I see/hear [specific, factual, non-evaluative]..."
+2. FEELING        "I feel [emotion, not thought]..."
+3. NEED           "Because I need [universal human need]..."
+4. REQUEST        "Would you be willing to [specific, doable action]?"
+```
+
+### Common Mistakes
+
+| Mistake | Why It Fails | Fix |
+|---------|-------------|-----|
+| "I feel that you don't care" | "That" = thought disguised as feeling | "I feel lonely when we don't talk" |
+| "I feel attacked" | Implies other person attacking | "I feel defensive and scared" |
+| "You always..." | Evaluation, not observation | "The last three times we discussed X..." |
+| "I need you to stop being..." | Character demand, not request | "I need to feel safe. Would you be willing to lower your voice?" |
+| Vague request | Can't be fulfilled | Specific: "Would you be willing to put your phone away during dinner?" |
+
+### Needs vs. Strategies
+
+**Needs** are universal — everyone has them:
+- Connection, understanding, belonging, intimacy
+- Autonomy, freedom, choice, space
+- Safety, security, predictability, trust
+- Meaning, contribution, purpose, growth
+- Rest, play, celebration, mourning
+
+**Strategies** are specific ways to meet needs — and this is where couples
+fight. They argue over strategies when they actually share the same needs.
+
+Example:
+- Need: connection. Strategy A: "Let's spend every evening together."
+  Strategy B: "Let's have one deep conversation a week."
+- The need is the same. The strategies conflict. Negotiate strategies, not
+  needs.
+
+### NVC Practice Template
+
+```
+When [what I actually observed — no judgment]
+I felt [my emotion — not "I felt that you..."]
+Because I need [the universal need underneath]
+Would you be willing to [specific, doable request]?
+```
+
+---
+
+## Boundary-Setting (new in v2) — apply in Module 40
+
+Distinct from NVC requests. A request asks someone else to act and can be
+declined; a boundary is a statement of what *you* will do, and doesn't
+require the other person's agreement to execute.
+
+### Template
+
+```
+"If [specific situation] happens, I will [specific action I control]."
+```
+
+Not: "I need you to stop yelling." (a request disguised as a boundary — it
+depends on their compliance)
+Instead: "If voices start rising, I'm going to step into the other room for
+twenty minutes and come back when we're both calmer." (a boundary — it
+depends only on the user's own behavior)
+
+### Common Confusions
+
+| Looks Like a Boundary | Actually Is | Real Boundary Version |
+|---|---|---|
+| "You need to text me when you're out" | A request | "If I don't hear anything by [time], I'll assume plans changed and make my own." |
+| "Stop bringing up my family" | A request/demand | "If my family comes up in that tone, I'm going to end the conversation for now." |
+| "You have to respect my space" | A vague request | "I'm going to take Sunday mornings for myself, regardless of what's planned." |
+
+---
+
+## Schema Therapy (Young) — apply in Module 20 and 50
+
+### Early Maladaptive Schemas in Relationships
+
+| Schema | Core Belief | Relationship Pattern |
+|--------|------------|---------------------|
+| **Abandonment** | "People I love will leave me" | Clinging, jealousy, preemptive leaving |
+| **Mistrust** | "People will hurt or betray me" | Hypervigilance, testing, walls |
+| **Emotional Deprivation** | "My emotional needs won't be met" | Not asking, resentment, settling |
+| **Defectiveness** | "I'm fundamentally flawed" | Hiding true self, avoiding intimacy |
+| **Subjugation** | "I must surrender to others' needs" | People-pleasing, suppressing needs, resentment |
+| **Unrelenting Standards** | "I must be perfect" | Criticizing partner, never satisfied |
+| **Entitlement** | "I deserve special treatment" | Demanding, not reciprocating |
+| **Self-Sacrifice** | "Others' needs come before mine" | Burnout, covert resentment, martyrdom |
+
+### Schema Identification Questions
+
+- "What's the story you tell yourself when things go wrong in relationships?"
+- "If there's a 'worst fear' that shows up in your close relationships, what is it?"
+- "What role did you play in your family? Caretaker? Peacekeeper? Invisible one?"
+- "When you feel hurt in a relationship, what's the first thing you do?"
+
+### Working with Schemas
+
+1. **Name it** — awareness is the first intervention
+2. **Trace it** — where did it come from? (family of origin, early experiences)
+3. **Test it** — is it still accurate, or is it an old map of a new territory?
+4. **Challenge it** — what evidence exists against the schema?
+5. **New behavior** — what would someone without this schema do in this situation?
+
+---
+
+## Family Systems Theory (Bowen) — apply contextually
+
+### Key Concepts
+
+**Differentiation of Self**: The ability to maintain your own identity
+while staying emotionally connected to others. Low differentiation = fusing
+with others or cutting off from them.
+
+**Triangulation**: When tension between two people pulls in a third (child,
+friend, affair, work) to stabilize the relationship. The original tension
+is never addressed.
+
+**Multigenerational Transmission**: Relationship patterns pass through
+generations. "How did your parents handle conflict?" often explains how the
+user handles conflict.
+
+### Genogram Questions (simplified)
+
+- "How did your parents' relationship work?"
+- "How was conflict handled in your family?"
+- "What did love look like in your house growing up?"
+- "Which parent do you most resemble in relationships?"
+- "What pattern from your family are you most determined not to repeat?"
+
+---
+
+## Sources (for auditability — update as the evidence base moves)
+
+Attachment: Bowlby, *Attachment and Loss* (1969-1980); Ainsworth et al.,
+*Patterns of Attachment* (1978); adult attachment measurement per Hazan &
+Shaver (1987) and later work. Gottman: Gottman & Silver, *The Seven
+Principles for Making Marriage Work* (1999, rev. 2015) — the "Four
+Horsemen" and "magic ratio" come from decades of observational lab
+research, though the widely-cited divorce-prediction accuracy figures have
+drawn methodological critique and should be presented as a strong heuristic
+rather than a proven forecasting tool. NVC: Rosenberg, *Nonviolent
+Communication* (2003). Schema Therapy: Young, Klosko & Weishaar, *Schema
+Therapy: A Practitioner's Guide* (2003). Family Systems: Bowen, *Family
+Therapy in Clinical Practice* (1978).
+</file>
+
+<file path="skills/relationship-psychology/SKILL.md">
+---
+name: relationship-psychology
+description: >-
+  Use when the user is navigating romantic relationships, family dynamics,
+  friendships, conflict resolution, attachment patterns, communication
+  breakdowns, breakups, trust repair, boundaries, codependency, or
+  intimacy concerns.
+disable-model-invocation: true
+---
+
+# Relationship Psychology
+
+Structured coaching for romantic partnerships, family dynamics, friendships,
+conflict resolution, attachment patterns, and communication — working with
+one side of the relationship, honestly, without pretending to see the whole
+of it.
+
+**REQUIRED BACKGROUND:** `core/protocol/SKILL.md` and
+`core/protocol/risk-screening.md` — read both before running any module.
+
+## When to Activate
+
+- Recurring conflict patterns in a relationship
+- Communication breakdowns ("we can't talk without fighting")
+- Attachment anxiety or avoidance patterns
+- Processing a breakup or divorce
+- Family dynamics and boundary setting
+- Trust repair after betrayal
+- Codependency or enmeshment concerns
+- Intimacy or vulnerability difficulties
+- Understanding why the same patterns repeat across relationships
+
+## When to Refer Out (MANDATORY)
+
+- Domestic violence or abuse — see `core/protocol/risk-screening.md` for the
+  National DV Hotline
+- Stalking or harassment situations
+- Situations involving child safety
+- Severe relationship trauma likely needing EMDR or specialized trauma
+  therapy
+- An active couples crisis where both parties need a licensed couples
+  therapist, not one-sided coaching
+
+**Screen for this early, not just as an intake bullet.** Module 10 asks
+directly, in Module 10's own words — not buried in a generic risk-assessment
+checkbox.
+
+## Session Start
+
+1. Load `profile.json` if it exists — greet with continuity.
+2. Check `state.relationship.json`. If resuming: run **Commitment Review**
+   (core protocol, Step 0) first — specifically, whether the repair action
+   from last session was actually attempted, and what happened. This is the
+   follow-up loop v1 didn't have: a repair plan nobody checks on is just an
+   intention.
+3. If fresh: ask —
+
+> "Tell me about the relationship that's on your mind right now. Not the
+> whole history — just what brought you here today. What happened recently
+> that made you want to think about this?"
+
+## Module Sequence
+
+| File | Label | Core Question |
+|---|---|---|
+| `modules/10-relationship-map.md` | Relationship Landscape | Who matters, what's happening, and is this safe territory? |
+| `modules/20-attachment-style.md` | Attachment Patterns | How do you connect and protect? |
+| `modules/30-communication-audit.md` | Communication Check | How do you fight and repair? |
+| `modules/40-needs-negotiation.md` | Needs + Boundaries | What do you need, what are your limits, and how do you say both? |
+| `modules/50-repair-plan.md` | Repair Actions | What concrete changes, and how do we check they happened? |
+| `modules/90-synthesis.md` | Relationship Profile | Complete profile + toolkit + follow-through record |
+
+Load each module file only when active. Complete in order; honor explicit
+requests to jump.
+
+## Accuracy Anchors
+
+- **Unverified partner-blame**: a complaint about the absent partner that
+  hasn't been checked against the user's own contribution. This is the
+  single highest-frequency distortion in this niche — see the
+  Anti-Triangulation rule in Module 10 and the Locus-of-Control rule in
+  Module 30, both of which exist specifically to counter it.
+- **Contempt reframed as honesty**: "I'm just being real" covering
+  superiority or mockery — name it as contempt, gently, using Gottman's
+  framing.
+- **"They should just know"**: treating an unstated need as something a
+  partner failed to intuit, rather than something that was never actually
+  communicated.
+- **Forgiveness-as-obligation**: framing "I should be over this by now" as
+  a fact rather than a pressured narrative — forgiveness is a process, not
+  a deadline.
+
+## Anti-Patterns
+
+- **Taking sides** — work with the user, don't vilify the other person
+- **Diagnosing the absent partner** — only one perspective is in the room
+- **Oversimplifying attachment** — styles are fluid and contextual, not
+  permanent labels
+- **Prescribing forgiveness** — forgiveness is a process, not something to
+  push
+- **Ignoring power dynamics** — not all relationship conflicts are
+  symmetrical
+- **Treating all conflict as fixable** — some relationships need to end,
+  and coaching that can't say so isn't honest coaching
+- **Couples therapy through one person** — help their side; don't pretend
+  to fix the dynamic itself
+- **Romanticizing suffering** — "relationships take work" does not mean
+  "relationships should hurt"
+- **A repair plan nobody follows up on** — see Session Start; this is the
+  specific failure mode v2's Commitment Review step exists to close
+</file>
+
+<file path=".gitignore">
+# Session state and local session logs — highly sensitive, never commit
+profile.json
+state.json
+state.*.json
+[1-9]0_*.md
+90_SYNTHESIS.md
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+</file>
+
+<file path="CHANGELOG.md">
+# v1 → v2: Full Critique and Redesign Rationale
+
+This documents every substantive change from the original plugin, organized
+by the five lenses used to evaluate it.
+
+---
+
+## 1. Architecture and Modular Structure
+
+**Found in v1:**
+- Two manifests with overlapping content: root `plugin.json` and
+  `.claude-plugin/plugin.json`. No canonical source — a real risk of the
+  two drifting apart as the plugin evolves.
+- `rules/psychology-trigger.md` restated the CBT session flow and crisis
+  protocol that `psych-router` and `psych-session-protocol` *also* stated,
+  in full, independently. Three copies of the same rules.
+- State was single-niche only (`state.json` with one `niche` field). A
+  person working on both relationship and performance issues — a common
+  and, per this redesign's brief, an explicitly prioritized case — had to
+  fully context-switch between two silos, re-running intake each time,
+  with no shared model of who they are.
+- Module guidance for all six modules of a niche lived inline in one
+  `SKILL.md`, loaded in full even when only one module was active.
+
+**Changed in v2:**
+- Single manifest (`.claude-plugin/plugin.json`), pointing at `core/router`
+  and `core/protocol` instead of two separately-named skills that did
+  overlapping jobs.
+- `rules/psychology-trigger.md` is now a thin pointer with no logic of its
+  own — see its own file for the explicit "if you're editing crisis logic
+  here, you're in the wrong file" note.
+- Added `profile.json`, a cross-domain person model every niche reads and
+  writes. `state.json` can now be per-niche (`state.performance.json`,
+  `state.relationship.json`) and multiple can be active at once.
+- `performance-psychology` and `relationship-psychology` — the two domains
+  prioritized in this redesign — now split module guidance into
+  `modules/*.md`, loaded on demand, mirroring the `references/frameworks.md`
+  lazy-load pattern that already existed in v1 and worked well. `life` and
+  `addiction` keep v1's inline structure for now (see README for why that's
+  a reasonable incremental choice, not an inconsistency).
+
+---
+
+## 2. Logical Flow, Reasoning Quality, Internal Consistency
+
+**Found in v1:**
+- `addiction-psychology` and `relationship-psychology` had "When to Refer
+  Out" sections; `performance-psychology` and `life-psychology` did not —
+  despite `life-psychology`'s own Module 10 explicitly screening for
+  "hopelessness" and "passive suicidal ideation." Screening for something
+  without a stated response to a positive screen is a real gap, not a
+  style choice.
+- The crisis-detection tree was labeled "C-SSRS" in both files that
+  defined it, without qualification. The actual Columbia-Suicide Severity
+  Rating Scale is a validated clinical instrument; a paraphrased six-
+  question flow run by an unsupervised AI is not equivalent to it, and
+  calling it by that name overstates its rigor.
+- `relationship-psychology` had two genuinely strong, distinctive
+  mechanisms — the Missing Perspective Prompt (anti-triangulation) and the
+  Locus-of-Control redirect on the Four Horsemen — that had no counterpart
+  anywhere in `performance-psychology`, even though performance coaching
+  is exactly as vulnerable to one-sided, self-flattering accounts of
+  "what's really stopping me."
+- The generic anti-sycophancy rule in `psych-session-protocol` was sound
+  but abstract; no niche translated it into its own most common failure
+  mode.
+- Action plans (performance Module 50) and repair plans (relationship
+  Module 50) were designed with real care but never structurally checked
+  against what actually happened in the following session.
+
+**Changed in v2:**
+- Refer-out sections added to `performance-psychology` and
+  `life-psychology`, matching the other two niches.
+- The screening tree is now explicitly labeled "informal, adapted from the
+  structure of the C-SSRS — not the validated instrument," with an
+  instruction not to represent it to the user as clinically equivalent.
+- Performance-psychology now has its own Reality Audit prompt in Module 30
+  ("If the person who knows your work best evaluated this claimed blocker,
+  what would they say?") — the direct performance-domain analog of
+  relationship's Missing Perspective Prompt, for the same underlying
+  reason: self-report about obstacles is where motivated reasoning is
+  strongest.
+- Every niche now has an **Accuracy Anchors** section naming its own
+  highest-frequency distortion pattern (toxic productivity for
+  performance, unverified partner-blame for relationship, catastrophized
+  meaninglessness for life, minimization/rationalization for addiction).
+- `core/protocol/SKILL.md` Step 0 is now **Commitment Review** — the first
+  thing every resumed session does, before mood/readiness, bridge, or
+  agenda. Every module that produces a commitment (performance Module 50,
+  relationship Module 50, life Module 50, addiction Module 40) now writes
+  it to `state.json.commitmentLog` specifically so this step has something
+  concrete to check.
+
+---
+
+## 3. Performance, Efficiency, Scalability, Maintainability
+
+**Found in v1:**
+- No versioning or citations on any framework claim — no way to audit
+  where a claim came from or flag it when the underlying research shifts
+  (e.g., Growth Mindset's later, smaller-than-originally-reported effect
+  sizes; the Gottman "divorce prediction" figures, which have drawn
+  methodological critique despite the underlying Four Horsemen/repair-
+  attempt observations remaining useful).
+- No eval or test harness for a plugin that handles mental-health-adjacent
+  content — no structural check that the consent gate can't be bypassed,
+  that crisis detection actually fires, etc.
+- Module guidance loaded in full per niche regardless of which module was
+  active, unlike the already-lazy `references/frameworks.md` pattern.
+
+**Changed in v2:**
+- Every `references/frameworks.md` now ends with a **Sources** section
+  naming the originating work and, where relevant, flagging known
+  limitations in the evidence (Growth Mindset effect sizes, Gottman
+  prediction-accuracy critiques). This is what makes the skill auditable
+  and future-proof instead of a black box of confident claims.
+- `performance-psychology` and `relationship-psychology` module guidance
+  is now split into on-demand files, established as the pattern the
+  remaining two niches can be migrated to.
+- Out of scope for this pass, flagged for a follow-up: an eval suite
+  (structured test conversations verifying consent-gate enforcement,
+  crisis-protocol firing, and commitment-log persistence) would be the
+  next maintainability investment — the `skill-creator` tooling already
+  available in this environment supports exactly this.
+
+---
+
+## 4. Therapeutic Quality / Evidence-Based Practice
+
+**Found in v1:**
+- Legitimate, well-chosen frameworks throughout (MI, Gottman, Attachment
+  Theory, NVC, Schema Therapy, ACT, SDT, Flow, Growth Mindset,
+  Implementation Intentions) — this was already a strength, not a
+  weakness, and is preserved.
+- The "replacing Yerkes-Dodson" arousal section (IZOF, Catastrophe Model,
+  Reversal Theory) was a genuinely current, well-considered addition —
+  also preserved as-is.
+- No outcome or follow-through tracking anywhere — a session-based system
+  with no structural check on whether commitments were kept undermines the
+  entire premise of coaching people toward results rather than just
+  processing feelings about their situation.
+- NVC was the only framework offered for setting limits in
+  `relationship-psychology`, but NVC's request format ("would you be
+  willing to...") is structurally about asking someone else to act — it
+  doesn't cleanly cover boundaries, which are about the user's own
+  behavior regardless of the other person's response. Conflating the two
+  produces boundaries that are really just unenforced requests.
+
+**Changed in v2:**
+- All frameworks preserved; none removed.
+- `commitmentLog` plus the Commitment Review session step turns every
+  synthesis into a place that can report an honest completion-rate trend,
+  not just a feelings summary — directly addressing the redesign's
+  "driving to success" and "accurate conclusions" brief.
+- Added an explicit **Needs vs. Boundaries** distinction with its own
+  template in `relationship-psychology` Module 40 / `references.md`,
+  alongside NVC rather than replacing it.
+
+---
+
+## 5. UX, Personalization, Adaptability, Long-Term Effectiveness
+
+**Found in v1:**
+- Coaching style was uniform for every user: 3:1 reflection-to-question
+  ratio, always. A person who explicitly wants to be challenged and pushed
+  toward results — like the brief for this redesign — had no lever to ask
+  for that; the system was built for one communication style only.
+- No shared understanding across niches: values discovered in performance
+  work didn't inform relationship work and vice versa, so the picture of
+  the person never got more accurate over time, only ever wider and more
+  fragmented.
+- Every session, resumed or not, opened with the same ritual regardless of
+  whether anything needed re-establishing.
+
+**Changed in v2:**
+- `profile.json.communicationStyle.mode` (`reflective` / `balanced` /
+  `direct`) is a dial the user sets explicitly, asked once and revisited
+  only on their feedback. What changes with directness is speed and
+  plainness of naming a gap — never the evidence-based bounds, never
+  whether the gap gets named at all.
+- `profile.json` accumulates values, attachment signal, recurring
+  patterns, and strengths across every niche, with a confidence-gating
+  rule (a pattern needs two independent sessions or two niches before it's
+  treated as established, not just a vivid one-off) — this is the
+  concrete mechanism for the "accurate understanding" goal in the brief.
+- Commitment Review at the start of every resumed session is itself a
+  long-term-effectiveness mechanism: it's the spaced-repetition/follow-up
+  loop that behavior-change literature says one-off insight sessions
+  typically lack.
+
+---
+
+## What Was Deliberately Kept Unchanged
+
+Not everything in v1 needed fixing. Specifically preserved as-is because
+they were already well-designed:
+
+- The Missing Perspective Prompt and Locus-of-Control redirect in
+  `relationship-psychology` — the strongest anti-sycophancy mechanisms in
+  the original plugin.
+- The IZOF / Catastrophe Model / Reversal Theory arousal section in
+  `performance-psychology` — genuinely current sports-psychology content,
+  correctly flagged as superseding a naive Yerkes-Dodson reading.
+- The harm-reduction framing throughout `addiction-psychology`.
+- The "No Synthetic Meaning" rule in `life-psychology` Module 30 — a sharp,
+  correct guardrail against algorithmically-generated meaning as a
+  substitute for the user's own excavation.
+- The core OARS discipline, one-question-at-a-time rule, and saturation
+  signal — all correct, all kept, now just calibrated by directness mode
+  rather than fixed.
+</file>
+
+<file path="package.json">
+{
+  "name": "psychology-skills",
+  "version": "2.0.0",
+  "description": "AI agent skills for structured, evidence-based psychological coaching across performance, relationships, life transitions, and addiction. v2: unified core protocol, cross-domain person profile, accountability loop, configurable coaching directness.",
+  "license": "MIT",
+  "keywords": [
+    "ai-skills",
+    "psychology",
+    "coaching",
+    "therapy",
+    "performance",
+    "relationships",
+    "addiction",
+    "mental-health",
+    "accountability"
+  ]
+}
+</file>
+
+<file path="README.md">
+# Psychology Skills Plugin (v2)
+
+A suite of AI agent skills providing structured, evidence-based coaching
+across four domains: **Performance**, **Relationships**, **Life**, and
+**Addiction**. v2 is a full architectural redesign of the original — see
+`CHANGELOG.md` for the reasoning behind every change.
+
+## ⚠️ Important Disclaimer
+
+These skills instruct AI agents to act as **structured thinking partners**
+grounded in evidence-based frameworks — not licensed therapists. Every
+skill inherits explicit scope declaration and crisis referral protocols
+from `core/`.
+
+## Architecture
+
+```
+psychology-skills/
+├── core/
+│   ├── router/              # Single entry point: intent detection, consent, routing
+│   └── protocol/            # Shared session discipline, state schema, risk screening
+│       ├── SKILL.md
+│       ├── risk-screening.md      # Single source of the crisis protocol
+│       └── profile-schema.md      # Cross-domain person profile (new in v2)
+├── skills/
+│   ├── performance-psychology/    # Flow, SDT, ACT, Growth Mindset — fully modularized
+│   │   ├── SKILL.md
+│   │   ├── modules/               # One file per module, loaded on demand
+│   │   └── references/frameworks.md
+│   ├── relationship-psychology/   # Attachment, Gottman, NVC, Schema — fully modularized
+│   │   ├── SKILL.md
+│   │   ├── modules/
+│   │   └── references/frameworks.md
+│   ├── life-psychology/           # Logotherapy, Narrative, PERMA, Bridges
+│   └── addiction-psychology/      # Stages of Change, MI, CBT, Relapse Prevention
+└── rules/
+    └── psychology-trigger.md      # Thin pointer only — no duplicated logic
+```
+
+**Why `performance` and `relationship` are structured differently from
+`life` and `addiction`:** this redesign prioritized the two domains the
+user most wanted deepened. Both got the full per-module file split (for
+context efficiency and easier future editing) and the new accountability
+and cross-niche-profile machinery in full. `life` and `addiction` inherit
+every architectural fix (single-source crisis protocol, `profile.json`,
+refer-out consistency, accuracy anchors) but keep their v1-style
+single-file module guidance for now. Migrating them to the same per-module
+split is a mechanical follow-up, not a design question — the pattern is
+already established in `performance-psychology/modules/`.
+
+## What Changed From v1 (summary — full reasoning in CHANGELOG.md)
+
+1. **One source of truth for crisis logic.** v1 defined the same
+   screening tree in two files; v2 defines it once (`risk-screening.md`)
+   and everything else links to it.
+2. **A cross-domain person profile.** v1 rebuilt the user's values,
+   patterns, and attachment style from zero in every niche. v2 adds
+   `profile.json`, so understanding compounds across domains instead of
+   resetting.
+3. **A real accountability loop.** v1 assigned action items and repair
+   plans but never structurally checked whether they happened. v2 opens
+   every session with a Commitment Review before mood, bridge, or agenda.
+4. **Configurable directness.** v1 hard-coded a uniform 3:1
+   reflection-to-question ratio for everyone. v2 makes it a dial
+   (`reflective` / `balanced` / `direct`) the user sets explicitly —
+   built for people who want to be pushed, not just mirrored.
+5. **Closed a safety inconsistency.** v1 gave `addiction` and
+   `relationship` a "When to Refer Out" section but not `performance` or
+   `life`, despite both screening for depression/hopelessness-adjacent
+   signals. v2 adds refer-out sections to all four.
+6. **Niche-specific accuracy anchors.** Generic anti-sycophancy language
+   is necessary but not sufficient. Each niche now names its own
+   highest-frequency distortion pattern explicitly.
+7. **One manifest, not two.** v1 shipped both a root `plugin.json` and a
+   `.claude-plugin/plugin.json` with overlapping content. v2 keeps one.
+
+## Frameworks by Niche
+
+| Niche | Key Frameworks |
+|-------|---------------|
+| Performance | Flow (Csikszentmihalyi), SDT (Deci & Ryan), ACT, Growth Mindset (Dweck), Implementation Intentions (Gollwitzer), IZOF/Catastrophe/Reversal arousal models |
+| Relationships | Attachment Theory, Gottman Method, NVC (Rosenberg), Boundary-setting, Schema Therapy, Family Systems (Bowen) |
+| Life | Logotherapy (Frankl), Narrative Therapy, PERMA (Seligman), Bridges' Transitions, Erikson |
+| Addiction | Stages of Change, Motivational Interviewing, CBT chain analysis, Relapse Prevention (Marlatt), Harm Reduction |
+
+Each `references/frameworks.md` now ends with a **Sources** section citing
+the originating work, so claims can be audited and updated as the evidence
+base moves — v1 had no citations at all.
+
+## Installation
+
+Same install paths as v1 — copy or symlink `core/`, `rules/`, and `skills/`
+into your agent's skill discovery path. See `USAGE.md` for
+platform-specific steps (Claude Code, Gemini CLI/Antigravity, other
+markdown-based CLI agents).
+
+## Session State & Privacy
+
+Unchanged from v1: session data (`state*.json`, `profile.json`, and module
+markdown files) is written to the working directory. Add them to
+`.gitignore`, run in a private local directory, and never commit them to a
+shared or public repo. `profile.json` is more sensitive than any single
+niche's `state.json` — it's the aggregated picture — so treat it
+accordingly.
+
+## Credits
+
+Same lineage as v1: patterns borrowed from ECC's session-protocol design,
+Matt Pocock's skills invocation model, and the Superpowers plugin's
+quality-gate discipline.
+</file>
+
+<file path="USAGE.md">
+# Psychology Skills Plugin — Usage Guide (v2)
+
+A cross-platform plugin for AI-powered coaching across four domains:
+**Performance**, **Relationships**, **Life**, and **Addiction**. Works with
+any markdown-based CLI agent.
+
+---
+
+## Quick Demo: What a Session Looks Like Now
+
+```
+You:   I've been procrastinating on my most important work for months.
+       I know what to do, I just can't make myself do it.
+
+Agent: I'm an AI thinking partner using evidence-based coaching and
+       psychological frameworks — not a licensed therapist, and this
+       isn't therapy. If you're in crisis, contact the 988 Suicide &
+       Crisis Lifeline (call or text 988) or text HOME to 741741.
+
+       I'll ask direct questions, keep track of patterns across our
+       conversations, and push back when something doesn't add up
+       rather than just agreeing with you. Want to start?
+
+You:   Yes. And I want you to push me — I don't need to be coddled.
+
+Agent: Noted — I'll run in more direct mode: less reflecting-things-
+       back, faster to naming a gap when I see one. You can always
+       recalibrate.
+
+       [Routes to performance-psychology]
+       Using performance psychology to explore procrastination patterns.
+
+       What's the one area of your performance that, if it improved,
+       would change everything else? Tell me what's actually happening
+       right now — not the goal, the current reality.
+
+You:   I wake up planning to write, then spend 3 hours on email and
+       Slack. By afternoon I'm too drained to think clearly.
+
+Agent: In the last 7 days, roughly how many hours actually went to the
+       writing — and how does that compare to what you'd have guessed
+       before I asked?
+
+       [... session continues; direct mode means less hedging and
+       faster naming of the pattern once it's clear, still one
+       question at a time ...]
+```
+
+The session flows through 6 modules: **Current State → Values Alignment →
+Blockers + Reality Audit → Flow Architecture → Action Plan → Synthesis**.
+State is saved to `state.performance.json`, and `profile.json` accumulates
+what's durable (values, patterns, coaching-style preference) across every
+domain you work in — not just this one.
+
+**Resuming later:**
+
+```
+You:   [returns after a week]
+
+Agent: [loads profile.json + state.performance.json]
+       Welcome back. Last time you committed to: closing Slack from
+       7-9am and writing instead. What actually happened?
+
+You:   I did it three of five days.
+
+Agent: Three of five — what got in the way the other two?
+       [continues from there, before mood/bridge/agenda]
+```
+
+This Commitment Review is new in v2 — the first thing a resumed session
+does, before anything else, is check what actually happened since last
+time.
+
+---
+
+## Installation
+
+### Option A: Claude Code
+
+```bash
+cp -r psychology-skills /path/to/your/project/
+# or globally:
+cp -r psychology-skills ~/.claude/skills/psychology-skills
+```
+
+`.claude-plugin/plugin.json` already points at the correct v2 paths
+(`./core/router`, `./core/protocol`, and the four niche skills). Reference
+it from your project's `CLAUDE.md`:
+
+```markdown
+## Psychology Skills
+When the user mentions therapy, coaching, mental health, stress, burnout,
+addiction, relationships, or life transitions, load `core/router/SKILL.md`
+from `psychology-skills/core/router/`.
+```
+
+### Option B: Gemini CLI / Antigravity
+
+```bash
+mkdir -p .agents/plugins
+cp -r psychology-skills .agents/plugins/psychology-skills
+```
+
+Or globally at `~/.gemini/config/plugins/`.
+
+### Option C: Codex / OpenCode / other CLI agents
+
+```bash
+cp -r psychology-skills/core psychology-skills/skills ~/.codex/skills/
+```
+
+If your agent uses `AGENTS.md`:
+
+```markdown
+## Psychology Skills
+- `core/router` — entry point, detects psychology intent, handles consent
+- `core/protocol` — shared session discipline, state schema, risk screening
+  (reference only, never invoked directly)
+- `skills/performance-psychology` — flow, burnout, procrastination
+- `skills/relationship-psychology` — attachment, communication, conflict
+- `skills/life-psychology` — transitions, meaning, identity, grief
+- `skills/addiction-psychology` — substance/behavioral addictions, recovery
+```
+
+---
+
+## How Invocation Works
+
+Unchanged hybrid pattern from v1: `core/router` is model-invoked (the agent
+detects psychology-relevant intent automatically); `core/protocol` is a
+reference skill, never invoked directly, inherited by everything; the four
+niche skills are user-invoked, reached only through explicit consent via
+the router. A user-invoked skill can invoke a model-invoked/reference
+skill, but niches never invoke each other directly — cross-niche awareness
+happens through `profile.json`, not direct skill-to-skill calls.
+
+---
+
+## Session State & Privacy
+
+```
+your-session-dir/
+├── profile.json                    ← NEW: cross-domain understanding, persists across niches
+├── state.performance.json          ← per-niche session tracker
+├── state.relationship.json         ← a second niche can be active at once
+├── skills/performance-psychology/
+│   ├── 10_current-state.md
+│   ├── 20_values-alignment.md
+│   ├── ...
+│   └── 90_SYNTHESIS.md
+```
+
+These files generate **highly sensitive** personal data — more so than
+v1's, since `profile.json` is the aggregated cross-domain picture:
+
+- ✅ Run in a dedicated, local, private directory
+- ✅ Add `profile.json`, `state*.json`, and module markdown files to
+  `.gitignore`
+- ❌ Do not commit session files to a public repository
+- ❌ Do not run in a shared workspace
+
+## Starting Fresh
+
+Delete `profile.json` to reset cross-domain understanding entirely, or just
+the relevant `state.<niche>.json` and module files to reset one domain
+while keeping what's been learned in others.
+</file>
+
+</files>

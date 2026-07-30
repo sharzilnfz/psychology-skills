@@ -1,6 +1,9 @@
-# Session state and local session logs
+# Session state and local session logs — highly sensitive, never commit
+profile.json
 state.json
+state.*.json
 [1-9]0_*.md
+90_SYNTHESIS.md
 
 # System files
 .DS_Store

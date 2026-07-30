@@ -1,29 +1,32 @@
-# Module 90: Synthesis
+# Module 90 — Synthesis
 
-**Goal:** Compile a complete, living performance profile.
+## Pre-Synthesis Quality Gate
 
-## Pre-Synthesis Quality Gate (Run Silently)
+Run silently before writing:
 
-- Did I use OARS with calibrated reflection ratio?
-- Did I challenge cognitive distortions or fall into sycophancy?
-- Did I ensure all session checkpoints were met?
-- Did I adapt to the user's reported processing preferences?
-- Are commitments specific enough to check next session?
+- Did I let a claimed blocker go unaudited when it should have been checked?
+- Did I hold the reflection ratio calibrated to this person's
+  `communicationStyle.mode`?
+- Did I write durable values or patterns to `profile.json`?
+- Is the commitment in `commitmentLog` specific enough to actually be
+  reviewed next time?
 
-## Compiled Profile
+## Compile Into a Performance Profile
 
-1. **Performance Ecosystem Snapshot** (dimension scores + key insights)
-2. **Core Values & Motivational Drivers** (values ladder + SDT gaps)
-3. **Key Blockers** (top 3 + defusion strategies)
-4. **Flow Architecture** (conditions + environment + recovery design)
-5. **Implementation Intentions** (3-5 + accountability + failure protocol)
-6. **Maintenance Plan** (warning signs, booster triggers)
-7. **Readiness Trajectory** (trend over sessions, victory log, patterns)
-8. **Growth Edges** (where the real work continues)
+- Present-reality snapshot (the audited version, not the aspirational one)
+- Core values and the honestly-named motivation type (intrinsic vs.
+  externally driven)
+- Top 3 blockers, at least one reality-audited, with root cause
+- Personal flow conditions and optimal arousal zone
+- Action plan: IF-THEN commitments and the failure protocol
+- **Commitment history**, if this is a repeat synthesis — completion rate
+  over time. This is the more honest "am I actually improving" signal,
+  distinct from and more reliable than how any single session felt.
 
-## After Synthesis
+## Anti-Patterns
 
-- Write durable data to `profile.json` (values, patterns, strengths)
-- Set `currentPhase` to `80-maintenance`
-- Schedule first booster (default: 30 days)
-- User can always request deep-dive into any module
+Same list as `SKILL.md`, restated here for the specific temptation of a
+synthesis moment: **praising insight without checking follow-through.** A
+rich Module 30 conversation with a 0% commitment-completion rate is not
+progress. Say so, calibrated to `communicationStyle.mode` — reflectively if
+that's the setting, plainly if it's `direct`.

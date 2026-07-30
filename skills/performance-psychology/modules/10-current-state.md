@@ -1,51 +1,48 @@
-# Module 10: Current State Mapping
+# Module 10 — Current State (Present Reality)
 
-**Goal:** Detailed map of the performance ecosystem. Establish baseline.
+## Purpose
 
-## The Performance Ecosystem Audit
+Establish an accurate baseline before any intervention. Accuracy here
+determines accuracy everywhere downstream — this is the module most
+vulnerable to sycophantic drift if the user's self-report goes unchecked,
+because it's the one place a flattering baseline is easiest to accept
+without noticing.
 
-Map across 8 dimensions with 1-10 ratings + "tell me more":
+## Structured Intake
 
-1. **Cognitive Load** — "How many competing priorities are in your head right now?
-   Do you have systems to externalize them?"
-2. **Energy Architecture** — "When are your peak cognitive hours? When do you crash?"
-3. **Environment Design** — "Where do you do your best work? What makes it work?"
-4. **Recovery & Restoration** — "How many hours of actual sleep? When was your
-   last real day off — no email, no Slack, no 'just checking'?"
-5. **Motivation & Meaning** — "What percentage of your work feels intrinsically
-   meaningful vs. externally imposed?"
-6. **Social & Collaborative Context** — "Do you feel psychologically safe at work?
-   Can you make mistakes without punishment?"
-7. **Skill-Challenge Balance** — "What percentage is in the flow zone (challenging
-   but doable) vs. boredom vs. overwhelm?"
-8. **Habit & Ritual Infrastructure** — "What routines actually stick? Which have
-   you tried and abandoned?"
+One question at a time, OARS throughout:
 
-## Presenting Problem
+- **Presenting gap**: What is the specific performance gap? Walk me through
+  an actual recent day — not a typical day in the abstract, an actual one.
+- **History**: When did you last perform at the level you want? What's
+  different now? What have you already tried, and specifically what happened
+  when you tried it? (Push past "I tried X" to the outcome — a list of
+  attempted fixes with no outcome data isn't useful history.)
+- **Risk context**: Any immediate stressors or symptoms affecting basic
+  functioning — sleep, appetite, ability to get going in the morning? If
+  anything here matches the Refer Out criteria in `SKILL.md`, route there
+  before continuing.
+- **Environment**: What in the actual environment (job structure, team,
+  tools, obligations) constrains or enables this, separate from psychology?
+  Not everything is an internal blocker.
 
-- "What is the specific performance gap?"
-- "What does a typical day look like from wake to sleep?"
-- "When did this start? What was happening when it began?"
+## Reality Audit (new in v2)
 
-## History
-
-- "When was the last time you performed at your best? What was different?"
-- "What have you already tried? What worked? What made things worse?"
-- "Are you in therapy, on medication, or working with other professionals?"
-
-## Risk Assessment
-
-- "Are you having thoughts of harming yourself?" (see `psych-session-protocol/references/risk-screening.md`)
-- "Is your sleep, appetite, or physical health affected?"
-- "Are you using substances to manage performance?"
-
-## Severity Triage
-
-- **Low:** Mild procrastination, occasional focus issues, generally functioning
-- **Moderate:** Regular avoidance, impact on work/relationships, burnout signs
-- **High:** Significant impairment, medical symptoms, substance reliance
-- **Crisis:** Collapse, suicidal ideation → risk-screening protocol + referral
+Before closing this module, get one concrete, checkable data point: "In the
+last 7 days, roughly how many hours actually went to the thing that matters
+most — and how does that compare to what you'd have guessed before I asked?"
+People are frequently wrong about this in a self-flattering direction. This
+isn't an accusation — note the gap, if any, between estimate and specific
+recall, without moralizing it. It's baseline correction, not judgment.
 
 ## Saturation
 
-Clear picture of daily reality, 8-dimension scores, history, risk, and severity.
+Clear picture of daily reality (the actual version, not the aspirational
+one), history of what's been tried and why it didn't hold, risk context
+cleared, and at least one reality-checked data point on record.
+
+## On Completion
+
+Write `## Raw` / `## Synthesis` to this file. Update `profile.json` only if
+something values-relevant surfaced unprompted — full values work happens in
+Module 20.

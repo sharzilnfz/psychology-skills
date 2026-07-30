@@ -1,7 +1,7 @@
 {
   "name": "psychology-skills",
-  "version": "3.0.0",
-  "description": "Clinically-informed AI psychology coaching — performance, life, addictions, relationships. Trauma-informed, measurement-integrated, anti-sycophancy guardrails.",
+  "version": "2.0.0",
+  "description": "Clinically-informed AI coaching across performance, relationships, life transitions, and addiction. Built on a shared risk-screening core, a persistent cross-domain user profile, an accountability loop, and configurable coaching directness.",
   "author": {
     "name": "psychology-skills"
   },
@@ -15,14 +15,15 @@
     "performance",
     "addiction",
     "relationships",
-    "life-transitions"
+    "life-transitions",
+    "accountability"
   ],
   "skills": [
-    "./skills/psych-router",
-    "./skills/psych-session-protocol",
+    "./core/router",
+    "./core/protocol",
     "./skills/performance-psychology",
+    "./skills/relationship-psychology",
     "./skills/life-psychology",
-    "./skills/addiction-psychology",
-    "./skills/relationship-psychology"
+    "./skills/addiction-psychology"
   ]
 }

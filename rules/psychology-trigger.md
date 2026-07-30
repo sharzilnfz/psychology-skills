@@ -1,59 +1,28 @@
 # Psychology Coaching Trigger Rule
 
-## Priority Hierarchy (Strict Order)
+## Core Directive
 
-```
-1. CRISIS OVERRIDE (highest priority)
-2. ACTIVE SESSION CONTINUITY
-3. ROUTER INTERCEPTION (for new intent)
-```
+Monitor messages for psychology-relevant signals: performance (procrastination,
+burnout, focus, career blocks), relationships (conflict, attachment, breakups,
+boundaries), life (transitions, meaning, grief, identity), addiction (cravings,
+relapse, compulsive use). Full signal table lives in `core/router/SKILL.md` —
+not duplicated here.
 
-## 1. Crisis Override
+## On Detection
 
-If ANY user message contains severe risk vectors:
-- Suicidal ideation or self-harm
-- Active withdrawal symptoms (tremors, seizures, severe nausea)
-- Immediate danger to self or others
-- Severe dissociation or psychosis indicators
+1. Check the working directory for `profile.json` and any `state*.json` files.
+2. **Active session exists** → hand off directly to that niche skill at its
+   `currentPhase`, per `core/protocol/SKILL.md`. Do not re-route or re-declare
+   scope on a session already in progress.
+3. **No active session** → load `core/router/SKILL.md`. It owns scope
+   declaration, consent, routing, and crisis override.
 
-**ACTION:**
-- IMMEDIATELY suspend ALL other rules and skills
-- Execute `psych-session-protocol/references/risk-screening.md` crisis protocol
-- Provide emergency resources BEFORE any other interaction
-- Do NOT proceed with routing, consent, or domain work until safe
+## Why this file is short
 
-## 2. Active Session Continuity
-
-If `state.json` exists with an active session AND the user's message relates:
-
-**ACTION:**
-- Load the domain skill
-- Run session protocol (commitment review, readiness, bridge, agenda)
-- Continue the active module
-
-**Do NOT:**
-- Re-run consent (unless expired >90 days)
-- Re-run full intake
-- Route to a different domain without explicit user request
-
-## 3. Router Interception (New Intent)
-
-If NO active session exists OR user indicates a NEW domain:
-
-**Distress Vectors:**
-- **Performance:** Procrastination, burnout, career blocks, focus, habits, motivation, discipline, flow
-- **Life:** Grief, identity crisis, major decisions, transitions, existential anxiety, purpose, meaning
-- **Addictions:** Cravings, relapse, recovery, compulsive behaviors, substance use
-- **Relationships:** Attachment, communication breakdowns, conflicts, breakups, boundaries, intimacy, desire
-
-**ACTION:**
-- If distress vector detected: Activate `psych-router`
-- Router handles consent, preference profiling, and domain routing
-
-## Critical Rules
-
-- **Never psychoanalyze casual queries.** "I'm tired today" does NOT trigger a session.
-- **Never bypass consent.** Even with existing state, expired consent requires renewal.
-- **Never ignore crisis signals** to continue a planned module.
-- **Never route to a new domain** without confirming the user wants to shift.
-- **Always maintain the priority hierarchy.** Crisis > Continuity > Routing.
+v1 restated the full CBT session flow and crisis-detection logic here *and* in
+`psych-router` *and* in `psych-session-protocol` — three copies of the same
+rules that could quietly drift out of sync as the skill evolved. In v2, session
+mechanics and crisis handling are defined in exactly one place
+(`core/protocol/`), and every other file — this one included — links to it
+instead of repeating it. If you're editing crisis logic and this file is where
+you're making the change, stop: you're in the wrong file.

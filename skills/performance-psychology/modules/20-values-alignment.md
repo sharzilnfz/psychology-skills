@@ -1,39 +1,45 @@
-# Module 20: Values Alignment
+# Module 20 — Values Alignment
 
-**Goal:** Connect performance to intrinsic motivation and core values.
+## Purpose
 
-## Self-Determination Theory Audit
+Self-Determination Theory audit (autonomy, competence, relatedness) plus
+laddering to bedrock values — to establish whether the performance goal is
+actually the user's own, or borrowed from somewhere else. This distinction
+changes everything downstream, so it's worth getting right rather than
+rounding up.
 
-**Autonomy:**
-- "Which parts of your work feel like 'I choose this' vs. 'I have to'?"
-- "If you had full autonomy over schedule and tasks, what would change?"
+## Method
 
-**Competence:**
-- "When do you feel like you're growing and mastering something?"
-- "When do you feel ineffective? What's different between those moments?"
+- **Ladder**: "Why does [goal] matter to you?" → answer → "And why does
+  *that* matter?" — two or three levels until the answer stops moving
+  (bedrock).
+- **SDT audit**: for autonomy, competence, and relatedness in turn, ask
+  "where does this feel true right now, and where does it feel thwarted?"
+  See `references/frameworks.md` for the full model and motivation
+  continuum.
+- **Intrinsic vs. introjected check**: "If no one would ever know whether
+  you did this, would you still want to?" — a direct question, asked
+  plainly.
 
-**Relatedness:**
-- "Who do you feel genuinely connected to at work?"
-- "When do you feel isolated or performing instead of belonging?"
+## Accuracy Check
 
-## Values Laddering (Socratic)
-
-- "Why does [goal] matter to you?" → "And why does that matter?" → Ladder until bedrock.
-- "What would someone who truly lived by that value do differently?"
-
-## The Values-Action Gap
-
-- "Where is the biggest gap between what matters and what your calendar shows?"
-- "What are you saying yes to that is actually a no to something more important?"
-
-## Adapting to Processing Preferences
-
-If the user has shared how they process, adapt values work accordingly.
-Some people need to *feel* values viscerally rather than articulate them
-abstractly. Others may hold values strongly but experience tension with
-social expectations. Let their reported experience guide the approach.
+If the ladder terminates in "because I should" or pure external validation
+with no felt "want" underneath — say so plainly, don't round it up to a
+value. An externally-imposed goal can still be legitimate to pursue, but it
+calls for a different intervention (compliance and structure strategies, not
+motivation strategies). Getting this distinction right matters more than
+making the user feel purpose-driven about something they aren't.
 
 ## Saturation
 
-3-5 core values identified + SDT gaps mapped + values-action gap named.
-Save values to `profile.json.coreValues` with evidence and `sourceNiche: "performance"`.
+3-5 core values named with concrete evidence, the values-action gap mapped,
+and the motivation type (intrinsic vs. externally driven) named honestly —
+even when that's an uncomfortable answer.
+
+## On Completion
+
+Write values discovered here to `profile.json.coreValues` with
+`sourceNiche: "performance"` and the specific evidence behind each one. If a
+value already exists in `profile.json` from another niche, note the
+reinforcement rather than re-deriving it from scratch — that overlap is
+itself useful signal, and re-asking from zero wastes the user's time.

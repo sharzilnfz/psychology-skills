@@ -1,37 +1,251 @@
-# Relationship Psychology — Framework Reference
+# Relationship Psychology — Frameworks Reference
 
-## Attachment Theory (Bowlby, Ainsworth, Main)
-Early relationships create internal working models of self and others.
-Attachment styles (secure, anxious, avoidant, disorganized) are dynamic
-states that emerge under specific stress conditions, not permanent labels.
-"Earned security" is achievable through therapeutic work and secure
-relationships.
+Detailed framework application for the relationship-psychology skill.
+Loaded on demand during specific modules.
 
-## Gottman Method
-Research-based relationship science. Key findings: 5:1 positive-to-negative
-ratio predicts stability. Four Horsemen (criticism, contempt, defensiveness,
-stonewalling) predict failure. Repair attempts are the #1 predictor of success.
-Bids for connection — and turning toward them — build relationship capital.
+## Attachment Theory (Bowlby, Ainsworth) — apply in Module 20
 
-## Nonviolent Communication (Rosenberg)
-Four components: observation (non-evaluative), feeling (emotion, not thought),
-need (universal), request (specific, doable). Couples fight over strategies,
-not needs. NVC separates the two.
+### Four Attachment Styles
 
-## Perel's Erotic Intelligence
-Desire requires mystery, novelty, and separateness — qualities that
-domesticity erodes. Long-term relationships must hold both erotic and
-domestic energies. The shadow of desire (fantasies, taboos, unspoken wants)
-contains vital information.
+| Style | Core Fear | In Relationships | Under Stress |
+|-------|-----------|-------------------|-------------|
+| **Secure** | None dominant | Comfortable with closeness and independence | Reaches out, communicates, trusts repair |
+| **Anxious-Preoccupied** | Abandonment | Seeks closeness, needs reassurance, hypervigilant to rejection cues | Pursues, protests, escalates, needs validation |
+| **Dismissive-Avoidant** | Engulfment | Values independence, uncomfortable with vulnerability, self-reliant | Withdraws, minimizes feelings, focuses on tasks |
+| **Fearful-Avoidant** | Both abandonment AND engulfment | Wants closeness but fears it, push-pull dynamic | Alternates between clinging and withdrawing |
 
-## Real's Relational Life Therapy (RLT)
-Differentiation is the ability to hold your own reality while staying
-connected to your partner's. The grandiosity-shame cycle alternates between
-"I'm right/you're wrong" and "I'm wrong/you're right." Healthy
-differentiation holds both realities without collapse or domination.
+### Anxious-Avoidant Trap
 
-## Schema Therapy (Young)
-Early maladaptive schemas (abandonment, mistrust, defectiveness,
-enmeshment, etc.) drive relational patterns. Schema modes (vulnerable child,
-punitive parent, healthy adult) activate under stress. Work involves
-identifying which schema is active and accessing the healthy adult mode.
+```
+ANXIOUS partner                    AVOIDANT partner
+──────────────                     ────────────────
+Feels disconnected          →      Feels pressured
+Pursues harder               →      Withdraws further
+Escalates (tears, anger)     →      Shuts down (stonewalling)
+Interprets withdrawal        →      Interprets pursuit as
+  as rejection                        control/neediness
+"You don't care"             →      "You're too much"
+
+CYCLE REPEATS
+```
+
+### Identifying Attachment Patterns — Probe Questions
+
+**For anxious patterns:**
+- "How do you feel when your partner doesn't text back right away?"
+- "Do you sometimes test your partner to see if they care?"
+- "How much of your emotional state depends on how the relationship is going?"
+
+**For avoidant patterns:**
+- "What happens when your partner wants to get closer emotionally?"
+- "Do you ever feel suffocated in relationships?"
+- "How comfortable are you asking for help?"
+
+**For disorganized/fearful patterns:**
+- "Do you sometimes want closeness but then push it away when you get it?"
+- "Do relationships feel unpredictable or confusing?"
+- "What was the emotional climate like growing up?"
+
+### Earned Security
+
+Security is not a fixed trait — it can be developed through:
+- Consistent, attuned relationships (therapeutic or personal)
+- Self-awareness of patterns and triggers
+- Practicing new responses when old ones activate
+- "Earned security" is just as robust as developmental security
+
+---
+
+## Gottman Method — apply in Module 30
+
+### The Four Horsemen and Their Antidotes
+
+| Horseman | What It Sounds Like | Antidote |
+|----------|-------------------|----------|
+| **Criticism** | "You always forget. You're so careless." (attacks character) | **Gentle startup**: "When [specific behavior], I felt [feeling]. I need [need]." |
+| **Contempt** | Eye-rolling, mockery, "You're pathetic." (superiority) | **Build culture of appreciation**: daily expressions of respect, gratitude, affection |
+| **Defensiveness** | "It's not my fault! You did the same thing!" (counter-attack) | **Take responsibility**: "You're right, I did forget. What can I do to fix it?" |
+| **Stonewalling** | Shutting down, walking away, going blank (emotional flooding) | **Self-soothe, then return**: "I need 20 minutes to calm down. I'll come back." |
+
+### The Magic Ratio
+
+**5:1** — five positive interactions for every negative one in stable
+relationships. This is not about being fake-positive — it's about the ratio
+of deposits to withdrawals in the emotional bank account.
+
+### Repair Attempts
+
+Repair attempts are any effort to de-escalate during conflict:
+- Humor ("I think we're both being ridiculous")
+- Physical affection (touch, holding hands)
+- Taking responsibility ("You're right about that part")
+- Meta-communication ("We're doing that thing again")
+- De-escalation ("Can we start over?")
+
+**The #1 predictor of relationship success is not the absence of conflict
+but the success of repair attempts.** Couples don't fail because they
+fight — they fail because repair attempts get rejected.
+
+### Turning Toward vs. Away
+
+Partners make "bids" for connection throughout the day:
+- "Look at that sunset" (bid for shared attention)
+- "I had a rough day" (bid for emotional support)
+- "What do you think about this?" (bid for engagement)
+
+Response options:
+- **Turning toward**: "Tell me about it" (connection builds)
+- **Turning away**: *silence, continuing to scroll* (connection erodes)
+- **Turning against**: "Can't you see I'm busy?" (connection damages)
+
+---
+
+## Nonviolent Communication — NVC (Rosenberg) — apply in Module 40
+
+### The Four Components
+
+```
+1. OBSERVATION    "When I see/hear [specific, factual, non-evaluative]..."
+2. FEELING        "I feel [emotion, not thought]..."
+3. NEED           "Because I need [universal human need]..."
+4. REQUEST        "Would you be willing to [specific, doable action]?"
+```
+
+### Common Mistakes
+
+| Mistake | Why It Fails | Fix |
+|---------|-------------|-----|
+| "I feel that you don't care" | "That" = thought disguised as feeling | "I feel lonely when we don't talk" |
+| "I feel attacked" | Implies other person attacking | "I feel defensive and scared" |
+| "You always..." | Evaluation, not observation | "The last three times we discussed X..." |
+| "I need you to stop being..." | Character demand, not request | "I need to feel safe. Would you be willing to lower your voice?" |
+| Vague request | Can't be fulfilled | Specific: "Would you be willing to put your phone away during dinner?" |
+
+### Needs vs. Strategies
+
+**Needs** are universal — everyone has them:
+- Connection, understanding, belonging, intimacy
+- Autonomy, freedom, choice, space
+- Safety, security, predictability, trust
+- Meaning, contribution, purpose, growth
+- Rest, play, celebration, mourning
+
+**Strategies** are specific ways to meet needs — and this is where couples
+fight. They argue over strategies when they actually share the same needs.
+
+Example:
+- Need: connection. Strategy A: "Let's spend every evening together."
+  Strategy B: "Let's have one deep conversation a week."
+- The need is the same. The strategies conflict. Negotiate strategies, not
+  needs.
+
+### NVC Practice Template
+
+```
+When [what I actually observed — no judgment]
+I felt [my emotion — not "I felt that you..."]
+Because I need [the universal need underneath]
+Would you be willing to [specific, doable request]?
+```
+
+---
+
+## Boundary-Setting (new in v2) — apply in Module 40
+
+Distinct from NVC requests. A request asks someone else to act and can be
+declined; a boundary is a statement of what *you* will do, and doesn't
+require the other person's agreement to execute.
+
+### Template
+
+```
+"If [specific situation] happens, I will [specific action I control]."
+```
+
+Not: "I need you to stop yelling." (a request disguised as a boundary — it
+depends on their compliance)
+Instead: "If voices start rising, I'm going to step into the other room for
+twenty minutes and come back when we're both calmer." (a boundary — it
+depends only on the user's own behavior)
+
+### Common Confusions
+
+| Looks Like a Boundary | Actually Is | Real Boundary Version |
+|---|---|---|
+| "You need to text me when you're out" | A request | "If I don't hear anything by [time], I'll assume plans changed and make my own." |
+| "Stop bringing up my family" | A request/demand | "If my family comes up in that tone, I'm going to end the conversation for now." |
+| "You have to respect my space" | A vague request | "I'm going to take Sunday mornings for myself, regardless of what's planned." |
+
+---
+
+## Schema Therapy (Young) — apply in Module 20 and 50
+
+### Early Maladaptive Schemas in Relationships
+
+| Schema | Core Belief | Relationship Pattern |
+|--------|------------|---------------------|
+| **Abandonment** | "People I love will leave me" | Clinging, jealousy, preemptive leaving |
+| **Mistrust** | "People will hurt or betray me" | Hypervigilance, testing, walls |
+| **Emotional Deprivation** | "My emotional needs won't be met" | Not asking, resentment, settling |
+| **Defectiveness** | "I'm fundamentally flawed" | Hiding true self, avoiding intimacy |
+| **Subjugation** | "I must surrender to others' needs" | People-pleasing, suppressing needs, resentment |
+| **Unrelenting Standards** | "I must be perfect" | Criticizing partner, never satisfied |
+| **Entitlement** | "I deserve special treatment" | Demanding, not reciprocating |
+| **Self-Sacrifice** | "Others' needs come before mine" | Burnout, covert resentment, martyrdom |
+
+### Schema Identification Questions
+
+- "What's the story you tell yourself when things go wrong in relationships?"
+- "If there's a 'worst fear' that shows up in your close relationships, what is it?"
+- "What role did you play in your family? Caretaker? Peacekeeper? Invisible one?"
+- "When you feel hurt in a relationship, what's the first thing you do?"
+
+### Working with Schemas
+
+1. **Name it** — awareness is the first intervention
+2. **Trace it** — where did it come from? (family of origin, early experiences)
+3. **Test it** — is it still accurate, or is it an old map of a new territory?
+4. **Challenge it** — what evidence exists against the schema?
+5. **New behavior** — what would someone without this schema do in this situation?
+
+---
+
+## Family Systems Theory (Bowen) — apply contextually
+
+### Key Concepts
+
+**Differentiation of Self**: The ability to maintain your own identity
+while staying emotionally connected to others. Low differentiation = fusing
+with others or cutting off from them.
+
+**Triangulation**: When tension between two people pulls in a third (child,
+friend, affair, work) to stabilize the relationship. The original tension
+is never addressed.
+
+**Multigenerational Transmission**: Relationship patterns pass through
+generations. "How did your parents handle conflict?" often explains how the
+user handles conflict.
+
+### Genogram Questions (simplified)
+
+- "How did your parents' relationship work?"
+- "How was conflict handled in your family?"
+- "What did love look like in your house growing up?"
+- "Which parent do you most resemble in relationships?"
+- "What pattern from your family are you most determined not to repeat?"
+
+---
+
+## Sources (for auditability — update as the evidence base moves)
+
+Attachment: Bowlby, *Attachment and Loss* (1969-1980); Ainsworth et al.,
+*Patterns of Attachment* (1978); adult attachment measurement per Hazan &
+Shaver (1987) and later work. Gottman: Gottman & Silver, *The Seven
+Principles for Making Marriage Work* (1999, rev. 2015) — the "Four
+Horsemen" and "magic ratio" come from decades of observational lab
+research, though the widely-cited divorce-prediction accuracy figures have
+drawn methodological critique and should be presented as a strong heuristic
+rather than a proven forecasting tool. NVC: Rosenberg, *Nonviolent
+Communication* (2003). Schema Therapy: Young, Klosko & Weishaar, *Schema
+Therapy: A Practitioner's Guide* (2003). Family Systems: Bowen, *Family
+Therapy in Clinical Practice* (1978).

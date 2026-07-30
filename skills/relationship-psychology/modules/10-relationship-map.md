@@ -1,52 +1,45 @@
-# Module 10: Relationship Map
+# Module 10 — Relationship Map
 
-**Goal:** Establish relationship landscape, history, safety, and context.
+## Purpose
 
-## Abuse Screening (MANDATORY — First Session)
+Establish the landscape: who's involved, what's actually happening, and
+whether this is safe territory to work in as coaching at all.
 
-Before ANY therapeutic exploration:
+## Structured Intake
 
-- "Do you ever feel afraid of your partner?"
-- "Has your partner ever threatened you, your loved ones, or your pets?"
-- "Do you feel like you're walking on eggshells?"
-- "Has your partner controlled your access to money, friends, or information?"
-- "Has your partner ever forced or coerced you into sexual activity?"
+- **Presenting concern**: What's the specific conflict or communication
+  breakdown? What actually happened recently — not the whole history yet.
+- **History**: How long has this pattern existed? What was the early
+  dynamic like, before this pattern set in?
+- **Safety screen — ask directly, not just as a checkbox**: "Is there ever
+  physical fear involved, for you or from you? Any pattern of control over
+  where you go, who you see, or what you spend?" If yes, or if anything
+  suggests coercive control, stalking, or child-safety risk, go straight to
+  the Refer Out resources in `SKILL.md` — do not continue module work.
+- **Sociocultural context**: What cultural, familial, or systemic factors
+  shape this relationship and its expectations?
 
-**If ANY answer suggests abuse:**
-1. Do NOT continue with relationship improvement work
-2. Provide DV resources immediately (see `psych-session-protocol/references/risk-screening.md`)
-3. Safety plan: "Do you have a safe place? Access to money and transport?"
-4. Execute `psych-session-protocol/references/risk-screening.md` and halt therapeutic work
+## Anti-Triangulation (CRITICAL — this is v1's strongest design choice; keep it)
 
-**CRITICAL:** Abuse and couples therapy are contraindicated. Never suggest
-"working on communication" in an abusive dynamic.
+The model is a neutral conduit working with one person, not a surrogate
+confidant building a case against someone who isn't in the room. Ask,
+verbatim or close to it:
 
-## Presenting Problem
+> "If your partner were here right now, how do you think they'd describe
+> this exact same interaction?"
 
-- "Tell me about the relationship on your mind. Not the whole history — what
-  happened recently that made you want to think about this?"
-- "If you could change one thing, what would it be?"
-
-## History
-
-- "How long has this pattern existed? What was the relationship like at its best?"
-- "What previous relationships have you had? What patterns show up across them?"
-- "What did love, conflict, and repair look like in your family growing up?"
-
-## The Missing Perspective Prompt (MANDATORY)
-
-> "If your partner were here right now, how do you think they would describe
-> this exact same interaction? What would they say is their biggest frustration?"
-
-Set `missingPerspectivePrompted: true` in state. Revisit every 3rd session.
-
-## Adapting to Processing Preferences
-
-If the user has shared how they process (e.g., ADHD, sensory needs,
-thinking style), adapt this module accordingly. Use their language, not
-diagnostic labels. Let their reported experience guide pacing, question
-density, and approach.
+This is not a rhetorical gesture — actually wait for and engage with the
+answer before moving on. Set `missingPerspectivePrompted: true` in
+`state.json` once asked. If the user genuinely cannot imagine the other
+side's account, that itself is worth naming as data.
 
 ## Saturation
 
-Relationship landscape, history, stage, risk, partner perspective explored.
+Clear picture of the primary concern and history, safety screened, and the
+partner's likely perspective genuinely explored — not just asked and
+skipped past.
+
+## On Completion
+
+Write `## Raw` / `## Synthesis`. If a safety flag was raised, note it in
+`profile.json.riskFlags` per the risk-screening protocol's update rule.

@@ -1,56 +1,47 @@
-# Module 30: Communication Audit
+# Module 30 — Communication Audit
 
-**Goal:** Assess communication patterns, digital dynamics, and repair capacity.
+## Purpose
 
-## Gottman's Four Horsemen
+Apply Gottman's Four Horsemen and repair-attempt model — to the user's own
+behavior, not just what's done to them. See `references/frameworks.md` for
+the full model.
 
-| Horseman | Traditional | Digital | Antidote |
-|----------|------------|---------|----------|
-| **Criticism** | "You always forget" | "You never text back" | Gentle startup: "When [behavior], I felt [feeling]. I need [need]." |
-| **Contempt** | Eye-rolling, mockery | Sarcastic texts, public humiliation | Build appreciation: daily specific gratitude |
-| **Defensiveness** | "It's not my fault!" | "I was busy! You text at the worst times!" | Take responsibility: "You're right, I did [X]. What can I do?" |
-| **Stonewalling** | Shutting down, walking away | Ghosting, leaving texts on read | Self-soothe, then return: "I need 20 min. I'll come back at [time]." |
+## Focus on the User's Locus of Control (CRITICAL — preserved from v1)
 
-## Repair Attempts (The #1 Success Predictor)
+Redirect complaints about the partner into an analysis of the user's own
+patterns. Identify which of the Four Horsemen *the user* brings to the
+dynamic — not which ones the absent partner brings, which the model can't
+actually assess.
 
-- Humor, physical affection, taking responsibility
-- Meta-communication: "We're doing that thing again"
-- Digital repair: "That text came out harsher than I meant. Can we talk?"
-- **Key question:** "When your partner makes a repair attempt, what do you typically do?"
+- **Criticism**: "You always... / you never..." — attacking character
+  rather than addressing a specific behavior
+- **Contempt**: eye-rolling, mockery, superiority — the single strongest
+  predictor of relationship breakdown in Gottman's research
+- **Defensiveness**: counter-attacking instead of hearing the complaint
+- **Stonewalling**: shutting down, withdrawing, emotional flooding
 
-## Bids for Connection
+For each horseman present in the user's own behavior, get:
+- A specific recent example
+- What triggered it
+- What the antidote would concretely look like for them, this week
 
-Partners make bids constantly (sharing memes, "I had a rough day," tagging
-on social media). Response options:
-- **Turning toward:** Engage with it
-- **Turning away:** Silence, scrolling
-- **Turning against:** "Can't you see I'm busy?"
+## Directness Note
 
-**Magic Ratio:** 5:1 positive to negative interactions.
-
-## Conflict Cycle Mapping
-
-For recurring conflicts, map the cycle:
-
-```
-[Trigger] → [Your internal story] → [Your behavior] →
-[Partner's internal story] → [Partner's behavior] → ESCALATION
-```
-
-For each recurring cycle:
-1. **Name it:** "This is the pursue-withdraw cycle"
-2. **Identify your entry point:** Where do you first step in?
-3. **Design the interrupt:** What could you do differently at that point?
-4. **Practice the new move:** "Next time [trigger], I will [new behavior]"
-
-## The Softened Startup
-
-- "When you [specific observation], I feel [emotion], and I need [need]."
-- BAD: "You never help. You're so lazy."
-- GOOD: "When I see dishes in the sink, I feel overwhelmed and alone.
-  I need us to share cleanup so I can relax too."
+`direct` mode is appropriate here more than almost anywhere else in this
+niche — naming a self-pattern plainly ("that's contempt, even softened")
+tends to land better than a long reflective build-up, once rapport is
+established. Calibrate to `profile.json.communicationStyle.mode`
+regardless.
 
 ## Saturation
 
-Horsemen identified + repair patterns + bid responses + 2-3 conflict cycles
-mapped with pattern interrupts + softened startup practiced.
+The user's own horsemen identified with specific examples, and their
+existing repair-attempt patterns mapped (what they already do that works,
+not just what's broken).
+
+## On Completion
+
+Standard `## Raw` / `## Synthesis` write. If a Horseman pattern is severe
+and recurring, consider logging it to `profile.json.recurringPatterns` —
+particularly if it echoes something already noted in another niche (e.g.,
+defensiveness under feedback showing up in performance work too).

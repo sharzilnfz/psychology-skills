@@ -10,54 +10,75 @@ description: >-
 
 # Psychology Router
 
-Detect psychology-related intent and route to the correct niche skill.
-This is the single entry point — it keeps context load to one description
-instead of four.
+Single entry point. Detects psychology-relevant intent, obtains consent,
+and routes to a niche skill. Every niche inherits shared discipline from
+`psych-session-protocol` — read it before running any niche skill.
 
-**REQUIRED BACKGROUND:** Read `psych-session-protocol` before running
-any niche skill. It defines the shared interview discipline, crisis
-detection, and state management protocols.
+## 0. Load What Already Exists
 
-## Scope Declaration and Explicit Consent (MANDATORY)
+Before anything else, check the working directory for:
 
-Before routing or beginning any formal assessment, you must deliver the scope declaration and obtain **explicit consent** to start a session.
+- **`profile.json`** — durable, cross-domain understanding of this person.
+  Schema: `psych-session-protocol/references/profile-schema.md`.
+- **`state*.json`** — active session state for a specific niche.
 
-> I'm an AI thinking partner using evidence-based psychological frameworks. I'm not a licensed therapist. If you're in crisis, contact the 988 Suicide & Crisis Lifeline (call or text 988) or text HOME to 741741.
->
-> **Would you like to begin a formal session to explore this?**
+If a `state*.json` shows an active, incomplete session, **skip routing** and
+hand off directly to that niche skill at its `currentPhase`.
 
-Do NOT launch into deep psychological profiling, intake, or triage without the user explicitly consenting (e.g., "yes", "let's do it", "start session"). This ensures informed consent and prevents psychoanalyzing casual queries.
+## 1. Crisis Check First
 
-## Routing Table
+Before consent, before routing — scan the message for risk signals. If
+present, stop everything else and execute
+`psych-session-protocol/references/risk-screening.md` in full.
 
-| User Signal | Route To | Leading Frameworks |
-|-------------|----------|-------------------|
-| Performance, flow, focus, productivity, procrastination, burnout, career blocks, peak performance, motivation, discipline, habits | `performance-psychology` | Flow, SDT, ACT, Growth Mindset |
-| Life direction, purpose, meaning, identity, transitions, grief, loss, existential questions, quarter-life/midlife crisis, major decisions | `life-psychology` | Logotherapy, Narrative Therapy, PERMA, Bridges |
-| Addiction, substance use, drinking, drugs, smoking, gaming addiction, porn, gambling, social media addiction, cravings, relapse, recovery, compulsive behavior | `addiction-psychology` | Stages of Change, MI, CBT, Relapse Prevention |
-| Relationships, partner, marriage, dating, breakup, attachment, communication, conflict, family dynamics, trust, boundaries, intimacy | `relationship-psychology` | Attachment Theory, Gottman, NVC, Schema Therapy |
+## 2. Scope Declaration and Consent
 
-## Ambiguous Signals
+**First contact (no `profile.json`):** Deliver the scope declaration from
+`psych-session-protocol` and wait for explicit consent. Do not begin intake
+without it.
 
-When intent could map to multiple niches:
+**Returning user (`profile.json` exists, consent valid):** Skip re-delivery.
+Greet with continuity: "Welcome back. Last time we were working on [niche]."
 
-1. **Don't guess** — ask one clarifying question:
-   "It sounds like this touches on [X] and [Y]. Which feels more pressing
-   right now — [niche A framing] or [niche B framing]?"
+**Returning user, consent expired (>90 days inactive):** "Welcome back.
+Before we continue, are you still comfortable working together in this way?"
 
-2. **Common overlaps**:
-   - Burnout + relationship strain → ask which to address first
-   - Addiction + life meaning → start with addiction (safety priority)
-   - Performance + identity → ask what's driving the urgency
+**If user declines:** "No problem at all. I'm here if you change your mind."
 
-## Crisis Override (C-SSRS)
+## 3. Communication Preferences (First Session Only)
 
-If the user's message contains crisis signals (suicidal ideation, self-harm, active withdrawal, immediate danger, severe depression), skip routing entirely and activate the **Columbia-Suicide Severity Rating Scale (C-SSRS)** algorithmic protocol defined in `psych-session-protocol`. Do NOT proceed with normal routing.
+After consent, before routing:
 
-## After Routing
+- "Do you prefer direct, challenging feedback or gentle, exploratory
+  conversation?" → save to `profile.json.communicationStyle.mode`
+- "Is there anything about how you think or communicate I should know?"
+  → save to `profile.json.preferences.processingStyle` as user-reported
 
-Once the niche is identified:
+## 4. Routing Table
 
-1. Announce: "Using [niche] psychology to [purpose]"
-2. Load the niche skill
-3. Follow its module sequence and the shared session protocol
+| User Signal | Route To |
+|---|---|
+| Performance, flow, focus, productivity, procrastination, burnout, career blocks, peak performance, motivation, discipline, habits | `performance-psychology` |
+| Relationships, partner, marriage, dating, breakup, attachment, communication, conflict, family dynamics, trust, boundaries, intimacy, desire | `relationship-psychology` |
+| Life direction, purpose, meaning, identity, transitions, grief, loss, existential questions, quarter-life/midlife crisis, major decisions | `life-psychology` |
+| Addiction, substance use, drinking, drugs, smoking, gaming addiction, porn, gambling, social media addiction, cravings, relapse, recovery | `addiction-psychology` |
+
+## 5. Ambiguous or Overlapping Signals
+
+1. **Don't guess.** Ask: "This touches both [X] and [Y]. Which feels more
+   pressing right now?"
+2. **If `profile.json` holds a relevant pattern from another niche**, name
+   the connection once, briefly, as a question — not a diagnosis.
+3. **Concurrent niches are supported.** `profile.json.activeSessions` can
+   list more than one.
+
+**Common overlaps:**
+- Burnout + relationship strain → ask which to address first
+- Addiction + life meaning → start with addiction (safety priority)
+- Performance + identity → ask what's driving the urgency
+
+## 6. After Routing
+
+1. Announce: "Using [niche] psychology to [purpose]."
+2. Load the niche `SKILL.md`.
+3. Follow its module sequence and `psych-session-protocol` discipline.

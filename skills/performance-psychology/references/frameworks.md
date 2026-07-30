@@ -1,152 +1,40 @@
-# Performance Psychology — Frameworks Reference
+# Performance Psychology — Framework Reference
 
-Detailed framework application for the performance-psychology skill.
-Loaded on demand during specific modules.
-
-## Flow Model (Csikszentmihalyi)
-
-### Challenge-Skill Matrix
-
-```
-High Challenge
-     │
-     │   ANXIETY        FLOW
-     │   (too hard)     (sweet spot)
-     │
-     │   APATHY         BOREDOM
-     │   (stuck)        (too easy)
-     │
-     └────────────────────────────
-              Low Skill → High Skill
-```
-
-### Flow Conditions Checklist
-
-1. **Clear goals** — know exactly what you're trying to do
-2. **Immediate feedback** — can tell if you're succeeding moment to moment
-3. **Challenge-skill balance** — stretch but not overwhelm
-4. **Deep concentration** — uninterrupted attention
-5. **Sense of control** — feel capable of the task
-6. **Loss of self-consciousness** — not monitoring yourself
-7. **Time distortion** — hours feel like minutes
-8. **Intrinsic reward** — the activity itself is satisfying
-
-### Flow Triggers (apply in Module 40)
-
-- **Environmental**: distraction-free space, novelty, complexity, unpredictability
-- **Psychological**: autonomy, curiosity, purpose, mastery orientation
-- **Social**: shared risk, close listening, equal participation (group flow)
-- **Creative**: pattern recognition, lateral thinking, linking ideas
-
----
+## Flow Theory (Csikszentmihalyi)
+Optimal experience occurs when challenge matches skill, goals are clear,
+feedback is immediate, and attention is fully absorbed. Flow requires
+eliminating distractions, single-tasking, and matching task difficulty to
+current ability.
 
 ## Self-Determination Theory (Deci & Ryan)
+Intrinsic motivation requires three nutrients: autonomy (choice), competence
+(growth), and relatedness (connection). When these are met, motivation is
+self-sustaining; when blocked, it erodes regardless of external rewards.
 
-### Three Basic Needs Audit (apply in Module 20)
+## ACT — Acceptance and Commitment Therapy (Hayes)
+Psychological flexibility through: defusion (thoughts as thoughts, not facts),
+acceptance (allowing discomfort), present moment awareness, self-as-context,
+values clarification, and committed action toward values.
 
-| Need | Fulfilled When | Thwarted When |
-|------|---------------|---------------|
-| **Autonomy** | Choices feel self-directed, aligned with values | Feeling controlled, coerced, externally pressured |
-| **Competence** | Growing, mastering, receiving positive feedback | Feeling ineffective, criticized, underqualified |
-| **Relatedness** | Connected, belonging, cared for and caring | Isolated, disconnected, unseen |
+## Deliberate Practice (Ericsson)
+Expert performance comes from structured practice with: specific goals,
+full concentration, immediate feedback, error correction, and repetition
+with progressive challenge. Not just repetition — targeted improvement.
 
-### Motivation Continuum
+## Implementation Intentions (Gollwitzer)
+"IF [situation] THEN [behavior]" format increases follow-through by 2-3x
+compared to goal intentions alone. Works by pre-loading the decision.
 
-```
-External → Introjected → Identified → Integrated → Intrinsic
-(reward/   (guilt/       (personal    (core        (pure
- punishment) ego)         importance)  identity)    enjoyment)
-```
+## Cognitive Load Theory (Sweller)
+Working memory has limited capacity. Intrinsic load (task complexity),
+extraneous load (unnecessary demand), and germane load (learning effort)
+compete. Reduce extraneous, optimize germane.
 
-Probe: "When you think about doing [task], what's the feeling that drives
-you? Is it 'I want to' or 'I should'?" — ladder from there.
+## Recovery Science
+Performance requires oscillation between stress and recovery. Key elements:
+sleep (7-9h, consistent), active recovery (movement > passive), ultradian
+rhythms (90-min work / 20-min rest), and boundary enforcement.
 
----
-
-## ACT — Acceptance and Commitment Therapy (apply in Module 30)
-
-### Psychological Flexibility Model
-
-Six processes to explore when blockers are internal:
-
-1. **Acceptance** — willing to have difficult feelings without struggling
-2. **Defusion** — seeing thoughts as thoughts, not facts
-3. **Present moment** — contacting the here and now
-4. **Self-as-context** — observing self vs. being consumed by stories
-5. **Values** — clarifying what truly matters
-6. **Committed action** — taking steps aligned with values
-
-### Defusion Techniques for Common Blockers
-
-| Blocker Pattern | Defusion Move |
-|----------------|---------------|
-| "I'm not good enough" | "I'm having the thought that I'm not good enough" |
-| "I'll fail" | "My mind is telling me a failure story" |
-| "I should be further along" | "There's that 'should' voice again" |
-| Perfectionism paralysis | "Is this thought helping me move toward what matters?" |
-
----
-
-## Growth Mindset (Dweck) — apply in Module 30
-
-### Fixed vs. Growth Belief Patterns
-
-| Domain | Fixed | Growth |
-|--------|-------|--------|
-| Effort | "If I were talented, this would be easy" | "Effort is how mastery happens" |
-| Failure | "This proves I'm not cut out for this" | "This shows me what to work on" |
-| Feedback | "They're attacking me" | "This is information I can use" |
-| Others' success | "They're naturally gifted (I'm not)" | "They've practiced — I can learn from them" |
-
-### Reframe Questions
-
-- "What did you learn from that experience?"
-- "What would you do differently next time?"
-- "Is there a way to see this setback as data rather than a verdict?"
-
----
-
-## Implementation Intentions (Gollwitzer) — apply in Module 50
-
-### If-Then Planning Format
-
-```
-IF [specific situation/trigger]
-THEN I will [specific behavior]
-BECAUSE [connection to values from Module 20]
-```
-
-### Examples
-
-- IF it's 7am and I sit at my desk, THEN I will close Slack and write for 90 minutes
-- IF I notice I'm scrolling instead of working, THEN I will take 3 breaths and return to my one task
-- IF I feel the urge to skip my workout, THEN I will put on my shoes and walk to the gym (just that)
-
-### Failure Protocol
-
-```
-IF my plan breaks down, THEN I will:
-1. Notice without judgment ("the plan broke — that's data")
-2. Ask: "What got in the way?"
-3. Adjust the IF condition to be more specific
-4. Try again tomorrow (not "start over Monday")
-```
-
----
-
-## Multidimensional Arousal Models (Replacing Yerkes-Dodson) — apply in Module 40
-
-Legacy models suggest a universal "inverted-U" where moderate stress is best for everyone. This is outdated. Use these multidimensional models instead:
-
-### 1. Hanin's IZOF (Individual Zones of Optimal Functioning)
-- **Concept**: Arousal is highly individualized. Every person has a unique, narrow bandwidth of physiological and emotional arousal where they perform optimally.
-- **Application**: Conduct an "IZOF Audit." Do not blindly attempt to reduce or increase stress. Map their historical peak performances to specific emotional and physiological states to define their personal zone.
-
-### 2. Catastrophe Model (Hardy and Fazey)
-- **Concept**: Separates physiological arousal (somatic anxiety) from cognitive worry. 
-- **Mechanism**: When a performer is highly physiologically aroused AND experiences severe cognitive worry, performance does not degrade smoothly—it collapses catastrophically (choking).
-- **Application**: Evaluate the user's cognitive state separately from their physical state. Use cognitive reappraisal (from ACT) to reduce cognitive worry before a catastrophic collapse occurs.
-
-### 3. Reversal Theory (Apter)
-- **Concept**: Psychological interpretation is fluid (bistability). The exact same high-arousal sensation can be interpreted as debilitating anxiety or exhilarating excitement depending on psychological framing.
-- **Application**: Use cognitive reframing to help users interpret physical arousal (e.g., racing heart) as facilitative ("my body is getting ready to perform") rather than debilitative ("I'm panicking").
+## Growth Mindset (Dweck)
+Ability is developable through effort and strategy. Focus on process, not
+outcome. Praise effort and approach, not talent. Reframe failure as data.

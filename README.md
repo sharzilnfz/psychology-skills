@@ -1,58 +1,51 @@
-# Psychology Skills Plugin
+# Psychology Skills v2.0
 
-A suite of AI agent skills that provide structured, evidence-based psychological coaching across four niches: **Performance**, **Life**, **Addictions**, and **Relationships**.
+## Quick Start
 
-## ⚠️ Important Disclaimer
-
-These skills instruct AI agents to act as **structured thinking partners** grounded in evidence-based frameworks — NOT as licensed therapists. Every skill includes explicit scope declarations and crisis referral protocols.
+1. Extract this folder into your agent's skill directory
+2. The agent will auto-discover skills via `plugin.json`
+3. The trigger rule in `rules/` monitors for distress signals
+4. The router (`router/SKILL.md`) handles consent, preference profiling, and domain routing
+5. All domains inherit shared primitives from `core/SKILL.md`
 
 ## Architecture
 
 ```
-psychology-skills/
-├── skills/
-│   ├── psych-router/                   # Intent detection → niche routing
-│   ├── psych-session-protocol/         # Shared interview discipline & state
-│   ├── performance-psychology/         # Flow, burnout, procrastination, peak performance
-│   ├── life-psychology/                # Transitions, meaning, identity, grief
-│   ├── addiction-psychology/           # Substance/behavioral addictions, recovery
-│   └── relationship-psychology/        # Attachment, communication, conflict, repair
+psychology-skills-v2/
+├── core/              # Shared therapeutic primitives, safety, measurement
+├── router/            # Entry point, intent detection, consent
+├── protocol/          # Session lifecycle, state management, quality gates
+├── domains/           # Niche coaching skills
+│   ├── performance/   # Flow, deliberate practice, recovery science, neurotype-aware
+│   ├── relationship/  # Attachment, Gottman, Perel, Real's RLT, digital dynamics
+│   ├── life/          # Logotherapy, IFS, grief, meaning, transitions
+│   └── addiction/     # Stages of Change, MI, harm-reduction, DBT, CFT
+├── rules/             # Trigger rule with priority hierarchy
+└── docs/              # Critical review, architecture blueprint, migration guide
 ```
 
-## Design Principles
+## Key v2 Improvements
 
-1. **One question at a time** — Never present a list of questions. Wait for each answer before continuing.
-2. **Paraphrase → probe → deepen** — Laddering until root values and patterns surface.
-3. **Evidence-based frameworks** — Every niche maps to specific, validated therapeutic and coaching models.
-4. **Safety first** — Crisis detection, scope reminders, and referral protocols in every skill.
-5. **Session continuity** — Disk-persisted state so sessions can resume across conversations.
+- **Safety-First Gate**: Crisis resources provided immediately, before assessment
+- **Unified Core Layer**: CBT, OARS, ACT, DBT, CFT, IFS primitives in one place
+- **Measurement-Integrated**: ORS + SRS + custom trackers at every session
+- **Neurodivergence-Native**: ADHD, autism, giftedness adaptations throughout
+- **Trauma-Informed**: Window of tolerance, grounding, dissociation awareness
+- **Maintenance Mode**: No terminal dead-end — monthly boosters and relapse prevention
+- **Cultural Competency**: Collectivist awareness, socioeconomic barriers, religious integration
 
-## Frameworks by Niche
+## Files
 
-| Niche | Key Frameworks |
-|-------|---------------|
-| Performance | Flow (Csikszentmihalyi), SDT (Deci & Ryan), ACT, Growth Mindset (Dweck) |
-| Life | Logotherapy (Frankl), Narrative Therapy, PERMA (Seligman), Bridges Transitions |
-| Addictions | Stages of Change, Motivational Interviewing, CBT, Relapse Prevention (Marlatt) |
-| Relationships | Attachment Theory, Gottman Method, NVC (Rosenberg), Schema Therapy |
-
-## Installation
-
-Copy or symlink the `skills/` directory into your agent's skill discovery path:
-
-```bash
-# For Claude Code / ECC
-cp -r skills/* ~/.claude/skills/
-
-# For Gemini CLI
-cp -r skills/* ~/.gemini/config/skills/
-
-# Or register via skills.json for non-standard locations
-```
-
-## Credits
-
-Borrows proven patterns from:
-- [ECC](https://github.com/anthropics/ecc) — brand-discovery session protocol, content-engine quality gates
-- [Matt Pocock Skills](https://github.com/mattpocock/matt-skills) — grilling interview discipline
-- [Superpowers Plugin](https://github.com/superpowers-ai/superpowers) — writing-skills quality standards
+| File | Purpose |
+|------|---------|
+| `core/SKILL.md` | Crisis protocol, therapeutic primitives, measurement, neurodivergence, cultural competency |
+| `router/SKILL.md` | Intent detection, consent management, preference profiling, domain routing |
+| `protocol/SKILL.md` | Session lifecycle, state v2, OARS enforcement, quality gates |
+| `domains/performance/SKILL.md` | Peak performance, flow, deliberate practice, recovery science |
+| `domains/relationship/SKILL.md` | Attachment, communication, desire, digital boundaries, workplace dynamics |
+| `domains/life/SKILL.md` | Existential questions, transitions, grief, meaning, decision architecture |
+| `domains/addiction/SKILL.md` | Harm-reduction, stage-matched MI, relapse prevention, shame interruption |
+| `rules/psychology-trigger-v2.md` | Priority hierarchy: Crisis > Continuity > Routing |
+| `docs/psychology-skills-critical-review.md` | 47-weakness analysis of v1.0 |
+| `docs/psychology-skills-v2-architecture.md` | Complete architectural blueprint |
+| `docs/REDESIGN-README.md` | Top 10 design decisions and migration guide |

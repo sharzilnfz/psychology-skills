@@ -1,4 +1,38 @@
 {
-  "name": "psychology-skills",
-  "description": "Clinically-informed AI psychology coaching — performance, life, addictions, relationships. Trauma-informed, measurement-integrated, anti-sycophancy guardrails."
+  "name": "psychology-skills-v2",
+  "version": "2.0.0",
+  "description": "Clinically-informed AI psychology coaching v2.0 \u2014 performance, life, addictions, relationships. Unified core layer, trauma-informed, neurodivergence-aware, measurement-integrated, with maintenance mode.",
+  "author": {
+    "name": "psychology-skills-v2"
+  },
+  "license": "MIT",
+  "keywords": [
+    "psychology",
+    "coaching",
+    "mental-health",
+    "cbt",
+    "dbt",
+    "act",
+    "motivational-interviewing",
+    "compassion-focused-therapy",
+    "internal-family-systems",
+    "performance",
+    "addiction",
+    "relationships",
+    "life-transitions",
+    "trauma-informed",
+    "neurodivergence"
+  ],
+  "skills": [
+    "./core",
+    "./router",
+    "./protocol",
+    "./domains/performance",
+    "./domains/relationship",
+    "./domains/life",
+    "./domains/addiction"
+  ],
+  "rules": [
+    "./rules/psychology-trigger-v2.md"
+  ]
 }

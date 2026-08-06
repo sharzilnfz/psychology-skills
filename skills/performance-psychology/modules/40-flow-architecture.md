@@ -44,3 +44,18 @@ Performance requires oscillation between stress and recovery:
 ## Saturation
 
 Concrete flow conditions + environment design + recovery protocol.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `40_flow-architecture.md`** to the session directory containing:
+   - Flow conditions mapped to the user's specific context
+   - Environment design plan (physical, digital, social, temporal)
+   - Cognitive load management strategies
+   - Recovery and sustainability protocol
+   - Ultradian rhythm schedule if developed
+2. **Update `state.json`**: set `currentPhase` to `50-action-plan`,
+   append `40-flow-architecture` to `completedPhases`, add insights
+3. **Update `profile.json`** with any durable strengths or patterns
+   identified (e.g., "works best in morning solitude")

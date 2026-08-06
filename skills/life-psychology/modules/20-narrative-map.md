@@ -38,3 +38,17 @@ density, and approach.
 ## Saturation
 
 Dominant narrative named + 2-3 alternative story threads + one re-authoring direction.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `20_narrative-map.md`** to the session directory containing:
+   - Dominant life narrative (externalized)
+   - 2-3 unique outcomes / alternative story threads
+   - Re-authoring direction identified
+   - IFS narrative integration observations
+2. **Update `profile.json.recurringPatterns`**: Add narrative patterns with
+   evidence and `sourceNiche: "life"`
+3. **Update `state.json`**: set `currentPhase` to `30-values-excavation`,
+   append `20-narrative-map` to `completedPhases`, add insights

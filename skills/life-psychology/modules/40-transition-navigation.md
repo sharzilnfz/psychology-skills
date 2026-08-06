@@ -35,3 +35,18 @@ do NOT push for "new beginnings." Stabilize first.
 ## Saturation
 
 Clear location in transition arc + named parts + what needs attention next.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `40_transition-navigation.md`** to the session directory containing:
+   - Bridges' phase position (endings / neutral zone / new beginnings)
+   - What's being lost or left behind
+   - Neutral zone observations
+   - New beginnings emerging
+   - IFS parts work observations
+   - Trauma reactivation notes (if applicable)
+2. **Update `state.json`**: set `currentPhase` to `50-meaning-action`,
+   append `40-transition-navigation` to `completedPhases`, add insights
+3. **Update `profile.json.recurringPatterns`** with transition patterns

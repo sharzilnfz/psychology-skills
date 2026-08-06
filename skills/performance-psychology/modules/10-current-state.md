@@ -49,3 +49,23 @@ Map across 8 dimensions with 1-10 ratings + "tell me more":
 ## Saturation
 
 Clear picture of daily reality, 8-dimension scores, history, risk, and severity.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `10_current-state.md`** to the session directory containing:
+   - 8-dimension scores with key observations for each
+   - Presenting problem summary
+   - Performance history (peak periods, what was different)
+   - What's been tried and outcomes
+   - Risk assessment results
+   - Severity triage level
+2. **Update `state.json`**: set `currentPhase` to `20-values-alignment`,
+   append `10-current-state` to `completedPhases`, add key insights to
+   `keyInsights`
+3. **Update `profile.json`** if any durable cross-session data surfaced
+   (early values signals, recurring patterns, strengths)
+
+**Incremental writes:** If only some dimensions are mapped, write what's
+covered so far and mark the module output file as partial.

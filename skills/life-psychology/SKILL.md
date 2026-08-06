@@ -58,3 +58,21 @@ modules/10-life-audit.md → modules/20-narrative-map.md
 
 Logotherapy, Narrative Therapy, PERMA, Bridges Transitions, CFT.
 See `references/frameworks.md`.
+
+## State Persistence (MANDATORY)
+
+This niche follows the Mandatory Persistence Protocol from
+`psych-session-protocol`. No exceptions:
+
+- **Every turn** that produces therapeutic content → update `state.json`
+- **Every module** that reaches saturation → write module output file
+  (e.g., `10_life-audit.md`, `30_values-excavation.md`)
+- **Every session end** → flush to `profile.json` + `state.json`
+- **Values excavated in Module 30** → write to `profile.json.coreValues`
+  immediately, not at synthesis
+- **Narrative patterns from Module 20** → write to
+  `profile.json.recurringPatterns` immediately
+- **Transition position from Module 40** → write to module output file
+  as it's mapped
+- **Situational module work** (grief, decisions) → write to its own
+  output file immediately

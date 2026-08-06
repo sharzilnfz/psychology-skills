@@ -39,3 +39,20 @@ Set `state.json.stageOfChange` — this determines which module the user enters.
 ## Saturation
 
 Stage classified with evidence. Routing determined.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation, IMMEDIATELY:
+
+1. **Write `15_stage-assessment.md`** to the session directory containing:
+   - Classified stage with evidence
+   - Importance and confidence scores
+   - Stage-matched routing decision
+2. **Update `state.json`**:
+   - Set `stageOfChange` to the assessed stage
+   - Set `currentPhase` to the stage-matched module
+   - Append `15-stage-assessment` to `completedPhases`
+3. **Update `profile.json`** if any durable patterns or values surfaced
+
+**Critical:** `stageOfChange` MUST be written to `state.json` immediately —
+it determines the entire downstream module path. Do not defer this.

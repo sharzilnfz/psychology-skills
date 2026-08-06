@@ -31,3 +31,17 @@
 ## Saturation
 
 Maintenance plan with daily/weekly/monthly/quarterly practices + booster triggers.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `80_maintenance.md`** to the session directory containing:
+   - Monthly check-in protocol (personalized)
+   - Relationship hygiene practices (daily/weekly/monthly/quarterly)
+   - Erotic maintenance observations
+   - Booster trigger thresholds
+2. **Update `state.json`**: set `currentPhase` to `90-synthesis`,
+   append `80-maintenance` to `completedPhases`
+3. **Update `profile.json.longitudinal`**: Add readiness trajectory data
+   point, update victoryLog

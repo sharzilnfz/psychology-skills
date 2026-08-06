@@ -57,3 +57,21 @@ If NO active session exists OR user indicates a NEW domain:
 - **Never ignore crisis signals** to continue a planned module.
 - **Never route to a new domain** without confirming the user wants to shift.
 - **Always maintain the priority hierarchy.** Crisis > Continuity > Routing.
+
+## 4. Persistence Rule (Always Active)
+
+During ANY active psychology session, the following is **non-negotiable**:
+
+- **EVERY agent turn** that discusses therapeutic content MUST end with a
+  `state.json` write (keyInsights, commitments, checkpoints, lastUpdated)
+- **When a module completes**, a module output file MUST be written to the
+  session directory before advancing to the next module
+- **When a conversation ends**, the End-of-Conversation Flush from
+  `psych-session-protocol` MUST execute (state.json + profile.json +
+  module output file)
+- **NEVER claim "I'll update the files"** — update them NOW, in this turn
+- **NEVER defer profile.json writes to synthesis** — write durable insights
+  (values, patterns, strengths) as they surface
+
+This rule has the same priority as Crisis Override for session integrity.
+A session without persistence is a session that never happened.

@@ -40,3 +40,20 @@ interface and initiate direct communication with their partner.
 
 3-5 specific repair commitments + one NVC experiment + re-engagement prompt.
 Write commitments to `state.json.commitmentLog` as `pending`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `50_repair-plan.md`** to the session directory containing:
+   - Re-engagement protocol
+   - Repair rituals designed
+   - 3-5 specific behavior commitments
+   - NVC experiment planned
+   - Pattern interrupt actions
+   - Protocol for when old patterns show up
+2. **Update `state.json.commitmentLog`**: Add each repair commitment and
+   the NVC experiment as `pending`
+3. **Update `state.json`**: set `currentPhase` to `80-maintenance`,
+   append `50-repair-plan` to `completedPhases`
+4. **Update `profile.json`** with strengths and patterns observed

@@ -48,3 +48,19 @@ CYCLE REPEATS — each person's "solution" triggers the other's "problem"
 
 Dominant patterns + stress triggers + digital manifestations + one secure alternative.
 Save to `profile.json.attachmentStyle` with evidence and confidence level.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `20_attachment-style.md`** to the session directory containing:
+   - Dominant attachment patterns with evidence
+   - Stress triggers and responses
+   - Digital-age manifestations
+   - Anxious-avoidant trap dynamics (if applicable)
+   - Fearful-avoidant indicators (if applicable)
+   - Earned security pathway identified
+2. **Update `profile.json.attachmentStyle`**: Set pattern, context,
+   confidence, and `sourceNiche: "relationship"` — do NOT defer to synthesis
+3. **Update `state.json`**: set `currentPhase` to `30-communication-audit`,
+   append `20-attachment-style` to `completedPhases`, add insights

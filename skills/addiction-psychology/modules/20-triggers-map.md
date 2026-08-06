@@ -32,3 +32,19 @@ When craving hits, check: Am I **H**ungry, **A**ngry/Anxious, **L**onely, **T**i
 ## Saturation
 
 Top 5 triggers mapped with full chains + HALT awareness.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `20_triggers-map.md`** to the session directory containing:
+   - Top 5 triggers with full chain analysis for each
+   - HALT awareness patterns
+   - Alternative intervention points identified
+2. **Update `state.json`**: advance `currentPhase` based on stage routing,
+   append `20-triggers-map` to `completedPhases`, add insights
+3. **Update `profile.json.recurringPatterns`** with trigger patterns that
+   show up across life contexts
+
+**Incremental writes:** Write each trigger chain as it's mapped — don't
+wait for all 5.

@@ -21,9 +21,22 @@
 7. **Readiness Trajectory** (trend over sessions, victory log, patterns)
 8. **Growth Edges** (where the real work continues)
 
-## After Synthesis
+## After Synthesis — Write Outputs (MANDATORY)
 
-- Write durable data to `profile.json` (values, patterns, strengths)
-- Set `currentPhase` to `80-maintenance`
-- Schedule first booster (default: 30 days)
-- User can always request deep-dive into any module
+IMMEDIATELY after compiling the profile:
+
+1. **Write `90_SYNTHESIS.md`** to the session directory containing the
+   complete compiled profile (all 8 sections above)
+2. **Update `profile.json`** with ALL durable data:
+   - `coreValues` — finalized with `confidence: "established"` where warranted
+   - `recurringPatterns` — all observed patterns with evidence
+   - `strengths` — specific, evidenced strengths
+   - `longitudinal.readinessTrajectory` — final data point
+   - `longitudinal.victoryLog` — all victories
+   - `longitudinal.patternInsights` — cross-session pattern observations
+   - `longitudinal.sessionCount` — increment
+3. **Update `state.json`**:
+   - Set `currentPhase` to `80-maintenance`
+   - Schedule first booster (default: 30 days)
+4. **Verify completeness**: Every module in `completedPhases` MUST have
+   a corresponding module output file in the session directory

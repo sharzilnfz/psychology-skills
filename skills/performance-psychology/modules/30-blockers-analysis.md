@@ -41,3 +41,21 @@ density, and approach.
 ## Saturation
 
 Top 3 blockers identified with root causes + defusion/cognitive reframe for each.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `30_blockers-analysis.md`** to the session directory containing:
+   - Top 3 internal blockers with root causes and defusion strategies
+   - External blockers with control/acceptance analysis
+   - Cognitive fusion patterns identified
+   - CFT/ACT moves assigned to each blocker
+2. **Update `profile.json.recurringPatterns`**: Add any patterns that show
+   up across contexts (e.g., perfectionism, avoidance) with `seenIn` and
+   `firstNoted`
+3. **Update `state.json`**: set `currentPhase` to `40-flow-architecture`,
+   append `30-blockers-analysis` to `completedPhases`, add insights
+
+**Incremental writes:** Write each blocker to the module output file as
+it's identified and analyzed — don't wait for all 3.

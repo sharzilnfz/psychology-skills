@@ -54,3 +54,20 @@ For each recurring cycle:
 
 Horsemen identified + repair patterns + bid responses + 2-3 conflict cycles
 mapped with pattern interrupts + softened startup practiced.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `30_communication-audit.md`** to the session directory containing:
+   - Four Horsemen assessment (which are present, which dominate)
+   - Repair attempt patterns and effectiveness
+   - Bid response patterns (turning toward/away/against ratio)
+   - 2-3 conflict cycles fully mapped with interrupts
+   - Softened startup practice results
+2. **Update `profile.json.recurringPatterns`**: Add communication patterns
+   (e.g., "pursuer-distancer cycle") with evidence
+3. **Update `state.json`**: set `currentPhase` to `40-needs-negotiation`,
+   append `30-communication-audit` to `completedPhases`
+
+**Incremental writes:** Write each conflict cycle as it's mapped.

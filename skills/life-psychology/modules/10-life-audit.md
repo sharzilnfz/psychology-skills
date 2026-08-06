@@ -38,3 +38,19 @@ See `psych-session-protocol/references/risk-screening.md` for protocol.
 ## Saturation
 
 Clear current reality, history, risk, context, severity.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `10_life-audit.md`** to the session directory containing:
+   - Presenting problem and the moment that prompted reaching out
+   - History and major life changes
+   - Risk assessment results
+   - Sociocultural context and constraints
+   - Severity triage level
+2. **Update `state.json`**: set `currentPhase` to `20-narrative-map`,
+   append `10-life-audit` to `completedPhases`, add key insights
+3. **Update `profile.json`** if any durable cross-session data surfaced
+
+**Incremental writes:** Write findings as each area is explored.

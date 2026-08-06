@@ -64,3 +64,24 @@ be pushed to action planning.
 
 Stages of Change, MI, CBT, Relapse Prevention, CFT, SMART Recovery, Harm
 Reduction. See `references/frameworks.md`.
+
+## State Persistence (MANDATORY)
+
+This niche follows the Mandatory Persistence Protocol from
+`psych-session-protocol`. No exceptions:
+
+- **Every turn** that produces therapeutic content → update `state.json`
+- **Every module** that reaches saturation → write module output file
+  (e.g., `10_understanding.md`, `15_stage-assessment.md`)
+- **Every session end** → flush to `profile.json` + `state.json`
+- **Stage of change assessment (Module 15)** → write to
+  `state.json.stageOfChange` immediately — this determines the entire
+  module path
+- **Trigger-behavior chains (Module 20)** → write to module output file
+  incrementally as each trigger is mapped
+- **Values and discrepancy work (Module 30)** → write to
+  `profile.json.coreValues` immediately
+- **Coping alternatives (Module 40)** → write to module output file as
+  each coping strategy is built
+- **Relapse plan (Module 50)** → write the complete plan to module output
+  file — this is a safety-critical document

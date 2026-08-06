@@ -37,3 +37,19 @@ social expectations. Let their reported experience guide the approach.
 
 3-5 core values identified + SDT gaps mapped + values-action gap named.
 Save values to `profile.json.coreValues` with evidence and `sourceNiche: "performance"`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `20_values-alignment.md`** to the session directory containing:
+   - SDT audit results (autonomy, competence, relatedness gaps)
+   - Values ladder results (3-5 core values with evidence)
+   - Values-action gap analysis
+2. **Update `profile.json.coreValues`**: Add each identified value with
+   `evidence`, `sourceNiche: "performance"`, and `confidence` level
+3. **Update `state.json`**: set `currentPhase` to `30-blockers-analysis`,
+   append `20-values-alignment` to `completedPhases`, add insights
+
+**Incremental writes:** Write values to `profile.json` as they are
+identified during the laddering process — don't batch them.

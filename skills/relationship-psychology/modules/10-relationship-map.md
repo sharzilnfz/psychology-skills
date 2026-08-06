@@ -50,3 +50,20 @@ density, and approach.
 ## Saturation
 
 Relationship landscape, history, stage, risk, partner perspective explored.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `10_relationship-map.md`** to the session directory containing:
+   - Abuse screening results (CRITICAL — document clearly)
+   - Presenting problem and recent triggering event
+   - Relationship history and cross-relationship patterns
+   - Missing perspective prompt observations
+   - Processing preference adaptations noted
+2. **Update `state.json`**: set `currentPhase` to `20-attachment-style`,
+   append `10-relationship-map` to `completedPhases`, add key insights
+3. **Update `profile.json`** if cross-relationship patterns surfaced
+   (add to `recurringPatterns`)
+
+**Incremental writes:** Write findings as each area is explored.

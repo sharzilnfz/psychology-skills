@@ -21,9 +21,14 @@ Before anything else, check the working directory for:
 - **`profile.json`** — durable, cross-domain understanding of this person.
   Schema: `psych-session-protocol/references/profile-schema.md`.
 - **`state*.json`** — active session state for a specific niche.
+- **Module output files** (`*_*.md`) — the distilled findings from completed
+  and in-progress modules. Read these to understand what work has been done,
+  not just which phase is active.
 
 If a `state*.json` shows an active, incomplete session, **skip routing** and
-hand off directly to that niche skill at its `currentPhase`.
+hand off directly to that niche skill at its `currentPhase`. Use the module
+output files to reconstruct context — they are the portable record of all
+prior therapeutic work.
 
 ## 1. Crisis Check First
 
@@ -81,4 +86,24 @@ After consent, before routing:
 
 1. Announce: "Using [niche] psychology to [purpose]."
 2. Load the niche `SKILL.md`.
-3. Follow its module sequence and `psych-session-protocol` discipline.
+3. **Create `state.json` immediately** with initial values — do not defer
+   this to the first module's saturation point:
+   ```json
+   {
+     "niche": "<routed-niche>",
+     "sessionNumber": 1,
+     "currentPhase": "<first-module>",
+     "completedPhases": [],
+     "nextPhase": "<second-module>",
+     "commitmentLog": [],
+     "checkpoints": {"readinessCheck": null, "bridgeCompleted": false, "agendaSet": false},
+     "riskLevel": 0,
+     "stageOfChange": "unknown",
+     "keyInsights": [],
+     "victoryLog": [],
+     "lastUpdated": "{now}"
+   }
+   ```
+4. If `profile.json` doesn't exist, create it now with consent and
+   communication preferences.
+5. Follow the niche's module sequence and `psych-session-protocol` discipline.

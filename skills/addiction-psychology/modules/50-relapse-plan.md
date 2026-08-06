@@ -69,3 +69,23 @@ IF I lapse, I will:
 
 Written prevention plan with 3+ high-risk scenarios + emergency protocol +
 warning signs + support network + lapse response protocol.
+
+## Write Outputs (MANDATORY — SAFETY-CRITICAL)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `50_relapse-plan.md`** to the session directory containing:
+   - High-risk situation analysis (3+ scenarios)
+   - Lapse vs. relapse distinction (personalized)
+   - Emergency protocol (the IF-THEN steps, personalized)
+   - Warning signs identified
+   - Support network with specific roles and contact info
+   - Lapse response protocol
+2. **Update `state.json`**: set `currentPhase` to `80-maintenance`,
+   append `50-relapse-plan` to `completedPhases`
+3. **Update `state.json.commitmentLog`**: Add any specific commitments
+4. **Update `profile.json`** with patterns and strengths observed
+
+**This is a safety-critical document.** The relapse prevention plan must
+be written to disk immediately — it may be the document the user reaches
+for in a crisis moment. Do not defer.

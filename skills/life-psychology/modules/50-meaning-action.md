@@ -45,3 +45,18 @@
 
 User-articulated meaning sources + 2-4 experiments with observation criteria.
 Write commitments to `state.json.commitmentLog`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `50_meaning-action.md`** to the session directory containing:
+   - Meaning sources identified (creative, experiential, attitudinal)
+   - Existential vacuum indicators observed (if any)
+   - IFS meaning inquiry observations
+   - 2-4 experiments with observation criteria
+   - What to notice during experiments
+2. **Update `state.json.commitmentLog`**: Add each experiment as `pending`
+3. **Update `state.json`**: set `currentPhase` to `80-maintenance`,
+   append `50-meaning-action` to `completedPhases`
+4. **Update `profile.json`** with any new strengths, values, or patterns

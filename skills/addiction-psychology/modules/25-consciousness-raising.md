@@ -39,3 +39,17 @@ further along, skip to the appropriate stage module.
 
 User has explored both benefits and costs without defensiveness.
 Seed planted. No action plan required.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `25_consciousness-raising.md`** to the session directory containing:
+   - Benefits the user identified (non-judgmentally recorded)
+   - Costs the user noticed (in their own words)
+   - Level of defensiveness vs. openness observed
+   - Harm reduction considerations noted
+2. **Update `state.json`**: append `25-consciousness-raising` to
+   `completedPhases`, add key insights. Note: stage may shift — if
+   ambivalence is emerging, note this but do NOT push
+3. **Update `profile.json`** if any values or patterns surfaced

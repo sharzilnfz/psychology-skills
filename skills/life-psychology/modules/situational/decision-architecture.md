@@ -37,3 +37,19 @@ density, and approach.
 ## Saturation
 
 Decision framed + values-aligned criteria + costs named + one concrete next step.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `45_decision-architecture.md`** to the session directory containing:
+   - Decision framing and options
+   - Values at stake (linked to Module 30)
+   - Costs analysis (practical + emotional)
+   - Decision paralysis patterns identified
+   - 10-10-10 analysis results
+   - Concrete next step
+2. **Update `state.json`**: add key insights, add next step to
+   `commitmentLog` as `pending`
+3. **Update `profile.json.recurringPatterns`** if decision paralysis
+   patterns show up across contexts

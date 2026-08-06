@@ -54,3 +54,23 @@ density, and approach.
 
 3-5 implementation intentions + accountability structure + failure protocol.
 Write commitments to `state.json.commitmentLog` as `pending`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `50_action-plan.md`** to the session directory containing:
+   - All implementation intentions (IF-THEN-BECAUSE format)
+   - Minimum viable actions
+   - Accountability structure (who, how, when)
+   - Failure protocol
+   - Processing preference adaptations applied
+2. **Update `state.json.commitmentLog`**: Add each commitment as `pending`
+   with today's date — these are reviewed at Step 0 next session
+3. **Update `state.json`**: set `currentPhase` to `80-maintenance`,
+   append `50-action-plan` to `completedPhases`
+4. **Update `profile.json`** with any new strengths or patterns observed
+
+**Critical:** Commitments MUST be written to `state.json` immediately —
+they are the foundation of the accountability loop at the start of every
+future session.

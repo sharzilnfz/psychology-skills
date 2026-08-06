@@ -45,3 +45,18 @@
 
 User articulates their own reasons for change (not yours). Decisional
 balance completed. Change talk emerging.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `30_values-discrepancy.md`** to the session directory containing:
+   - Decisional balance (4-quadrant analysis)
+   - Change talk observed (DARN-CAT)
+   - Values identified and discrepancy with current behavior
+   - Importance and confidence scores
+   - Parts work observations (if explored)
+2. **Update `profile.json.coreValues`**: Add values with evidence,
+   `sourceNiche: "addiction"`, and confidence level
+3. **Update `state.json`**: advance `currentPhase` based on stage routing,
+   append `30-values-discrepancy` to `completedPhases`

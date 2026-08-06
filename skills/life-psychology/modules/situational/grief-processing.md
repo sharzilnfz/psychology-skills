@@ -45,3 +45,16 @@ If suspected → refer to grief specialist.
 ## Saturation
 
 Loss named + grief tasks in progress + cultural practices honored + red flags screened.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `35_grief-processing.md`** to the session directory containing:
+   - The loss and what it represented
+   - Grief tasks progress (Worden's framework)
+   - Cultural grief practices honored
+   - Complicated grief red flag screening results
+2. **Update `state.json`**: add key insights, note situational module
+   was explored
+3. **Update `profile.json`** if grief-related patterns surfaced

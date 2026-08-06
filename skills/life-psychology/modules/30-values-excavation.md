@@ -38,3 +38,21 @@ be excavated by the user, not algorithmically supplied.
 
 3-5 core values with examples + named conflicts + PERMA gap analysis.
 Save to `profile.json.coreValues` with `sourceNiche: "life"`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `30_values-excavation.md`** to the session directory containing:
+   - 3-5 core values with evidence from stories
+   - PERMA audit scores and gaps
+   - Inherited vs. chosen values analysis
+   - Value conflicts identified
+   - CFT observations on inner critic
+2. **Update `profile.json.coreValues`**: Add each value with evidence,
+   `sourceNiche: "life"`, and confidence level
+3. **Update `state.json`**: set `currentPhase` to `40-transition-navigation`,
+   append `30-values-excavation` to `completedPhases`
+
+**Incremental writes:** Write values to `profile.json` as they are
+excavated — don't batch them to saturation.

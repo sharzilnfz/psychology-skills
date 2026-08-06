@@ -53,3 +53,19 @@ modules/10-current-state.md → modules/20-values-alignment.md
 Flow Theory, Self-Determination Theory, ACT, Deliberate Practice,
 Implementation Intentions, Cognitive Load Theory, Recovery Science. See
 `references/frameworks.md`.
+
+## State Persistence (MANDATORY)
+
+This niche follows the Mandatory Persistence Protocol from
+`psych-session-protocol`. No exceptions:
+
+- **Every turn** that produces therapeutic content → update `state.json`
+- **Every module** that reaches saturation → write module output file
+  (e.g., `10_current-state.md`, `20_values-alignment.md`)
+- **Every session end** → flush to `profile.json` + `state.json`
+- **Values discovered in Module 20** → write to `profile.json.coreValues`
+  immediately, not at synthesis
+- **Patterns observed in Module 30** → write to
+  `profile.json.recurringPatterns` immediately
+- **Ecosystem scores from Module 10** → write to module output file
+  incrementally as each dimension is mapped

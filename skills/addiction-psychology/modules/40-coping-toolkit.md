@@ -40,3 +40,22 @@ density, and approach.
 
 Concrete goal + start date + 3+ coping strategies + support network + harm
 reduction backup. Write commitments to `state.json.commitmentLog`.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `40_coping-toolkit.md`** to the session directory containing:
+   - Specific, measurable goal
+   - Start date
+   - Full coping toolkit (urge surfing, HALT, delay, tape forward, DBT, CFT)
+   - Support network with roles
+   - Harm reduction backup plan
+2. **Update `state.json.commitmentLog`**: Add the change goal and start
+   date as `pending` commitments
+3. **Update `state.json`**: set `currentPhase` to `50-relapse-plan`,
+   append `40-coping-toolkit` to `completedPhases`
+4. **Update `profile.json`** with strengths and patterns observed
+
+**Incremental writes:** Write each coping strategy to the module output
+file as it's developed.

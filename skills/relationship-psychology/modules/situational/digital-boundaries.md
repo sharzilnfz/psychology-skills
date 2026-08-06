@@ -34,3 +34,18 @@
 ## Saturation
 
 Digital boundaries defined + one specific agreement or experiment designed.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `48_digital-boundaries.md`** to the session directory containing:
+   - Texting patterns and expectations
+   - Social media boundaries agreed
+   - Dating app boundaries (if applicable)
+   - Remote/long-distance practices (if applicable)
+   - Digital repair protocol
+   - Specific agreement or experiment designed
+2. **Update `state.json`**: add key insights, note situational module
+   was explored, add agreement to `commitmentLog` as `pending`
+3. **Update `profile.json`** if durable patterns surfaced

@@ -37,3 +37,16 @@ The capacity to hold your own reality AND stay connected to your partner's.
 ## Saturation
 
 Top 3 unmet needs named + NVC format practiced + one differentiation move.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `40_needs-negotiation.md`** to the session directory containing:
+   - Top 3 unmet needs with NVC expressions
+   - Needs vs. strategies analysis
+   - Differentiation assessment (grandiosity/shame patterns)
+   - NVC practice results
+2. **Update `state.json`**: set `currentPhase` to `50-repair-plan`,
+   append `40-needs-negotiation` to `completedPhases`, add insights
+3. **Update `profile.json`** with any values or patterns identified

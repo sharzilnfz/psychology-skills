@@ -85,3 +85,24 @@ understanding compound across sessions instead of resetting.
 - `preferences` fields are **user-reported only**. The model does not
   diagnose or infer neurodivergence, cultural orientation, or processing
   style — the user tells you, and you record what they say.
+
+## Write Cadence
+
+`profile.json` is the single durable model of the person. It must be
+written proactively — not deferred to Module 90 synthesis.
+
+- **On first session**: Create immediately after consent and communication
+  preferences are established. Do not wait for the first module to complete.
+- **Every session end**: Append new values, patterns, strengths, and a
+  readiness trajectory data point. This is part of the End-of-Conversation
+  Flush (see `psych-session-protocol`).
+- **Any time a durable insight surfaces**: When a core value is identified,
+  a recurring pattern is observed, or a strength is evidenced — write it
+  NOW. Don't accumulate insights in conversation context hoping to batch
+  them later.
+- **NEVER only at synthesis (Module 90)**: If the user doesn't reach Module
+  90 (they often won't in a single session), everything discovered is lost.
+  Write incrementally throughout the journey.
+- **Cross-niche connections**: When work in one niche reveals something
+  relevant to another niche's state, update `profile.json` immediately
+  so the connection is captured durably.

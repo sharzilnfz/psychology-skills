@@ -54,3 +54,21 @@ density, and approach.
 ## Saturation
 
 Clear pattern, function, history, risk, context, processing-preference considerations.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `10_understanding.md`** to the session directory containing:
+   - Pattern assessment (frequency, quantity, duration, escalation)
+   - Function of the behavior (what need it meets)
+   - History (previous attempts, withdrawal, treatment)
+   - Risk assessment results
+   - Sociocultural/socioeconomic context and barriers
+   - Processing preference adaptations noted
+2. **Update `state.json`**: set `currentPhase` to `15-stage-assessment`,
+   append `10-understanding` to `completedPhases`, add key insights
+3. **Update `profile.json`** if any durable cross-session data surfaced
+
+**Incremental writes:** Write findings incrementally as each assessment
+area is covered — don't wait for full saturation.

@@ -32,3 +32,19 @@
 
 Maintenance plan with warning signs, emergency protocol, support team,
 and generalization prompts.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `80_maintenance.md`** to the session directory containing:
+   - Monthly check-in protocol (personalized)
+   - Early warning signs identified
+   - Emergency protocol (what to do when slipping)
+   - Support team and roles
+   - Skill generalization opportunities
+   - Booster trigger thresholds
+2. **Update `state.json`**: set `currentPhase` to `90-synthesis`,
+   append `80-maintenance` to `completedPhases`
+3. **Update `profile.json.longitudinal`**: Add readiness trajectory data
+   point, update victoryLog with any wins reported

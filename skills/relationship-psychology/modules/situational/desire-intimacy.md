@@ -46,3 +46,17 @@ density, and approach.
 ## Saturation
 
 Erotic blueprint identified + one concrete experiment + intimacy beyond sex explored.
+
+## Write Outputs (MANDATORY)
+
+After reaching saturation (or when conversation ends mid-module), IMMEDIATELY:
+
+1. **Write `45_desire-intimacy.md`** to the session directory containing:
+   - Erotic blueprint identified
+   - Shadow of desire observations
+   - Cultivating erotic space strategies
+   - Intimacy beyond sex findings
+   - Concrete experiment designed
+2. **Update `state.json`**: add key insights, note situational module
+   was explored, add experiment to `commitmentLog` as `pending`
+3. **Update `profile.json`** if durable relationship patterns surfaced

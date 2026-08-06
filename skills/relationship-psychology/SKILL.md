@@ -61,3 +61,21 @@ modules/10-relationship-map.md → modules/20-attachment-style.md
 
 Attachment Theory, Gottman Method, NVC, Perel's Erotic Intelligence,
 Real's RLT, Schema Therapy. See `references/frameworks.md`.
+
+## State Persistence (MANDATORY)
+
+This niche follows the Mandatory Persistence Protocol from
+`psych-session-protocol`. No exceptions:
+
+- **Every turn** that produces therapeutic content → update `state.json`
+- **Every module** that reaches saturation → write module output file
+  (e.g., `10_relationship-map.md`, `20_attachment-style.md`)
+- **Every session end** → flush to `profile.json` + `state.json`
+- **Attachment patterns from Module 20** → write to
+  `profile.json.attachmentStyle` immediately, not at synthesis
+- **Communication patterns from Module 30** → write to
+  `profile.json.recurringPatterns` immediately
+- **Needs identified in Module 40** → write to module output file as
+  each need is mapped
+- **Situational module work** (desire/intimacy, digital boundaries) →
+  write to its own output file immediately

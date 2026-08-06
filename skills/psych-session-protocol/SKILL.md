@@ -78,7 +78,21 @@ This is a grounding bridge — 3-5 sentences, not a module.
 
 ---
 
-## Session Flow (8 Steps)
+## Session Flow (9 Steps)
+
+**-1. Tiered Loading.** Before anything else, decide what to load based on
+`state-summary.json` — never load everything up front.
+
+- First, check for `state-summary.json`. If it exists, load ONLY that (~2KB)
+  for the bridge and readiness context.
+- Load full `state.json` ONLY when: (a) doing commitment review, (b) the user
+  references specific past insights, or (c) starting a module that needs full
+  history.
+- Load `profile.json` ONLY when: (a) starting a new niche assessment,
+  (b) doing cross-domain pattern work, or (c) the user asks about their
+  overall patterns.
+- Load from `archive/` ONLY when: the user explicitly asks about old sessions
+  or the agent needs historical context not present in active state.
 
 **0. Commitment Review.** If `state.json.commitmentLog` has `pending` items
 from the last session, this is the *first* thing that happens: "Last time
@@ -121,22 +135,36 @@ is an insight permanently lost — the next session starts from zero.**
 
 Three persistence tiers run at different cadences:
 
-### Tier 1: Per-Turn Writes (After EVERY Agent Response)
+### Tier 1: Batched Persistence (Default — Replaces Per-Turn Writes)
 
-After every agent response that contains therapeutic content (reflections,
-insights, discoveries, commitments, scores, or pattern observations), update
-`state.json` with:
+Do NOT rewrite `state.json` after every agent response. Per-turn writes grew
+state files unboundedly (2.6KB → 27KB in six sessions) and burned 15-20 tool
+calls per session on near-duplicate writes. Instead, run persistence on a
+batch cadence:
 
-- `keyInsights` — append any new insight surfaced this turn
-- `commitmentLog` — add any new commitment as `pending`
-- `checkpoints` — update readiness, bridge, agenda status
+- **Accumulate** insights, commitments, and state changes **in-memory** during
+  the session. Track them in a working buffer in conversation context.
+- **Flush** to `state.json` at THREE points only:
+  1. **After completing a module** (written together with the module output
+     file)
+  2. **When the user takes a break or pauses**
+  3. **At end-of-conversation** (see End-of-Conversation Flush below)
+
+Each flush writes the accumulated buffer to `state.json`:
+
+- `keyInsights` — any new insight surfaced since the last flush
+- `commitmentLog` — any new commitment as `pending`
+- `checkpoints` — readiness, bridge, agenda status
 - `readinessCheck` — if a new score was given
 - `riskLevel` — if risk assessment changed
 - `victoryLog` — if the user reported a win or progress
 - `lastUpdated` — current ISO-8601 timestamp
 
-**Rule: Do NOT say "I'll update the files later." Update them NOW, in this
-turn.** Write the file immediately after your therapeutic response.
+**Per-turn writes are ONLY required for `riskLevel` changes and new
+`commitmentLog` entries.** These are safety-critical — if the session ends
+abruptly, they must already be on disk. Everything else batches into the next
+flush point. If nothing safety-critical occurred, do not open `state.json`
+until a flush point.
 
 ### Tier 2: Per-Module Writes (At Saturation or Conversation End)
 
@@ -247,6 +275,19 @@ screening: non-negotiable, every time.**
 
 ---
 
+## Post-Session Maintenance
+
+After every session where therapeutic work occurred, recommend the user run:
+
+```
+node scripts/compact.mjs --session-dir /path/to/current-session
+```
+
+This compresses state, archives old data, and generates the summary for next
+session's tiered loading.
+
+---
+
 ## OARS v2
 
 Maintain a **3:1 ratio** of reflective statements to questions (default —
@@ -340,9 +381,10 @@ Module 90 synthesis — write incrementally throughout the journey.
 
 ### `state.json` (or `state.<niche>.json`) — per-niche session state
 
-**Write cadence:** Updated EVERY TURN. This is not optional. Every agent
-response that contains therapeutic content must end with a `state.json`
-write.
+**Write cadence:** Batched — flushed at the three persistence points (module
+completion, user pause, end-of-conversation) described in Tier 1. Only
+`riskLevel` changes and new commitments are written per-turn. See
+"Mandatory Persistence Protocol" above.
 
 ```json
 {

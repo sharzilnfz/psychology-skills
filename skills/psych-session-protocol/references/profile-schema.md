@@ -43,9 +43,12 @@ understanding compound across sessions instead of resetting.
   },
   "recurringPatterns": [
     {
+      "id": "pattern-001",
       "pattern": "avoids direct conflict, then resents",
       "seenIn": ["relationship", "performance"],
-      "firstNoted": "{date}"
+      "firstNoted": "{date}",
+      "status": "active|resolved|archived",
+      "evidence": []
     }
   ],
   "strengths": ["specific, evidenced — not generic praise"],
@@ -73,6 +76,14 @@ understanding compound across sessions instead of resetting.
 
 - Any niche can append to `coreValues`, `recurringPatterns`, or `strengths`
   — always with `evidence` and `sourceNiche`. Never fabricate an entry.
+- Each `recurringPattern` carries a unique `id` (e.g., `pattern-001`) and a
+  `status` of `active`, `resolved`, or `archived` (default: `active`)
+  assigned during compaction.
+- `keyInsights` in `state.json` should reference patterns by `id` when
+  restating a known pattern rather than duplicating the full text.
+- `longitudinal.patternInsights` entries that duplicate a `recurringPattern`
+  should be consolidated into that pattern's `evidence` field during
+  compaction.
 - A pattern only earns `confidence: "established"` after showing up in
   **two independent sessions or two different niches**.
 - Never surface a cross-niche connection as settled fact. Frame it as a
